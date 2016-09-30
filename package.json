@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tanachi/omnimood.git"
+    "url": "git+https://github.com/devleague/omnimood.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Tanachi/omnimood/issues"
+    "url": "https://github.com/devleague/omnimood/issues"
   },
-  "homepage": "https://github.com/Tanachi/omnimood#readme",
+  "homepage": "https://github.com/devleague/omnimood#readme",
   "dependencies": {
     "express": "^4.14.0"
   }
