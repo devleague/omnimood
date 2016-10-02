@@ -2,7 +2,6 @@ const twit = require('twitter');
 var secrets = require('./json/secret.json');
 twitter = new twit(secrets[0]);
 
-var util = require('util');
 var tweets = [];
 
 twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (stream) {
@@ -19,15 +18,22 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
         var text = tweet.text;
         text = text.match(new RegExp(ranges.join('|'), 'g'));
         if(text) { // if there's an emoji found
-          console.log(text);
+          tweets.push(
+            {
+              text: text,
+              coordinates: coordinates,
+              date: date
+            }
+          );
+          // console.log(text);
           var unicode = text.map((emoji) => {
             return '\\u' + emoji.charCodeAt(0).toString(16) + '\\u' + emoji.charCodeAt(1).toString(16);
           });
-          console.log(unicode);
+          // console.log(unicode);
         }
         // console.log('Hello ' + String.fromCharCode(0xd83d, 0xde04)); //this is how to print an emoji based on the unicode
-        console.log(coordinates);
-        console.log(date);
+        // console.log(coordinates);
+        // console.log(date);
 
       }
     }
@@ -37,3 +43,5 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
     throw error;
   });
 });
+
+module.exports = tweets;
