@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kekuso/omnimood.git"
+    "url": "git+https://github.com/devleague/omnimood.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kekuso/omnimood/issues"
+    "url": "https://github.com/devleague/omnimood/issues"
   },
-  "homepage": "https://github.com/kekuso/omnimood#readme",
+  "homepage": "https://github.com/devleague/omnimood#readme",
   "dependencies": {
     "express": "^4.14.0",
     "mongoose": "^4.6.1"
