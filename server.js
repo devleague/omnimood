@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const MONGO_URL = 'mongodb://localhost/omnimood';
 const connection = mongoose.connect(MONGO_URL);
-const Country = require('./countries');
+const Country = require('./models/countries');
 app.get('/', (req,res) =>{
   res.json('hello');
 });
