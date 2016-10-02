@@ -4,14 +4,14 @@ const connection = mongoose.connect(MONGO_URL);
 const data = require('./json/countryList.json');
 const Country = require('./models/countries');
 const Emoji = require('./models/emoji');
-const emojiData = require('./json/emoji');
+const emojiData = require('./json/emoji.json');
 const bluebird = require('bluebird');
 
 var list = {}
 for(var face in emojiData){
   var inFace = emojiData[face];
-  var nameFace = inFace.name
-  list[nameFace] = 0;
+  var nameFace = inFace.name;
+  list[nameFace] = inFace.value;
 }
 
 var emojiArray = [];
