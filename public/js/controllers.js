@@ -1,12 +1,15 @@
 angular.module('omniMood')
   .controller('tweetController', [
     '$scope',
+    '$interval',
     'TweetFactory',
-    function ($scope, TweetFactory) {
+    function ($scope, $interval, TweetFactory) {
       $scope.Tweets = [];
-      TweetFactory.getTweets()
-      .then((tweets) => {
-        $scope.Tweets = tweets.data;
-      });
+      $interval(() => {
+        TweetFactory.getTweets()
+        .then((tweets) => {
+          $scope.Tweets = tweets.data;
+        });
+      }, 1000);
     }
   ]);
