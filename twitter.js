@@ -31,8 +31,10 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
             }
           );
           // surrogate pairs: (output like this)
-          // multiple emojis: [ '\\uD83D\\uDE4E', '\\uD83C\\uDFFB', '\\uD83C\\uDF71' ]
-          // only one emoji: [ '\\uD83C\\uDF39' ]
+          // multiple emojis: [ '\\uD83D\\uDE04', '\\uD83D\\uDC96', '\\uD83D\\uDE3B' ]
+          // only one emoji: [ '\\uD83D\\uDE02' ]
+          // these surrogate pairs should match the surrogate pairs in the emoji.json
+          // (if the specific emoji is there)
           var surrogate = text.map((emoji) => {
             return '\\u' + emoji.charCodeAt(0).toString(16).toUpperCase() + '\\u' + emoji.charCodeAt(1).toString(16).toUpperCase();
           });
