@@ -1,5 +1,5 @@
 const twit = require('twitter');
-var secrets = require('./secret.json');
+var secrets = require('./json/secret.json');
 twitter = new twit(secrets[0]);
 
 var util = require('util');
