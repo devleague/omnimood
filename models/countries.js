@@ -21,7 +21,13 @@ const country = mongoose.model(
     },
     emoji: {
       type: String
-    }
+    },
+    // emojiList: {
+    //   [
+    //     type: String,
+    //     type: String
+    //   ]
+    // }
   }
 );
 
