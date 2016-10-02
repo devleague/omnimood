@@ -16,10 +16,6 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
           '\ud83d[\ude80-\udeff]'  // U+1F680 to U+1F6FF
         ]; // emoji ranges
 
-        var getCountry = function (lat, lon) {
-
-        };
-
         var text = tweet.text;
         text = text.match(new RegExp(ranges.join('|'), 'g'));
         if(text) { // if there's an emoji found
@@ -34,17 +30,19 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
               country: tweet.place.country
             }
           );
-
-          // console.log(text);
-          var unicode = text.map((emoji) => {
-            return '\\u' + emoji.charCodeAt(0).toString(16) + '\\u' + emoji.charCodeAt(1).toString(16);
+          // surrogate pairs: (output like this)
+          // multiple emojis: [ '\\uD83D\\uDE4E', '\\uD83C\\uDFFB', '\\uD83C\\uDF71' ]
+          // only one emoji: [ '\\uD83C\\uDF39' ]
+          var surrogate = text.map((emoji) => {
+            return '\\u' + emoji.charCodeAt(0).toString(16).toUpperCase() + '\\u' + emoji.charCodeAt(1).toString(16).toUpperCase();
           });
-          // console.log(unicode);
+          // printing surrogate pairs
+          surrogate.forEach((surrogate) => {
+            var surrogatePair = surrogate.split('\\u').slice(1);
+            var code = '0x';
+            // console.log(String.fromCharCode(code+surrogatePair[0], code+surrogatePair[1]));
+          });
         }
-        // console.log('Hello ' + String.fromCharCode(0xd83d, 0xde04)); //this is how to print an emoji based on the unicode
-        // console.log(coordinates);
-        // console.log(date);
-
       }
     }
   });
