@@ -15,6 +15,11 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
           '\ud83d[\udc00-\ude4f]', // U+1F400 to U+1F64F
           '\ud83d[\ude80-\udeff]'  // U+1F680 to U+1F6FF
         ]; // emoji ranges
+
+        var getCountry = function (lat, lon) {
+
+        };
+
         var text = tweet.text;
         text = text.match(new RegExp(ranges.join('|'), 'g'));
         if(text) { // if there's an emoji found
@@ -22,9 +27,14 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
             {
               text: text,
               coordinates: coordinates,
-              date: date
+              date: date,
+              type: tweet.coordinates.type,
+              place: tweet.place.name,
+              country_code: tweet.place.country_code,
+              country: tweet.place.country
             }
           );
+
           // console.log(text);
           var unicode = text.map((emoji) => {
             return '\\u' + emoji.charCodeAt(0).toString(16) + '\\u' + emoji.charCodeAt(1).toString(16);
