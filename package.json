@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/devleague/omnimood#readme",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "express": "^4.14.0",
     "mongoose": "^4.6.1",
     "sass": "^0.5.0",
