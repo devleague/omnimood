@@ -21,7 +21,8 @@
     "bluebird": "^3.4.6",
     "express": "^4.14.0",
     "mongoose": "^4.6.1",
-    "sass": "^0.5.0"
+    "sass": "^0.5.0",
+    "twitter": "^1.4.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
