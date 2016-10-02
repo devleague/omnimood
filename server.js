@@ -4,8 +4,11 @@ const mongoose = require('mongoose');
 const MONGO_URL = 'mongodb://localhost/omnimood';
 const connection = mongoose.connect(MONGO_URL);
 const Country = require('./models/countries');
+
+app.use(express.static(__dirname + '/public'));
+
 app.get('/', (req,res) =>{
-  res.json('hello');
+  res.json(index);
 });
 
 app.get('/countries/api', (req, res) => {
@@ -16,8 +19,7 @@ app.get('/countries/api', (req, res) => {
 
 mongoose.connection.once('open', function() {
   const server = app.listen(3000, function() {
-    var host = server.address().address;
     var port = server.address().port;
-    console.log('Listening on:',host, port);
+    console.log('Listening on port ' + port);
   });
 });
