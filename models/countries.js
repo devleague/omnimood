@@ -20,7 +20,7 @@ const country = mongoose.model(
       type: String
     },
     emoji: {
-      type: String
+      type: Object
     },
     // emojiList: {
     //   [
