@@ -9,6 +9,9 @@ const emoji = mongoose.model(
     code: {
       type: String
     },
+    surrogate_pair: {
+      type: String
+    },
     value: {
       type: Number
     }
