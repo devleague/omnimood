@@ -10,12 +10,14 @@
   {
     "name": "Heavy Black Heart",
     "code": "2764",
+    "surrogate_pair": "\\u2764",
     "value": 1
   },
   "Black Heart Suits":
   {
     "name": "Black Heart Suits",
     "code": "2665",
+    "surrogate_pair": "\\u2665",
     "value": 1
   },
   "Smiling face with heart-shaped eyes":
@@ -50,6 +52,7 @@
   {
     "name": "white smiling face",
     "code": "263A",
+    "surrogate_pair": "\\u263a",
     "value": 1
   },
   "grinning face with smiling eyes":
@@ -91,6 +94,7 @@
   {
     "name": "victory hand",
     "code": "270C",
+    "surrogate_pair": "\\u270c",
     "value": 1
   },
   "smiling face with open mouth and smiling eyes":
