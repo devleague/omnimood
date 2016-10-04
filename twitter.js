@@ -48,7 +48,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
                   codeTweets[emojiList[surrogate].name] =  codeTweets[emojiList[surrogate].name] + 1;
                 }
                 else{
-                  mood += 1;
+                  mood += emojiList[surrogate].value;
                   codeTweets[emojiList[surrogate].name] = 1;
                 }
               }
