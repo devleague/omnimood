@@ -4,7 +4,7 @@ var emojiList = require('./json/codeEmoji.json');
 twitter = new twit(secrets[0]);
 var tweetUpdate ={};
 var tweets = [];
-var tweetCount = 20;
+var tweetCount = 15;
 twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (stream) {
   stream.on('data', function (tweet) {
     if(tweet.coordinates) { // if the tweet has coordinates
@@ -20,10 +20,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
         var text = tweet.text;
         text = text.match(new RegExp(ranges.join('|'), 'g'));
         if(text) { // if there's an emoji found
-          if(tweet.place.country !== null){
-            var countryTweet = {
-              country: tweet.place.country
-            };
+          if(tweet.place.country){
             tweets.push(
               {
                 text: text,
@@ -35,6 +32,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
                 country: tweet.place.country
               }
             );
+            var mood = 0;
             // surrogate pairs: (output like this)
             // multiple emojis: [ '\\uD83D\\uDE04', '\\uD83D\\uDC96', '\\uD83D\\uDE3B' ]
             // only one emoji: [ '\\uD83D\\uDE02' ]
@@ -47,9 +45,10 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
             surrogate.forEach((surrogate) => {
               if(emojiList[surrogate]){
                 if(codeTweets[emojiList[surrogate].name]){
-                  codeTweets[emojiList[surrogate].name]++;
+                  codeTweets[emojiList[surrogate].name] =  codeTweets[emojiList[surrogate].name] + 1;
                 }
                 else{
+                  mood += 1;
                   codeTweets[emojiList[surrogate].name] = 1;
                 }
               }
@@ -58,18 +57,24 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
               // console.log(String.fromCharCode(code+surrogatePair[0], code+surrogatePair[1]));
             });
             if(Object.keys(codeTweets).length!== 0){
-              countryTweet['text'] = codeTweets;
-              if(tweetUpdate[countryTweet.country]){
-                for(var  pairs in codeTweets){
-                  countryTweet.text[pairs] = codeTweets[pairs];
+              if(tweetUpdate[tweet.place.country]){
+                for(var pairs in codeTweets){
+                  var updateCountry = tweetUpdate[tweet.place.country];
+                  if(updateCountry[pairs])
+                    updateCountry[pairs] += codeTweets[pairs];
+                  else{
+                    updateCountry[pairs] = 1;
+                  }
                 }
+                tweetUpdate[tweet.place.country].mood += mood;
               }
               else{
-                tweetUpdate[countryTweet.country] = countryTweet.text;
+                tweetUpdate[tweet.place.country] = codeTweets;
+                tweetUpdate[tweet.place.country].mood = mood;
               }
               tweetCount --;
               if(tweetCount === 0){
-                tweetCount = 20;
+                tweetCount = 15;
                 console.log(tweetUpdate);
                 tweetUpdate = {};
               }
