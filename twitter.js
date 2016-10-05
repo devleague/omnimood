@@ -56,6 +56,8 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
           });
           if(codeTweets.length !== 0){
             countryTweet['text'] = codeTweets;
+
+
           }
         }
       }
