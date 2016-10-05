@@ -59,7 +59,6 @@
  }
 
  function setCountryMood(id, mood) {
-   console.log("TEst In Mood");
    svg.select("path#cc" + id)
      .data([1, 1, 2])
      .style("fill", mood);
@@ -67,10 +66,10 @@
 
  setInterval(function() {
    var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
-   console.log(thisCountryObject);
+  // console.log(thisCountryObject);
    displayCountry(thisCountryObject.c);
    setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * moodMax))));
- }, 500);
+ }, 100);
 
 
  var testCountryJSON = [{
