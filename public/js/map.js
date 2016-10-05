@@ -7,8 +7,8 @@
  var fillDefault = "#000000";
 
  var moodMin = 0;
- var moodMid = 250;
- var moodMax = 500;
+ var moodMid = 5;
+ var moodMax = 10;
 
  var testText = d3.select("body").append("div").attr("id", "testText");
  //var x=d3.scale.ordinal()
@@ -17,7 +17,7 @@
 
  var moodScale = d3.scaleLinear()
    .domain([moodMin, moodMid, moodMax])
-   .range(["red", "blue", "green"]);
+   .range(["red", "yellow", "green"]);
 
  d3.json("json/world-50m.json", function(error, world) {
 
