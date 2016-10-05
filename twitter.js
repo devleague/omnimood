@@ -1,6 +1,7 @@
 const twit = require('twitter');
 var secrets = require('./json/secret.json');
 var emojiList = require('./json/codeEmoji.json');
+var faker = require('./faker.js');
 twitter = new twit(secrets[0]);
 
 var tweets = [];
@@ -19,7 +20,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
         var countryTweet = {
           country: tweet.place.country
         };
-        var codeTweets = []
+        var codeTweets = [];
         var text = tweet.text;
         text = text.match(new RegExp(ranges.join('|'), 'g'));
         if(text) { // if there's an emoji found
@@ -34,6 +35,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
               country: tweet.place.country
             }
           );
+          console.log(tweets);
           // surrogate pairs: (output like this)
           // multiple emojis: [ '\\uD83D\\uDE04', '\\uD83D\\uDC96', '\\uD83D\\uDE3B' ]
           // only one emoji: [ '\\uD83D\\uDE02' ]
@@ -53,7 +55,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
           });
           if(codeTweets.length !== 0){
             countryTweet['text'] = codeTweets;
-            console.log(countryTweet);
+
           }
         }
       }
@@ -61,7 +63,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
   });
 
   stream.on('error', function (error) {
-    throw error;
+    setTimeout(faker, 1000);
   });
 });
 
