@@ -86,6 +86,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
   });
 
   stream.on('error', function (error) {
+    console.log('here');
     throw error;
   });
 });
