@@ -1,6 +1,7 @@
 const twit = require('twitter');
 var secrets = require('./json/secret.json');
 var emojiList = require('./json/codeEmoji.json');
+var faker = require('./faker.js');
 twitter = new twit(secrets[0]);
 var tweetUpdate ={};
 var tweets = [];
