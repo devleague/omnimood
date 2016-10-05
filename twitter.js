@@ -3,9 +3,9 @@ var secrets = require('./json/secret.json');
 var emojiList = require('./json/codeEmoji.json');
 var faker = require('./faker.js');
 twitter = new twit(secrets[0]);
-
+var tweetUpdate ={};
 var tweets = [];
-
+var tweetCount = 15;
 twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (stream) {
   stream.on('data', function (tweet) {
     if(tweet.coordinates) { // if the tweet has coordinates
@@ -17,6 +17,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
           '\ud83d[\udc00-\ude4f]', // U+1F400 to U+1F64F
           '\ud83d[\ude80-\udeff]'  // U+1F680 to U+1F6FF
         ]; // emoji ranges
+
         var countryTweet = {
           country: tweet.place.country
         };
@@ -55,7 +56,6 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
           });
           if(codeTweets.length !== 0){
             countryTweet['text'] = codeTweets;
-
           }
         }
       }
