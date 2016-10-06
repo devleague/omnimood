@@ -12,18 +12,18 @@ function calcMood (countryEmojis) {
     if(!countryEmojis.hasOwnProperty(emoji)) continue;
 
     // Calculation 1: Increment or decrement the sum according to emoji value
-    sum += emoji[value] * emoji[amount];
+    sum += emoji[value] * emoji[mood];
 
     // Calculation 2: Get average mood of country
     if(emoji[value] > 0) {
-      positive += emoji[value] * emoji[amount];
-      total += emoji[amount];
+      positive += emoji[value] * emoji[mood];
+      total += emoji[mood];
     }
     else if(emoji[value] < 0) {
-      total -= emoji[value] * emoji[amount];
+      total -= emoji[value] * emoji[mood];
     }
     else {
-      total += emoji[amount];
+      total += emoji[mood];
     }
   }
 
