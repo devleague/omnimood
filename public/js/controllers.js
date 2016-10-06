@@ -1,15 +1,12 @@
 angular.module('omniMood')
   .controller('tweetController', [
     '$scope',
-    '$interval',
-    'TweetFactory',
-    function ($scope, $interval, TweetFactory) {
+    'socket',
+    function ($scope, socket) {
       $scope.Tweets = [];
-      $interval(() => {
-        TweetFactory.getTweets()
-        .then((tweets) => {
-          $scope.Tweets = tweets.data;
-        });
-      }, 1000);
+      socket.emit('start tweets', true);
+      socket.on('tweet', function (tweet) {
+        $scope.Tweets.push(tweet);
+      });
     }
   ]);
