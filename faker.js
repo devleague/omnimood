@@ -24,7 +24,6 @@ function generateFakeData () {
       country: country
     }
   );
-  console.log(fakeData);
   setTimeout(generateFakeData, 1000);
 }
 
