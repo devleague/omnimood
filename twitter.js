@@ -33,7 +33,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
                 country: tweet.place.country
               }
             );
-            console.log(tweets);
+
             var mood = 0;
             // surrogate pairs: (output like this)
             // multiple emojis: [ '\\uD83D\\uDE04', '\\uD83D\\uDC96', '\\uD83D\\uDE3B' ]

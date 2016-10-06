@@ -1,5 +1,5 @@
 var faker = require('faker');
-
+var countryList = require('./json/countryList.json');
 var fakeData = [];
 
 var latitude = faker.address.latitude();
@@ -8,7 +8,7 @@ var city = faker.address.city();
 var country = faker.address.country();
 var countryCode = faker.address.countryCode();
 
-function generateFakeData () {
+function generateFakeData (array) {
   fakeData.push(
     {
       text: [],
@@ -24,7 +24,7 @@ function generateFakeData () {
       country: country
     }
   );
-  console.log(fakeData);
+
   setTimeout(generateFakeData, 1000);
 }
 

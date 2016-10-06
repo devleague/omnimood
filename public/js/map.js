@@ -21,7 +21,7 @@
 
  d3.json("json/world-50m.json", function(error, world) {
 
-   var countries = topojson.feature(world, world.objects.countries).features
+   var countries = topojson.feature(world, world.objects.countries).features;
 
    var projection = d3.geoMercator()
      .scale((width - 3) / (2 * Math.PI))
@@ -45,11 +45,11 @@
      })
      .on("mouseout", function() {
        d3.select(this)
-         .attr("stroke", outlineDefault)
+         .attr("stroke", outlineDefault);
      })
      .append("svg:title")
      .text(function(d) {
-       return testCountryNameJSON[d.id]
+       return testCountryNameJSON[d.id];
      });
  });
 
