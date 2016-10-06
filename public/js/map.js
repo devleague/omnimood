@@ -7,8 +7,8 @@
  var fillDefault = "#000000";
 
  var moodMin = 0;
- var moodMid = 250;
- var moodMax = 500;
+ var moodMid = 5;
+ var moodMax = 10;
 
  var testText = d3.select("body").append("div").attr("id", "testText");
  //var x=d3.scale.ordinal()
@@ -17,7 +17,7 @@
 
  var moodScale = d3.scaleLinear()
    .domain([moodMin, moodMid, moodMax])
-   .range(["red", "blue", "green"]);
+   .range(["red", "yellow", "green"]);
 
  d3.json("json/world-50m.json", function(error, world) {
 
@@ -59,7 +59,6 @@
  }
 
  function setCountryMood(id, mood) {
-   console.log("TEst In Mood");
    svg.select("path#cc" + id)
      .data([1, 1, 2])
      .style("fill", mood);
@@ -67,10 +66,10 @@
 
  setInterval(function() {
    var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
-   console.log(thisCountryObject);
+  // console.log(thisCountryObject);
    displayCountry(thisCountryObject.c);
    setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * moodMax))));
- }, 500);
+ }, 100);
 
 
  var testCountryJSON = [{

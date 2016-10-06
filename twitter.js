@@ -1,6 +1,7 @@
 const twit = require('twitter');
 var secrets = require('./json/secret.json');
 var emojiList = require('./json/codeEmoji.json');
+var faker = require('./faker.js');
 twitter = new twit(secrets[0]);
 var tweetUpdate ={};
 var tweets = [];
@@ -87,7 +88,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
   });
 
   stream.on('error', function (error) {
-    throw error;
+    setTimeout(faker, 1000);
   });
 });
 
