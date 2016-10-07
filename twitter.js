@@ -57,7 +57,7 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
       country: tweet.place.country
     }
   );
-  var mood = 0;
+  var amount = 0;
   // surrogate pairs: (output like this)
   // multiple emojis: [ '\\uD83D\\uDE04', '\\uD83D\\uDC96', '\\uD83D\\uDE3B' ]
   // only one emoji: [ '\\uD83D\\uDE02' ]
@@ -73,7 +73,7 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
         codeTweets[emojiList[surrogate].name] =  codeTweets[emojiList[surrogate].name] + 1;
       }
       else{
-        mood += emojiList[surrogate].value;
+        amount += emojiList[surrogate].value;
         codeTweets[emojiList[surrogate].name] = 1;
       }
     }
@@ -91,11 +91,11 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
           updateCountry[pairs] = 1;
         }
       }
-      tweetUpdate[tweet.place.country].mood += mood;
+      tweetUpdate[tweet.place.country].amount += amount;
     }
     else{
       tweetUpdate[tweet.place.country] = codeTweets;
-      tweetUpdate[tweet.place.country].mood = mood;
+      tweetUpdate[tweet.place.country].amount = amount;
     }
     tweetCount -= 1;
     if(tweetCount === 0){
