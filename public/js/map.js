@@ -1,6 +1,6 @@
- var svg = d3.select("svg"),
-   width = +svg.attr("width"),
-   height = +svg.attr("height");
+ var svg = d3.select("svg#svg_map"),
+  width = (document.body.clientWidth*.85),
+  height = (document.body.clientHeight);
 
  var outlineDefault = "#eeeeee";
  var outlineHighlight = "#1221ee";
@@ -21,8 +21,8 @@
 
    d3.select("svg#svg_map")
       .append("rect")
-      .attr("width","100%")
-      .attr("height","100%")
+      .attr("width",width)
+      .attr("height",height)
       .style("fill","steelblue");
       //.attr("background-color","steelblue");
 
@@ -89,10 +89,10 @@
      ;
  }
 
-  setInterval(function() {
-    var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
-    setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
-  }, 500);
+  // setInterval(function() {
+  //   var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
+  //   setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
+  // }, 500);
 
 
  var testCountryJSON = [{
