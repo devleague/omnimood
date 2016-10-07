@@ -6,8 +6,8 @@
  var outlineHighlight = "#1221ee";
  var fillDefault = "#000000";
 
- var moodMin = 0;
- var moodMid = 5;
+ var moodMin = -10;
+ var moodMid = 0;
  var moodMax = 10;
 
  var testText = d3.select("body").append("div").attr("id", "testText");
@@ -29,7 +29,7 @@
  d3.json("json/world-50m.json", function(error, world) {
 
    var countries = topojson.feature(world, world.objects.countries).features
-   
+
    var projection = d3.geoMercator()
      .scale((width - 3) / (2 * Math.PI))
      .translate([width / 2, height / 2]);
@@ -53,7 +53,7 @@
           {
             return fillDefault;
           }
-       
+
      }) //fillDefault
      .on("mouseover", function(d) {
        d3.select(this)
@@ -89,15 +89,11 @@
      ;
  }
 
- 
- 
   setInterval(function() {
     var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
-   // console.log(thisCountryObject);
-   // displayCountry(thisCountryObject.c);
-    setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * moodMax))));
-  }, 100);
- 
+    setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
+  }, 500);
+
 
  var testCountryJSON = [{
    "id": "4",
