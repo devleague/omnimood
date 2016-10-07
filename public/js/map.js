@@ -89,10 +89,10 @@
      ;
  }
 
-  // setInterval(function() {
-  //   var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
-  //   setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
-  // }, 500);
+  setInterval(function() {
+    var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
+    setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
+  }, 500);
 
 
  var testCountryJSON = [{
