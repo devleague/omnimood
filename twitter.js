@@ -128,12 +128,12 @@ function livingDatabase(tweetUpdate){
         for(var emojis in countryData){
           emojiData[emojis] += countryData[emojis];
         }
-        country.emoji = emojiData;
-        country.markModified('emoji');
-        country.save();
+      country.emoji = emojiData;
+      country.markModified('emoji');
+      country.save();
     });
   }
-  console.log("Database Updated");
+  console.log("Datbase Updated")
 }
 module.exports.getEmoji = getEmoji;
 module.exports.parseTweet = parseTweet;

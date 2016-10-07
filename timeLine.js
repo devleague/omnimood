@@ -14,7 +14,7 @@ mongoose.connection.once('open', () => {
     });
     var date = new Date();
     fs.writeFile('bitesZaDusto.json' + date, JSON.stringify(dataArray),()=>{
-      console.log("Beautiful Duwang");
+      console.log("What a Beautiful Duwang");
       mongoose.connection.close();
     });
   });
