@@ -2,3 +2,4 @@ node_modules/
 npm-debug.log
 secret.json
 /public/css/
+converter.js
