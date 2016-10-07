@@ -235,7 +235,7 @@
     "name": "face stuck out tongue and tightly closed eyes",
     "code": "1F61D",
     "surrogate_pair": "\\uD83D\\uDE1D",
-    "value": 0
+    "value": -1
   },
   "face with cold sweat":
   {
@@ -249,14 +249,14 @@
     "name": "persevering face",
     "code": "1F623",
     "surrogate_pair": "\\uD83D\\uDE23",
-    "value": 0
+    "value": -1
   },
   "face with stuck-out tongue":
   {
     "name": "face with stuck-out tongue",
     "code": "1F61B",
     "surrogate_pair": "\\uD83D\\uDE1B",
-    "value": 0
+    "value": 1
   },
   "grimacing face":
   {
@@ -270,7 +270,7 @@
     "name": "anguisehd face",
     "code": "1F627",
     "surrogate_pair": "\\uD83D\\uDE27",
-    "value": 0
+    "value": -1
   },
   "dizzy face":
   {
