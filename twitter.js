@@ -1,6 +1,8 @@
 const twit = require('twitter');
 var secrets = require('./json/secret.json');
 var emojiList = require('./json/codeEmoji.json');
+const mongoose = require('mongoose');
+const Country = require('./models/countries');
 // var faker = require('./faker.js');
 twitter = new twit(secrets[0]);
 var tweetUpdate ={};
@@ -19,7 +21,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
         var emojis = getEmoji(tweet);
         if(emojis) { // if there's an emoji found
           if(tweet.place.country){
-            parseTweet(tweets, emojis, coordinates, date, tweet, codeTweets, emojiList, tweetUpdate, tweetCount);
+            parseTweet(tweets, emojis, coordinates, date, tweet, codeTweets, emojiList, tweetUpdate);
           }
         }
       }
@@ -43,7 +45,7 @@ function getEmoji(tweet) {
   return emojis;
 }
 
-function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emojiList, tweetUpdate, tweetCount) {
+function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emojiList, tweetUpdate) {
   tweetArr.push(
     {
       emojis: emojis,
@@ -95,14 +97,24 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
       tweetUpdate[tweet.place.country] = codeTweets;
       tweetUpdate[tweet.place.country].mood = mood;
     }
-    tweetCount --;
+    tweetCount -= 1;
     if(tweetCount === 0){
       tweetCount = 15;
+      livingDatabase(tweetUpdate);
       tweetUpdate = {};
     }
   }
 }
 
+function livingDatabase(tweetUpdate){
+  for(var countries in tweetUpdate){
+    Country.find({name: countries})
+    .then(function(country) {
+      if(country)
+        console.log(country.emoji);
+    });
+  }
+}
 module.exports.getEmoji = getEmoji;
 module.exports.parseTweet = parseTweet;
 module.exports.tweets = tweets;
