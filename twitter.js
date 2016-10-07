@@ -20,7 +20,7 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
         var codeTweets = {};
         var emojis = getEmoji(tweet);
         if(emojis) { // if there's an emoji found
-          if(tweet.place.country){
+          if(tweet.place && tweet.place.country){
             parseTweet(tweets, emojis, coordinates, date, tweet, codeTweets, emojiList, tweetUpdate);
           }
         }
@@ -57,7 +57,7 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
       country: tweet.place.country
     }
   );
-  var mood = 0;
+  var amount = 0;
   // surrogate pairs: (output like this)
   // multiple emojis: [ '\\uD83D\\uDE04', '\\uD83D\\uDC96', '\\uD83D\\uDE3B' ]
   // only one emoji: [ '\\uD83D\\uDE02' ]
@@ -73,7 +73,7 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
         codeTweets[emojiList[surrogate].name] =  codeTweets[emojiList[surrogate].name] + 1;
       }
       else{
-        mood += emojiList[surrogate].value;
+        amount += 1;
         codeTweets[emojiList[surrogate].name] = 1;
       }
     }
@@ -91,11 +91,11 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
           updateCountry[pairs] = 1;
         }
       }
-      tweetUpdate[tweet.place.country].mood += mood;
+      tweetUpdate[tweet.place.country].amount += amount;
     }
     else{
       tweetUpdate[tweet.place.country] = codeTweets;
-      tweetUpdate[tweet.place.country].mood = mood;
+      tweetUpdate[tweet.place.country].amount = amount;
     }
     tweetCount -= 1;
     if(tweetCount === 0){
@@ -105,15 +105,35 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
     }
   }
 }
+function singleUpdate(countryName, data){
+  Country.findOne({name: countryName}).then(function(country){
+    var emojiData = country.emoji;
+    for(emojis in data){
+      emojiData[emojis] += data[emojis];
+    }
+    country.emoji = emojiData;
+    country.markModified('emoji');
+    country.save();
+  });
+}
+
 
 function livingDatabase(tweetUpdate){
   for(var countries in tweetUpdate){
-    Country.find({name: countries})
+    Country.findOne({name: countries})
     .then(function(country) {
       if(country)
-        console.log(country.emoji);
+        var emojiData = country.emoji;
+        var countryData = tweetUpdate[country.name];
+        for(var emojis in countryData){
+          emojiData[emojis] += countryData[emojis];
+        }
+      country.emoji = emojiData;
+      country.markModified('emoji');
+      country.save();
     });
   }
+  console.log("Datbase Updated")
 }
 module.exports.getEmoji = getEmoji;
 module.exports.parseTweet = parseTweet;

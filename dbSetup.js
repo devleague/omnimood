@@ -11,9 +11,9 @@ var list = {}
 for(var face in emojiData){
   var inFace = emojiData[face];
   var nameFace = inFace.name;
-  list[nameFace] = inFace.value;
+  list[nameFace] = 0;
 }
-
+list.amount = 0;
 var emojiArray = [];
 for(var face in emojiData){
   emojiArray.push(emojiData[face]);
@@ -27,7 +27,6 @@ mongoose.connection.once('open', function() {
         name: element.name,
         code: element.code,
         GPS: '0,0',
-        mood: 'Happy',
         emoji: list
       }
     })),
