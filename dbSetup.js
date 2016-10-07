@@ -11,7 +11,7 @@ var list = {}
 for(var face in emojiData){
   var inFace = emojiData[face];
   var nameFace = inFace.name;
-  list[nameFace] = inFace.value;
+  list[nameFace] = 0;
 }
 list.amount = 0;
 var emojiArray = [];
