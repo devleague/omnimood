@@ -108,12 +108,18 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
 
 function livingDatabase(tweetUpdate){
   for(var countries in tweetUpdate){
-    Country.find({name: countries})
+    Country.findOne({name: countries})
     .then(function(country) {
       if(country)
-        console.log(country.emoji);
+        var emojiData = country.emoji;
+        var countryData = tweetUpdate[country.name];
+        for(var emojis in countryData){
+          emojiData[emojis] += countryData[emojis];
+        }
+        Country.update({name: country.name}, {$set:{emoji:emojiData}});
     });
   }
+  console.log("Database updated");
 }
 module.exports.getEmoji = getEmoji;
 module.exports.parseTweet = parseTweet;
