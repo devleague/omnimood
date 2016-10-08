@@ -1,51 +1,70 @@
-(function() {
-d3.legend = function(g) {
-  g.each(function() {
-    var g= d3.select(this),
-        items = {},
-        svg = d3.select(g.property("nearestViewportElement")),
-        legendPadding = g.attr("data-style-padding") || 5,
-        lb = g.selectAll(".legend-box").data([true]),
-        li = g.selectAll(".legend-items").data([true])
+var length = d3.select('svg#svg_map')
+  .attr('width');
 
-    lb.enter().append("rect").classed("legend-box",true)
-    li.enter().append("g").classed("legend-items",true)
+var svgLegend = d3.select('svg#legend')
+  .attr('width', length * .3)
+  .attr('height', 55)
+  .attr('border', 1);
 
-    svg.selectAll("[data-legend]").each(function() {
-        var self = d3.select(this)
-        items[self.attr("data-legend")] = {
-          pos : self.attr("data-legend-pos") || this.getBBox().y,
-          color : self.attr("data-legend-color") != undefined ? self.attr("data-legend-color") : self.style("fill") != 'none' ? self.style("fill") : self.style("stroke")
-        }
-      })
+svgLegend.append('rect')
+  .attr('width', svgLegend.attr('width'))
+  .attr('height', svgLegend.attr('height'))
+  .attr('x', 0)
+  .attr('y', 0)
+  .style('stroke', 'black')
+  .style('fill', 'none')
+  .style('stroke-width', 1);
 
-    items = d3.entries(items).sort(function(a,b) { return a.value.pos-b.value.pos})
+var defs = svgLegend.append('defs');
 
+var linearGradient = defs.append('linearGradient')
+  .attr('id', 'linear-gradient');
 
-    li.selectAll("text")
-        .data(items,function(d) { return d.key})
-        .call(function(d) { d.enter().append("text")})
-        .call(function(d) { d.exit().remove()})
-        .attr("y",function(d,i) { return i+"em"})
-        .attr("x","1em")
-        .text(function(d) { ;return d.key})
+linearGradient.append('stop')
+  .attr('offset', '0%')
+  .attr('stop-color', 'red');
 
-    li.selectAll("circle")
-        .data(items,function(d) { return d.key})
-        .call(function(d) { d.enter().append("circle")})
-        .call(function(d) { d.exit().remove()})
-        .attr("cy",function(d,i) { return i-0.25+"em"})
-        .attr("cx",0)
-        .attr("r","0.4em")
-        .style("fill",function(d) { console.log(d.value.color);return d.value.color})
+linearGradient.append('stop')
+  .attr('offset', '50%')
+  .attr('stop-color', 'yellow');
 
-    // Reposition and resize the box
-    var lbbox = li[0][0].getBBox()
-    lb.attr("x",(lbbox.x-legendPadding))
-        .attr("y",(lbbox.y-legendPadding))
-        .attr("height",(lbbox.height+2*legendPadding))
-        .attr("width",(lbbox.width+2*legendPadding))
-  })
-  return g
-}
-})()
+linearGradient.append('stop')
+  .attr('offset', '100%')
+  .attr('stop-color', 'green');
+
+var moodBar = svgLegend.append('rect')
+  .attr('width', svgLegend.attr('width') * .8)
+  .attr('height', svgLegend.attr('height') * .5)
+  .attr('x', svgLegend.attr('width') * .10)
+  .attr('y', svgLegend.attr('height') * .10)
+  .style('fill', 'url(#linear-gradient');
+
+var moodLegend = [
+  {
+    color: 'red',
+    mood: 'Mad',
+    x_position: svgLegend.attr('width') * .1
+  },
+  {
+    color: 'yellow',
+    mood: 'Neutral',
+    x_position: svgLegend.attr('width') * .44
+  },
+  {
+    color: 'green',
+    mood:'Happy',
+    x_position: svgLegend.attr('width') * .81
+  }
+];
+
+svgLegend.selectAll('text')
+  .data(moodLegend)
+  .enter()
+  .append('text')
+    .attr('x', function (d) {
+      return d.x_position;
+    })
+    .attr('y', svgLegend.attr('height') * .84)
+    .text(function (d) {
+      return d.mood;
+    });
