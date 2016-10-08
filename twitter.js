@@ -7,7 +7,7 @@ const Country = require('./models/countries');
 twitter = new twit(secrets[0]);
 var tweetUpdate ={};
 var tweets = [];
-var tweetCount = 15;
+var tweetCount = 25;
 module.exports = {};
 
 twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (stream) {
@@ -99,17 +99,35 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
     }
     tweetCount -= 1;
     if(tweetCount === 0){
-      tweetCount = 15;
+      tweetCount = 25;
       livingDatabase(tweetUpdate);
       tweetUpdate = {};
     }
   }
 }
+
+function calculateMood (countryEmojis) {
+  var total = 0;
+  var sum = 0;
+  for (var emoji in countryEmojis) {
+    // do not include prototype props
+    if(!countryEmojis.hasOwnProperty(emoji)) continue;
+
+    sum += emoji[value] * emoji[amount];
+
+    total += emoji[amount];
+  }
+
+  var moodValue = sum / total;
+
+  return moodValue;
+}
+
 function singleUpdate(countryName, data){
   Country.findOne({name: countryName}).then(function(country){
     var emojiData = country.emoji;
     for(emojis in data){
-      emojiData[emojis] += data[emojis];
+
     }
     country.emoji = emojiData;
     country.markModified('emoji');
