@@ -1,0 +1,244 @@
+[{"name":"Afghanistan","code":"AF","codeNum":"4"}
+,{"name":"Åland Islands","code":"AX","codeNum":"248"}
+,{"name":"Albania","code":"AL","codeNum":"8"}
+,{"name":"Algeria","code":"DZ","codeNum":"12"}
+,{"name":"American Samoa","code":"AS","codeNum":"16"}
+,{"name":"AndorrA","code":"AD","codeNum":"20"}
+,{"name":"Angola","code":"AO","codeNum":"24"}
+,{"name":"Anguilla","code":"AI","codeNum":"660"}
+,{"name":"Antarctica","code":"AQ","codeNum":"10"}
+,{"name":"Antigua and Barbuda","code":"AG","codeNum":"28"}
+,{"name":"Argentina","code":"AR","codeNum":"32"}
+,{"name":"Armenia","code":"AM","codeNum":"51"}
+,{"name":"Aruba","code":"AW","codeNum":"533"}
+,{"name":"Australia","code":"AU","codeNum":"36"}
+,{"name":"Austria","code":"AT","codeNum":"40"}
+,{"name":"Azerbaijan","code":"AZ","codeNum":"31"}
+,{"name":"Bahamas","code":"BS","codeNum":"44"}
+,{"name":"Bahrain","code":"BH","codeNum":"48"}
+,{"name":"Bangladesh","code":"BD","codeNum":"50"}
+,{"name":"Barbados","code":"BB","codeNum":"52"}
+,{"name":"Belarus","code":"BY","codeNum":"112"}
+,{"name":"Belgium","code":"BE","codeNum":"56"}
+,{"name":"Belize","code":"BZ","codeNum":"84"}
+,{"name":"Benin","code":"BJ","codeNum":"204"}
+,{"name":"Bermuda","code":"BM","codeNum":"60"}
+,{"name":"Bhutan","code":"BT","codeNum":"64"}
+,{"name":"Bolivia","code":"BO","codeNum":"68"}
+,{"name":"Bosnia and Herzegovina","code":"BA","codeNum":"70"}
+,{"name":"Botswana","code":"BW","codeNum":"72"}
+,{"name":"Bouvet Island","code":"BV","codeNum":"74"}
+,{"name":"Brazil","code":"BR","codeNum":"76"}
+,{"name":"British Indian Ocean Territory","code":"IO","codeNum":"86"}
+,{"name":"Brunei Darussalam","code":"BN","codeNum":"96"}
+,{"name":"Bulgaria","code":"BG","codeNum":"100"}
+,{"name":"Burkina Faso","code":"BF","codeNum":"854"}
+,{"name":"Burundi","code":"BI","codeNum":"108"}
+,{"name":"Cambodia","code":"KH","codeNum":"116"}
+,{"name":"Cameroon","code":"CM","codeNum":"120"}
+,{"name":"Canada","code":"CA","codeNum":"124"}
+,{"name":"Cape Verde","code":"CV","codeNum":"132"}
+,{"name":"Cayman Islands","code":"KY","codeNum":"136"}
+,{"name":"Central African Republic","code":"CF","codeNum":"140"}
+,{"name":"Chad","code":"TD","codeNum":"148"}
+,{"name":"Chile","code":"CL","codeNum":"152"}
+,{"name":"China","code":"CN","codeNum":"156"}
+,{"name":"Christmas Island","code":"CX","codeNum":"162"}
+,{"name":"Cocos (Keeling) Islands","code":"CC","codeNum":"166"}
+,{"name":"Colombia","code":"CO","codeNum":"170"}
+,{"name":"Comoros","code":"KM","codeNum":"174"}
+,{"name":"Congo","code":"CG","codeNum":"178"}
+,{"name":"Congo, The Democratic Republic of the","code":"CD","codeNum":"180"}
+,{"name":"Cook Islands","code":"CK","codeNum":"184"}
+,{"name":"Costa Rica","code":"CR","codeNum":"188"}
+,{"name":"Cote D\"Ivoire","code":"CI","codeNum":"384"}
+,{"name":"Croatia","code":"HR","codeNum":"191"}
+,{"name":"Cuba","code":"CU","codeNum":"192"}
+,{"name":"Cyprus","code":"CY","codeNum":"196"}
+,{"name":"Czech Republic","code":"CZ","codeNum":"203"}
+,{"name":"Denmark","code":"DK","codeNum":"208"}
+,{"name":"Djibouti","code":"DJ","codeNum":"262"}
+,{"name":"Dominica","code":"DM","codeNum":"212"}
+,{"name":"Dominican Republic","code":"DO","codeNum":"214"}
+,{"name":"Ecuador","code":"EC","codeNum":"218"}
+,{"name":"Egypt","code":"EG","codeNum":"818"}
+,{"name":"El Salvador","code":"SV","codeNum":"222"}
+,{"name":"Equatorial Guinea","code":"GQ","codeNum":"226"}
+,{"name":"Eritrea","code":"ER","codeNum":"232"}
+,{"name":"Estonia","code":"EE","codeNum":"233"}
+,{"name":"Ethiopia","code":"ET","codeNum":"231"}
+,{"name":"Falkland Islands (Malvinas)","code":"FK","codeNum":"238"}
+,{"name":"Faroe Islands","code":"FO","codeNum":"234"}
+,{"name":"Fiji","code":"FJ","codeNum":"242"}
+,{"name":"Finland","code":"FI","codeNum":"246"}
+,{"name":"France","code":"FR","codeNum":"250"}
+,{"name":"French Guiana","code":"GF","codeNum":"254"}
+,{"name":"French Polynesia","code":"PF","codeNum":"258"}
+,{"name":"French Southern Territories","code":"TF","codeNum":"260"}
+,{"name":"Gabon","code":"GA","codeNum":"266"}
+,{"name":"Gambia","code":"GM","codeNum":"270"}
+,{"name":"Georgia","code":"GE","codeNum":"268"}
+,{"name":"Germany","code":"DE","codeNum":"276"}
+,{"name":"Ghana","code":"GH","codeNum":"288"}
+,{"name":"Gibraltar","code":"GI","codeNum":"292"}
+,{"name":"Greece","code":"GR","codeNum":"300"}
+,{"name":"Greenland","code":"GL","codeNum":"304"}
+,{"name":"Grenada","code":"GD","codeNum":"308"}
+,{"name":"Guadeloupe","code":"GP","codeNum":"312"}
+,{"name":"Guam","code":"GU","codeNum":"316"}
+,{"name":"Guatemala","code":"GT","codeNum":"320"}
+,{"name":"Guernsey","code":"GG","codeNum":"831"}
+,{"name":"Guinea","code":"GN","codeNum":"324"}
+,{"name":"Guinea-Bissau","code":"GW","codeNum":"624"}
+,{"name":"Guyana","code":"GY","codeNum":"328"}
+,{"name":"Haiti","code":"HT","codeNum":"332"}
+,{"name":"Heard Island and Mcdonald Islands","code":"HM","codeNum":"334"}
+,{"name":"Holy See (Vatican City State)","code":"VA","codeNum":"336"}
+,{"name":"Honduras","code":"HN","codeNum":"340"}
+,{"name":"Hong Kong","code":"HK","codeNum":"344"}
+,{"name":"Hungary","code":"HU","codeNum":"348"}
+,{"name":"Iceland","code":"IS","codeNum":"352"}
+,{"name":"India","code":"IN","codeNum":"356"}
+,{"name":"Indonesia","code":"ID","codeNum":"360"}
+,{"name":"Iran, Islamic Republic Of","code":"IR","codeNum":"364"}
+,{"name":"Iraq","code":"IQ","codeNum":"368"}
+,{"name":"Ireland","code":"IE","codeNum":"372"}
+,{"name":"Isle of Man","code":"IM","codeNum":"833"}
+,{"name":"Israel","code":"IL","codeNum":"376"}
+,{"name":"Italy","code":"IT","codeNum":"380"}
+,{"name":"Jamaica","code":"JM","codeNum":"388"}
+,{"name":"Japan","code":"JP","codeNum":"392"}
+,{"name":"Jersey","code":"JE","codeNum":"832"}
+,{"name":"Jordan","code":"JO","codeNum":"400"}
+,{"name":"Kazakhstan","code":"KZ","codeNum":"398"}
+,{"name":"Kenya","code":"KE","codeNum":"404"}
+,{"name":"Kiribati","code":"KI","codeNum":"296"}
+,{"name":"Korea, Democratic People\"S Republic of","code":"KP","codeNum":"408"}
+,{"name":"Korea, Republic of","code":"KR","codeNum":"410"}
+,{"name":"Kuwait","code":"KW","codeNum":"414"}
+,{"name":"Kyrgyzstan","code":"KG","codeNum":"417"}
+,{"name":"Lao People\"S Democratic Republic","code":"LA","codeNum":"418"}
+,{"name":"Latvia","code":"LV","codeNum":"428"}
+,{"name":"Lebanon","code":"LB","codeNum":"422"}
+,{"name":"Lesotho","code":"LS","codeNum":"426"}
+,{"name":"Liberia","code":"LR","codeNum":"430"}
+,{"name":"Libyan Arab Jamahiriya","code":"LY","codeNum":"434"}
+,{"name":"Liechtenstein","code":"LI","codeNum":"438"}
+,{"name":"Lithuania","code":"LT","codeNum":"440"}
+,{"name":"Luxembourg","code":"LU","codeNum":"442"}
+,{"name":"Macao","code":"MO","codeNum":"446"}
+,{"name":"Macedonia, The Former Yugoslav Republic of","code":"MK","codeNum":"807"}
+,{"name":"Madagascar","code":"MG","codeNum":"450"}
+,{"name":"Malawi","code":"MW","codeNum":"454"}
+,{"name":"Malaysia","code":"MY","codeNum":"458"}
+,{"name":"Maldives","code":"MV","codeNum":"462"}
+,{"name":"Mali","code":"ML","codeNum":"466"}
+,{"name":"Malta","code":"MT","codeNum":"470"}
+,{"name":"Marshall Islands","code":"MH","codeNum":"584"}
+,{"name":"Martinique","code":"MQ","codeNum":"474"}
+,{"name":"Mauritania","code":"MR","codeNum":"478"}
+,{"name":"Mauritius","code":"MU","codeNum":"480"}
+,{"name":"Mayotte","code":"YT","codeNum":"175"}
+,{"name":"Mexico","code":"MX","codeNum":"484"}
+,{"name":"Micronesia, Federated States of","code":"FM","codeNum":"583"}
+,{"name":"Moldova, Republic of","code":"MD","codeNum":"498"}
+,{"name":"Monaco","code":"MC","codeNum":"492"}
+,{"name":"Mongolia","code":"MN","codeNum":"496"}
+,{"name":"Montserrat","code":"MS","codeNum":"500"}
+,{"name":"Morocco","code":"MA","codeNum":"504"}
+,{"name":"Mozambique","code":"MZ","codeNum":"508"}
+,{"name":"Myanmar","code":"MM","codeNum":"104"}
+,{"name":"Namibia","code":"NA","codeNum":"516"}
+,{"name":"Nauru","code":"NR","codeNum":"520"}
+,{"name":"Nepal","code":"NP","codeNum":"524"}
+,{"name":"Netherlands","code":"NL","codeNum":"528"}
+,{"name":"Netherlands Antilles","code":"AN"}
+,{"name":"New Caledonia","code":"NC","codeNum":"540"}
+,{"name":"New Zealand","code":"NZ","codeNum":"554"}
+,{"name":"Nicaragua","code":"NI","codeNum":"558"}
+,{"name":"Niger","code":"NE","codeNum":"562"}
+,{"name":"Nigeria","code":"NG","codeNum":"566"}
+,{"name":"Niue","code":"NU","codeNum":"570"}
+,{"name":"Norfolk Island","code":"NF","codeNum":"574"}
+,{"name":"Northern Mariana Islands","code":"MP","codeNum":"580"}
+,{"name":"Norway","code":"NO","codeNum":"578"}
+,{"name":"Oman","code":"OM","codeNum":"512"}
+,{"name":"Pakistan","code":"PK","codeNum":"586"}
+,{"name":"Palau","code":"PW","codeNum":"585"}
+,{"name":"Palestinian Territory, Occupied","code":"PS","codeNum":"275"}
+,{"name":"Panama","code":"PA","codeNum":"591"}
+,{"name":"Papua New Guinea","code":"PG","codeNum":"598"}
+,{"name":"Paraguay","code":"PY","codeNum":"600"}
+,{"name":"Peru","code":"PE","codeNum":"604"}
+,{"name":"Philippines","code":"PH","codeNum":"608"}
+,{"name":"Pitcairn","code":"PN","codeNum":"612"}
+,{"name":"Poland","code":"PL","codeNum":"616"}
+,{"name":"Portugal","code":"PT","codeNum":"620"}
+,{"name":"Puerto Rico","code":"PR","codeNum":"630"}
+,{"name":"Qatar","code":"QA","codeNum":"634"}
+,{"name":"Reunion","code":"RE","codeNum":"638"}
+,{"name":"Romania","code":"RO","codeNum":"642"}
+,{"name":"Russian Federation","code":"RU","codeNum":"643"}
+,{"name":"RWANDA","code":"RW","codeNum":"646"}
+,{"name":"Saint Helena","code":"SH","codeNum":"654"}
+,{"name":"Saint Kitts and Nevis","code":"KN","codeNum":"659"}
+,{"name":"Saint Lucia","code":"LC","codeNum":"662"}
+,{"name":"Saint Pierre and Miquelon","code":"PM","codeNum":"666"}
+,{"name":"Saint Vincent and the Grenadines","code":"VC","codeNum":"670"}
+,{"name":"Samoa","code":"WS","codeNum":"882"}
+,{"name":"San Marino","code":"SM","codeNum":"674"}
+,{"name":"Sao Tome and Principe","code":"ST","codeNum":"678"}
+,{"name":"Saudi Arabia","code":"SA","codeNum":"682"}
+,{"name":"Senegal","code":"SN","codeNum":"686"}
+,{"name":"Serbia and Montenegro","code":"CS"}
+,{"name":"Seychelles","code":"SC","codeNum":"690"}
+,{"name":"Sierra Leone","code":"SL","codeNum":"694"}
+,{"name":"Singapore","code":"SG","codeNum":"702"}
+,{"name":"Slovakia","code":"SK","codeNum":"703"}
+,{"name":"Slovenia","code":"SI","codeNum":"705"}
+,{"name":"Solomon Islands","code":"SB","codeNum":"90"}
+,{"name":"Somalia","code":"SO","codeNum":"706"}
+,{"name":"South Africa","code":"ZA","codeNum":"710"}
+,{"name":"South Georgia and the South Sandwich Islands","code":"GS","codeNum":"239"}
+,{"name":"Spain","code":"ES","codeNum":"724"}
+,{"name":"Sri Lanka","code":"LK","codeNum":"144"}
+,{"name":"Sudan","code":"SD","codeNum":"729"}
+,{"name":"Suriname","code":"SR","codeNum":"740"}
+,{"name":"Svalbard and Jan Mayen","code":"SJ","codeNum":"744"}
+,{"name":"Swaziland","code":"SZ","codeNum":"748"}
+,{"name":"Sweden","code":"SE","codeNum":"752"}
+,{"name":"Switzerland","code":"CH","codeNum":"756"}
+,{"name":"Syrian Arab Republic","code":"SY","codeNum":"760"}
+,{"name":"Taiwan, Province of China","code":"TW","codeNum":"158"}
+,{"name":"Tajikistan","code":"TJ","codeNum":"762"}
+,{"name":"Tanzania, United Republic of","code":"TZ","codeNum":"834"}
+,{"name":"Thailand","code":"TH","codeNum":"764"}
+,{"name":"Timor-Leste","code":"TL","codeNum":"626"}
+,{"name":"Togo","code":"TG","codeNum":"768"}
+,{"name":"Tokelau","code":"TK","codeNum":"772"}
+,{"name":"Tonga","code":"TO","codeNum":"776"}
+,{"name":"Trinidad and Tobago","code":"TT","codeNum":"780"}
+,{"name":"Tunisia","code":"TN","codeNum":"788"}
+,{"name":"Turkey","code":"TR","codeNum":"792"}
+,{"name":"Turkmenistan","code":"TM","codeNum":"795"}
+,{"name":"Turks and Caicos Islands","code":"TC","codeNum":"796"}
+,{"name":"Tuvalu","code":"TV","codeNum":"798"}
+,{"name":"Uganda","code":"UG","codeNum":"800"}
+,{"name":"Ukraine","code":"UA","codeNum":"804"}
+,{"name":"United Arab Emirates","code":"AE","codeNum":"784"}
+,{"name":"United Kingdom","code":"GB","codeNum":"826"}
+,{"name":"United States","code":"US","codeNum":"840"}
+,{"name":"United States Minor Outlying Islands","code":"UM","codeNum":"581"}
+,{"name":"Uruguay","code":"UY","codeNum":"858"}
+,{"name":"Uzbekistan","code":"UZ","codeNum":"860"}
+,{"name":"Vanuatu","code":"VU","codeNum":"548"}
+,{"name":"Venezuela","code":"VE","codeNum":"862"}
+,{"name":"Viet Nam","code":"VN","codeNum":"704"}
+,{"name":"Virgin Islands, British","code":"VG","codeNum":"92"}
+,{"name":"Virgin Islands, U.S.","code":"VI","codeNum":"850"}
+,{"name":"Wallis and Futuna","code":"WF","codeNum":"876"}
+,{"name":"Western Sahara","code":"EH","codeNum":"732"}
+,{"name":"Yemen","code":"YE","codeNum":"887"}
+,{"name":"Zambia","code":"ZM","codeNum":"894"}
+,{"name":"Zimbabwe","code":"ZW","codeNum":"716"}
+]

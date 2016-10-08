@@ -1,28 +1,28 @@
- var svg = d3.select("svg"),
-   width = +svg.attr("width"),
-   height = +svg.attr("height");
+var svg = d3.select("svg#svg_map"),
+  width = (document.body.clientWidth*.85),
+  height = (document.body.clientHeight);
 
- var outlineDefault = "#eeeeee";
- var outlineHighlight = "#1221ee";
- var fillDefault = "#000000";
+var outlineDefault = "#eeeeee";
+var outlineHighlight = "#1221ee";
+var fillDefault = "#000000";
 
- var moodMin = 0;
- var moodMid = 5;
- var moodMax = 10;
+var moodMin = -10;
+var moodMid = 0;
+var moodMax = 10;
 
- var testText = d3.select("body").append("div").attr("id", "testText");
- //var x=d3.scale.ordinal()
- //.domain(["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]);
- // var moodScale=d3.scale.ordinal().range(['#dd2222','#cccccc','#2222dd']); //.domain([-10,0,10]);
+var testText = d3.select("body").append("div").attr("id", "testText");
+//var x=d3.scale.ordinal()
+//.domain(["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]);
+// var moodScale=d3.scale.ordinal().range(['#dd2222','#cccccc','#2222dd']); //.domain([-10,0,10]);
 
- var moodScale = d3.scaleLinear()
-   .domain([moodMin, moodMid, moodMax])
-   .range(["red", "yellow", "green"]);
+var moodScale = d3.scaleLinear()
+  .domain([moodMin, moodMid, moodMax])
+  .range(["red", "yellow", "green"]);
 
     d3.select("svg#svg_map")
       .append("rect")
-      .attr("width","100%")
-      .attr("height","100%")
+      .attr("width",width)
+      .attr("height",height)
       .style("fill","steelblue");
 
     d3.select("svg#svg_onClick")
@@ -33,25 +33,25 @@
 
       //.attr("background-color","steelblue");
 
- d3.json("json/world-50m.json", function(error, world) {
-   var countries = topojson.feature(world, world.objects.countries).features;
+d3.json("json/world-50m.json", function(error, world) {
+  var countries = topojson.feature(world, world.objects.countries).features;
 
-   var projection = d3.geoMercator()
-     .scale((width - 3) / (2 * Math.PI))
-     .translate([width / 2, height / 2]);
+  var projection = d3.geoMercator()
+    .scale((width - 3) / (2 * Math.PI))
+    .translate([width / 2, height / 2]);
 
-   var path = d3.geoPath()
-     .projection(projection);
+  var path = d3.geoPath()
+    .projection(projection);
 
-   svg.selectAll(".country")
-     .data(countries)
-     .enter().insert("path", ".graticule")
-     .attr("id", function(d) {
-       return "cc" + d.id;
-     })
-     .attr("d", path)
-     .attr("stroke", outlineDefault)
-     .style("fill", function(d) {
+  svg.selectAll(".country")
+    .data(countries)
+    .enter().insert("path", ".graticule")
+    .attr("id", function(d) {
+      return "cc" + d.id;
+    })
+    .attr("d", path)
+    .attr("stroke", outlineDefault)
+    .style("fill", function(d) {
           if(d.id==10){
             return "steelblue";
           }
@@ -59,6 +59,7 @@
           {
             return fillDefault;
           }
+
 
     }) //fillDefault
     .on("mouseover", function(d) {
@@ -86,35 +87,30 @@
       return testCountryNameJSON[d.id];
      });
 
- });
+});
 
- function displayCountry(id) {
-   d3.select("h1#title").text(id);
- }
+function displayCountry(id) {
+  d3.select("h1#title").text(id);
+}
 
- function setCountryMood(id, mood) {
-   svg.select("path#cc" + id)
-     .data([1, 1, 2])
-     .style("fill", "white")
-     //.attr("stroke", "red")
-     //.attr("stroke-width",5)
-     .transition()
-     .duration(2000)
-     //.attr("stroke", outlineDefault)
-     //.attr("stroke-width", 1)
-     .style("fill", mood)
-     ;
- }
+function setCountryMood(id, mood) {
+  svg.select("path#cc" + id)
+    .data([1, 1, 2])
+    .style("fill", "white")
+    //.attr("stroke", "red")
+    //.attr("stroke-width",5)
+    .transition()
+    .duration(2000)
+    //.attr("stroke", outlineDefault)
+    //.attr("stroke-width", 1)
+    .style("fill", mood)
+    ;
+}
 
-
-
-  setInterval(function() {
+setInterval(function() {
     var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
-   // console.log(thisCountryObject);
-   // displayCountry(thisCountryObject.c);
-    setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * moodMax))));
-  }, 100);
-
+    setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
+}, 500);
 
  var testCountryJSON = [{
    "id": "4",

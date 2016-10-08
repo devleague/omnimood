@@ -7,23 +7,33 @@
     <script src="http://marak.com/faker.js/js/faker.js"></script>
     <script src="http://d3js.org/topojson.v1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/index.css">
     <script type="text/javascript" src="js/omniMood.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/factories.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
   <body ng-app="omniMood">
     <h1 id='title'>
       Omni Mood
     </h1>
-    <svg id="svg_map" width="1560" height="960">
-    </svg>
-    <svg id="svg_onClick" width="1560" height="400" visibility="hidden">
-    </svg>
+    <div class="mainContainer">
+      <div class="mapContainer">
+        <svg  id="svg_map" width="1560" height="960"></svg>
+        <svg id="legend"></svg>
+        <svg id="svg_onClick" width="1560" height="400" visibility="hidden"></svg>
+      </div>
+      <div class="emojiList">
+        Emoji List
+      </div>
+    </div>
+    <br>
     <div ng-controller="tweetController">
       <div ng-repeat="tweet in Tweets" class="tweet">
-        {{ tweet.text }}
+        {{ tweet }}
       </div>
     </div>
     <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/d3.legend.js"></script>
   </body>
 </html>
