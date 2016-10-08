@@ -19,8 +19,21 @@
    .domain([moodMin, moodMid, moodMax])
    .range(["red", "yellow", "green"]);
 
- d3.json("json/world-50m.json", function(error, world) {
+    d3.select("svg#svg_map")
+      .append("rect")
+      .attr("width","100%")
+      .attr("height","100%")
+      .style("fill","steelblue");
 
+    d3.select("svg#svg_onClick")
+      .append("rect")
+      .attr("width", "100%")
+      .attr("height", "100%")
+      .style("fill", "steelblue");
+
+      //.attr("background-color","steelblue");
+
+ d3.json("json/world-50m.json", function(error, world) {
    var countries = topojson.feature(world, world.objects.countries).features;
 
    var projection = d3.geoMercator()
@@ -38,21 +51,42 @@
      })
      .attr("d", path)
      .attr("stroke", outlineDefault)
-     .style("fill", fillDefault) //fillDefault
-     .on("mouseover", function(d) {
-       d3.select(this)
-         .attr("stroke", outlineHighlight);
-     })
-     .on("mouseout", function() {
-       d3.select(this)
-         .attr("stroke", outlineDefault);
-     })
-     .append("svg:title")
-     .text(function(d) {
-       return testCountryNameJSON[d.id];
-     });
- });
+     .style("fill", function(d) {
+          if(d.id==10){
+            return "steelblue";
+          }
+          else
+          {
+            return fillDefault;
+          }
 
+    }) //fillDefault
+    .on("mouseover", function(d) {
+      d3.select(this)
+        .attr("stroke", outlineHighlight);
+    })
+
+    .on("mouseout", function() {
+      d3.select(this)
+        .attr("stroke", outlineDefault);
+    })
+    .on("click", function render(d) {
+      d3.select("svg#svg_onClick").selectAll(".country")
+        .data(countries)
+        .enter().insert("path", ".graticule")
+        .attr("d", path)
+        .attr("visibility", "visible")
+        .attr("stroke", outlineDefault)
+        .style("fill", fillDefault);
+    })
+    .append("svg:title")
+    .text(function(d) {
+
+      // return  "cc=" + (d.id + 0);
+      return testCountryNameJSON[d.id];
+     });
+
+ });
 
  function displayCountry(id) {
    d3.select("h1#title").text(id);
@@ -61,106 +95,116 @@
  function setCountryMood(id, mood) {
    svg.select("path#cc" + id)
      .data([1, 1, 2])
-     .style("fill", mood);
+     .style("fill", "white")
+     //.attr("stroke", "red")
+     //.attr("stroke-width",5)
+     .transition()
+     .duration(2000)
+     //.attr("stroke", outlineDefault)
+     //.attr("stroke-width", 1)
+     .style("fill", mood)
+     ;
  }
 
- setInterval(function() {
-   var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
-  // console.log(thisCountryObject);
-   displayCountry(thisCountryObject.c);
-   setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * moodMax))));
- }, 100);
+
+
+  setInterval(function() {
+    var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
+   // console.log(thisCountryObject);
+   // displayCountry(thisCountryObject.c);
+    setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * moodMax))));
+  }, 100);
 
 
  var testCountryJSON = [{
-   "id": "004 ",
+   "id": "4",
    "c": "Afghanistan"
  }, {
-   "id": "008 ",
+   "id": "8",
    "c": "Albania"
  }, {
-   "id": "010 ",
+   "id": "10",
    "c": "Antarctica"
  }, {
-   "id": "012 ",
+   "id": "12",
    "c": "Algeria"
  }, {
-   "id": "016 ",
+   "id": "16",
    "c": "American Samoa"
  }, {
-   "id": "020 ",
+   "id": "20 ",
    "c": "Andorra"
  }, {
-   "id": "024 ",
+   "id": "24 ",
    "c": "Angola"
  }, {
-   "id": "028 ",
+   "id": "28 ",
    "c": "Antigua and Barbuda"
  }, {
-   "id": "031 ",
+   "id": "31 ",
    "c": "Azerbaijan"
  }, {
-   "id": "032 ",
+   "id": "32 ",
    "c": "Argentina"
  }, {
-   "id": "036 ",
+   "id": "36 ",
    "c": "Australia"
  }, {
-   "id": "040 ",
+   "id": "40 ",
    "c": "Austria"
  }, {
-   "id": "044 ",
+   "id": "44 ",
    "c": "Bahamas"
  }, {
-   "id": "048 ",
+   "id": "48 ",
    "c": "Bahrain"
  }, {
-   "id": "050 ",
+   "id": "50 ",
    "c": "Bangladesh"
  }, {
-   "id": "051 ",
+   "id": "51 ",
    "c": "Armenia"
  }, {
-   "id": "052 ",
+   "id": "52 ",
    "c": "Barbados"
  }, {
-   "id": "056 ",
+   "id": "56 ",
    "c": "Belgium"
  }, {
-   "id": "060 ",
+   "id": "60 ",
    "c": "Bermuda"
  }, {
-   "id": "064 ",
+   "id": "64 ",
    "c": "Bhutan"
  }, {
-   "id": "068 ",
+   "id": "68 ",
    "c": "Bolivia, Plurinational State of"
  }, {
-   "id": "070 ",
+   "id": "70 ",
    "c": "Bosnia and Herzegovina"
  }, {
-   "id": "072 ",
+   "id": "72 ",
    "c": "Botswana"
  }, {
-   "id": "074 ",
+   "id": "74 ",
    "c": "Bouvet Island"
  }, {
-   "id": "076 ",
+   "id": "76",
    "c": "Brazil"
  }, {
-   "id": "084 ",
+   "id": "84 ",
    "c": "Belize"
  }, {
-   "id": "086 ",
+   "id": "86 ",
    "c": "British Indian Ocean Territory"
  }, {
-   "id": "090 ",
+   "id": "90 ",
    "c": "Solomon Islands"
  }, {
-   "id": "092 ",
+   "id": "92 ",
    "c": "Virgin Islands, British"
  }, {
-   "id": "096 ",
+   "id": "96 ",
    "c": "Brunei Darussalam"
  }, {
    "id": "100 ",
@@ -822,36 +866,36 @@
  }];
 
  var testCountryNameJSON = {
-   "004": "Afghanistan",
-   "008": "Albania",
-   "010": "Antarctica",
-   "012": "Algeria",
-   "016": "American Samoa",
-   "020": "Andorra",
-   "024": "Angola",
-   "028": "Antigua and Barbuda",
-   "031": "Azerbaijan",
-   "032": "Argentina",
-   "036": "Australia",
-   "040": "Austria",
-   "044": "Bahamas",
-   "048": "Bahrain",
-   "050": "Bangladesh",
-   "051": "Armenia",
-   "052": "Barbados",
-   "056": "Belgium",
-   "060": "Bermuda",
-   "064": "Bhutan",
-   "068": "Bolivia, Plurinational State of",
-   "070": "Bosnia and Herzegovina",
-   "072": "Botswana",
-   "074": "Bouvet Island",
-   "076": "Brazil",
-   "084": "Belize",
-   "086": "British Indian Ocean Territory",
-   "090": "Solomon Islands",
-   "092": "Virgin Islands, British",
-   "096": "Brunei Darussalam",
+   "4": "Afghanistan",
+   "8": "Albania",
+   "10": "Antarctica",
+   "12": "Algeria",
+   "16": "American Samoa",
+   "20": "Andorra",
+   "24": "Angola",
+   "28": "Antigua and Barbuda",
+   "31": "Azerbaijan",
+   "32": "Argentina",
+   "36": "Australia",
+   "40": "Austria",
+   "44": "Bahamas",
+   "48": "Bahrain",
+   "50": "Bangladesh",
+   "51": "Armenia",
+   "52": "Barbados",
+   "56": "Belgium",
+   "60": "Bermuda",
+   "64": "Bhutan",
+   "68": "Bolivia, Plurinational State of",
+   "70": "Bosnia and Herzegovina",
+   "72": "Botswana",
+   "74": "Bouvet Island",
+   "76": "Brazil",
+   "84": "Belize",
+   "86": "British Indian Ocean Territory",
+   "90": "Solomon Islands",
+   "92": "Virgin Islands, British",
+   "96": "Brunei Darussalam",
    "100": "Bulgaria",
    "104": "Myanmar",
    "108": "Burundi",
@@ -1071,4 +1115,506 @@
    "882": "Samoa",
    "887": "Yemen",
    "894": "Zambia"
- }
+ };
+
+ var test2DigitToCountryNumber={
+
+"AF":"4",
+
+"AL":"8",
+
+"DZ":"12",
+
+"AS":"16",
+
+"AD":"20",
+
+"AO":"24",
+
+"AI":"660",
+
+"AQ":"10",
+
+"AG":"28",
+
+"AR":"32",
+
+"AM":"51",
+
+"AW":"533",
+
+"AU":"36",
+
+"AT":"40",
+
+"AZ":"31",
+
+"BS":"44",
+
+"BH":"48",
+
+"BD":"50",
+
+"BB":"52",
+
+"BY":"112",
+
+"BE":"56",
+
+"BZ":"84",
+
+"BJ":"204",
+
+"BM":"60",
+
+"BT":"64",
+
+"BO":"68",
+
+"BQ":"535",
+
+"BA":"70",
+
+"BW":"72",
+
+"BV":"74",
+
+"BR":"76",
+
+"IO":"86",
+
+"BN":"96",
+
+"BG":"100",
+
+"BF":"854",
+
+"BI":"108",
+
+"KH":"116",
+
+"CM":"120",
+
+"CA":"124",
+
+"CV":"132",
+
+"KY":"136",
+
+"CF":"140",
+
+"TD":"148",
+
+"CL":"152",
+
+"CN":"156",
+
+"CX":"162",
+
+"CC":"166",
+
+"CO":"170",
+
+"KM":"174",
+
+"CG":"178",
+
+"CD":"180",
+
+"CK":"184",
+
+"CR":"188",
+
+"HR":"191",
+
+"CU":"192",
+
+"CW":"531",
+
+"CY":"196",
+
+"CZ":"203",
+
+"CI":"384",
+
+"DK":"208",
+
+"DJ":"262",
+
+"DM":"212",
+
+"DO":"214",
+
+"EC":"218",
+
+"EG":"818",
+
+"SV":"222",
+
+"GQ":"226",
+
+"ER":"232",
+
+"EE":"233",
+
+"ET":"231",
+
+"FK":"238",
+
+"FO":"234",
+
+"FJ":"242",
+
+"FI":"246",
+
+"FR":"250",
+
+"GF":"254",
+
+"PF":"258",
+
+"TF":"260",
+
+"GA":"266",
+
+"GM":"270",
+
+"GE":"268",
+
+"DE":"276",
+
+"GH":"288",
+
+"GI":"292",
+
+"GR":"300",
+
+"GL":"304",
+
+"GD":"308",
+
+"GP":"312",
+
+"GU":"316",
+
+"GT":"320",
+
+"GG":"831",
+
+"GN":"324",
+
+"GW":"624",
+
+"GY":"328",
+
+"HT":"332",
+
+"HM":"334",
+
+"VA":"336",
+
+"HN":"340",
+
+"HK":"344",
+
+"HU":"348",
+
+"IS":"352",
+
+"IN":"356",
+
+"ID":"360",
+
+"IR":"364",
+
+"IQ":"368",
+
+"IE":"372",
+
+"IM":"833",
+
+"IL":"376",
+
+"IT":"380",
+
+"JM":"388",
+
+"JP":"392",
+
+"JE":"832",
+
+"JO":"400",
+
+"KZ":"398",
+
+"KE":"404",
+
+"KI":"296",
+
+"KP":"408",
+
+"KR":"410",
+
+"KW":"414",
+
+"KG":"417",
+
+"LA":"418",
+
+"LV":"428",
+
+"LB":"422",
+
+"LS":"426",
+
+"LR":"430",
+
+"LY":"434",
+
+"LI":"438",
+
+"LT":"440",
+
+"LU":"442",
+
+"MO":"446",
+
+"MK":"807",
+
+"MG":"450",
+
+"MW":"454",
+
+"MY":"458",
+
+"MV":"462",
+
+"ML":"466",
+
+"MT":"470",
+
+"MH":"584",
+
+"MQ":"474",
+
+"MR":"478",
+
+"MU":"480",
+
+"YT":"175",
+
+"MX":"484",
+
+"FM":"583",
+
+"MD":"498",
+
+"MC":"492",
+
+"MN":"496",
+
+"ME":"499",
+
+"MS":"500",
+
+"MA":"504",
+
+"MZ":"508",
+
+"MM":"104",
+
+"NA":"516",
+
+"NR":"520",
+
+"NP":"524",
+
+"NL":"528",
+
+"NC":"540",
+
+"NZ":"554",
+
+"NI":"558",
+
+"NE":"562",
+
+"NG":"566",
+
+"NU":"570",
+
+"NF":"574",
+
+"MP":"580",
+
+"NO":"578",
+
+"OM":"512",
+
+"PK":"586",
+
+"PW":"585",
+
+"PS":"275",
+
+"PA":"591",
+
+"PG":"598",
+
+"PY":"600",
+
+"PE":"604",
+
+"PH":"608",
+
+"PN":"612",
+
+"PL":"616",
+
+"PT":"620",
+
+"PR":"630",
+
+"QA":"634",
+
+"RO":"642",
+
+"RU":"643",
+
+"RW":"646",
+
+"RE":"638",
+
+"BL":"652",
+
+"SH":"654",
+
+"KN":"659",
+
+"LC":"662",
+
+"MF":"663",
+
+"PM":"666",
+
+"VC":"670",
+
+"WS":"882",
+
+"SM":"674",
+
+"ST":"678",
+
+"SA":"682",
+
+"SN":"686",
+
+"RS":"688",
+
+"SC":"690",
+
+"SL":"694",
+
+"SG":"702",
+
+"SX":"534",
+
+"SK":"703",
+
+"SI":"705",
+
+"SB":"90",
+
+"SO":"706",
+
+"ZA":"710",
+
+"GS":"239",
+
+"SS":"728",
+
+"ES":"724",
+
+"LK":"144",
+
+"SD":"729",
+
+"SR":"740",
+
+"SJ":"744",
+
+"SZ":"748",
+
+"SE":"752",
+
+"CH":"756",
+
+"SY":"760",
+
+"TW":"158",
+
+"TJ":"762",
+
+"TZ":"834",
+
+"TH":"764",
+
+"TL":"626",
+
+"TG":"768",
+
+"TK":"772",
+
+"TO":"776",
+
+"TT":"780",
+
+"TN":"788",
+
+"TR":"792",
+
+"TM":"795",
+
+"TC":"796",
+
+"TV":"798",
+
+"UG":"800",
+
+"UA":"804",
+
+"AE":"784",
+
+"GB":"826",
+
+"US":"840",
+
+"UM":"581",
+
+"UY":"858",
+
+"UZ":"860",
+
+"VU":"548",
+
+"VE":"862",
+
+"VN":"704",
+
+"VG":"92",
+
+"VI":"850",
+
+"WF":"876",
+
+"EH":"732",
+
+"YE":"887",
+
+"ZM":"894",
+
+"ZW":"716",
+
+"AX":"248"
+
+}

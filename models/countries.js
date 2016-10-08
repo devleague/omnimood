@@ -16,9 +16,6 @@ const country = mongoose.model(
     GPS:{
       type: String
     },
-    mood:{
-      type: String
-    },
     emoji: {
       type: Object
     },
