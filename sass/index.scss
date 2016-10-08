@@ -3,13 +3,25 @@
 @import "partials/_clearfix";
 @import "partials/_reset";
 
+
 body {
+  background-color: #282d34;
   font-family: 'Jura', sans-serif;
 }
 
 h1 {
+  font-size: 3.5em;
+}
+
+#title {
+  color: white;
   text-align: center;
-  font-size: 50px;
+  // border-bottom: 2px solid white;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2.5em;
 }
 
 .mainContainer {
@@ -17,17 +29,25 @@ h1 {
 }
 
 .mapContainer {
+  margin-left: 5px;
   width: 85vw;
 }
 
 .emojiList {
-  float: right;
-  width: 10vw;
-  font-size: 20px;
-  background-color: black;
+  box-sizing: border-box;
+  border: 2px solid white;
+  margin-right: 15px;
+  flex-grow: 1;
+  background-color: #282d34;
   color: white;
 }
 
+// .legendContainer {
+//   width: 250px;
+//   height: 50px;
+// }
+
 .tweet {
+  color: white;
   text-align: center;
 }
