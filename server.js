@@ -28,7 +28,7 @@ app.get('/api/tweets', (req, res) => {
 });
 
 mongoose.connection.once('open', () => {
-  const server = app.listen(7000, function() {
+  const server = app.listen(3000, function() {
     var port = server.address().port;
     console.log('Listening on port ' + port);
   });
