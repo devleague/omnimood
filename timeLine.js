@@ -10,7 +10,7 @@ var dataArray = {}
 mongoose.connection.once('open', () => {
   Country.find({}).then((countryData)=>{
     countryData.forEach((element, index, array)=>{
-     dataArray[element.countryId] = element.emoji.amount;
+      dataArray[element.countryId] = element.mood;
     });
     var date = new Date();
     fs.writeFile('bitesZaDusto.json' + date, JSON.stringify(dataArray),()=>{
