@@ -10,6 +10,8 @@ var moodMin = -10;
 var moodMid = 0;
 var moodMax = 10;
 
+var countryId;
+
 var testText = d3.select("body").append("div").attr("id", "testText");
 //var x=d3.scale.ordinal()
 //.domain(["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]);
@@ -26,7 +28,7 @@ d3.select("svg#svg_map")
   .style("fill", "steelblue");
   //.attr("background-color","steelblue");
 
-var clickEvent = d3.select("svg#svg_onClick")
+d3.select("svg#svg_onClick")
   .append("rect")
   .attr("width", "100%")
   .attr("height", "100%")
@@ -70,19 +72,26 @@ d3.json("json/world-50m.json", function(error, world) {
       d3.select(this)
         .attr("stroke", outlineDefault);
     })
-    .on("click", function render(d) {
-      d3.select("svg#svg_onClick").selectAll(".country")
-        .data(countries)
-        .enter()
+    .on("click", function (d) {
+
+      render(d);
+
+      document.getElementById("svg_onClick").innerHTML = "";
+
+      var clickEvent = d3.select("svg#svg_onClick").selectAll(".country")
+        .data(countries);
+
+      clickEvent.enter()
         .insert("path", ".granicule")
         .attr("id", function (d) {
-          return d.id;
+          return "cc" + d.id;
         })
         .attr("d", this.attributes.d.value)
-        .attr("visibility", "visible")
         .attr("stroke", outlineDefault)
-        .style("fill", fillDefault)
-        .transition();
+        .style("fill", fillDefault);
+
+        countryId = "path#cc" + d.id;
+
     })
     .append("svg:title")
     .text(function(d) {
@@ -91,6 +100,11 @@ d3.json("json/world-50m.json", function(error, world) {
       return testCountryNameJSON[d.id];
      });
 });
+
+function render () {
+  console.log(countryId);
+  document.getElementById("svg_onClick").innerHTML = "";
+}
 
 function displayCountry(id) {
   d3.select("h1#title").text(id);
