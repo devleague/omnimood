@@ -19,19 +19,18 @@ var moodScale = d3.scaleLinear()
   .domain([moodMin, moodMid, moodMax])
   .range(["red", "yellow", "green"]);
 
-    d3.select("svg#svg_map")
-      .append("rect")
-      .attr("width",width)
-      .attr("height",height)
-      .style("fill","steelblue");
+d3.select("svg#svg_map")
+  .append("rect")
+  .attr("width", width)
+  .attr("height", height)
+  .style("fill", "steelblue");
+  //.attr("background-color","steelblue");
 
-    d3.select("svg#svg_onClick")
-      .append("rect")
-      .attr("width", "100%")
-      .attr("height", "100%")
-      .style("fill", "steelblue");
-
-      //.attr("background-color","steelblue");
+var clickEvent = d3.select("svg#svg_onClick")
+  .append("rect")
+  .attr("width", "100%")
+  .attr("height", "100%")
+  .style("fill", "steelblue");
 
 d3.json("json/world-50m.json", function(error, world) {
   var countries = topojson.feature(world, world.objects.countries).features;
@@ -74,11 +73,16 @@ d3.json("json/world-50m.json", function(error, world) {
     .on("click", function render(d) {
       d3.select("svg#svg_onClick").selectAll(".country")
         .data(countries)
-        .enter().insert("path", ".graticule")
-        .attr("d", path)
+        .enter()
+        .insert("path", ".granicule")
+        .attr("id", function (d) {
+          return d.id;
+        })
+        .attr("d", this.attributes.d.value)
         .attr("visibility", "visible")
         .attr("stroke", outlineDefault)
-        .style("fill", fillDefault);
+        .style("fill", fillDefault)
+        .transition();
     })
     .append("svg:title")
     .text(function(d) {
@@ -86,7 +90,6 @@ d3.json("json/world-50m.json", function(error, world) {
       // return  "cc=" + (d.id + 0);
       return testCountryNameJSON[d.id];
      });
-
 });
 
 function displayCountry(id) {
