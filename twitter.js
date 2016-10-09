@@ -149,7 +149,7 @@ function livingDatabase(tweetUpdate){
       country.save();
     });
   }
-  console.log("Datbase Updated")
+  //console.log("Datbase Updated")
 }
 module.exports.getEmoji = getEmoji;
 module.exports.parseTweet = parseTweet;

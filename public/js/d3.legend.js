@@ -4,7 +4,8 @@ var length = d3.select('svg#svg_map')
 var svgLegend = d3.select('svg#legend')
   .attr('width', length * .3)
   .attr('height', 55)
-  .attr('border', 1);
+  // .attr('border', 1)
+  .style('fill', 'white');
 
 svgLegend.append('rect')
   .attr('width', svgLegend.attr('width'))
