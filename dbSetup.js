@@ -19,6 +19,9 @@ for(var face in emojiData){
   list[nameFace] = 0;
 }
 list.amount = 0;
+list.negativeEmojis = 0;
+list.neutralEmojis = 0;
+list.positiveEmojis = 0;
 var emojiArray = [];
 for(var face in emojiData){
   emojiArray.push(emojiData[face]);

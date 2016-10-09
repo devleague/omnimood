@@ -3,11 +3,12 @@ var secrets = require('./json/secret.json');
 var emojiList = require('./json/codeEmoji.json');
 const mongoose = require('mongoose');
 const Country = require('./models/countries');
+const emojiValues = require('./json/emoji.json');
 // var faker = require('./faker.js');
 twitter = new twit(secrets[0]);
 var tweetUpdate ={};
 var tweets = [];
-var tweetCount = 25;
+var tweetCount = 15;
 module.exports = {};
 
 twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (stream) {
@@ -58,6 +59,9 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
     }
   );
   var amount = 0;
+  var negativeEmojis = 0;
+  var neutralEmojis = 0;
+  var positiveEmojis = 0;
   // surrogate pairs: (output like this)
   // multiple emojis: [ '\\uD83D\\uDE04', '\\uD83D\\uDC96', '\\uD83D\\uDE3B' ]
   // only one emoji: [ '\\uD83D\\uDE02' ]
@@ -69,12 +73,22 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
   // printing surrogate pairs
   surrogate.forEach((surrogate) => {
     if(emojiList[surrogate]){
-      if(codeTweets[emojiList[surrogate].name]){
+      var emojiName = codeTweets[emojiList[surrogate].name]
+      if(emojiName){
         codeTweets[emojiList[surrogate].name] =  codeTweets[emojiList[surrogate].name] + 1;
       }
       else{
         amount += 1;
         codeTweets[emojiList[surrogate].name] = 1;
+      }
+      if(emojiList[surrogate].value === 1){
+        positiveEmojis++;
+      }
+      else if(emojiList[surrogate].value === 0){
+        neutralEmojis++;
+      }
+      else{
+        negativeEmojis++;
       }
     }
     var surrogatePair = surrogate.split('\\u').slice(1);
@@ -92,14 +106,20 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
         }
       }
       tweetUpdate[tweet.place.country].amount += amount;
+      tweetUpdate[tweet.place.country].negativeEmojis += negativeEmojis;
+      tweetUpdate[tweet.place.country].positiveEmojis += positiveEmojis;
+      tweetUpdate[tweet.place.country].neutralEmojis += neutralEmojis;
     }
     else{
       tweetUpdate[tweet.place.country] = codeTweets;
       tweetUpdate[tweet.place.country].amount = amount;
+      tweetUpdate[tweet.place.country].negativeEmojis = negativeEmojis;
+      tweetUpdate[tweet.place.country].positiveEmojis = positiveEmojis;
+      tweetUpdate[tweet.place.country].neutralEmojis = neutralEmojis;
     }
     tweetCount -= 1;
     if(tweetCount === 0){
-      tweetCount = 25;
+      tweetCount = 15;
       livingDatabase(tweetUpdate);
       tweetUpdate = {};
     }
@@ -107,34 +127,11 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
 }
 
 function calculateMood (countryEmojis) {
-  var total = 0;
-  var sum = 0;
-  for (var emoji in countryEmojis) {
-    // do not include prototype props
-    if(!countryEmojis.hasOwnProperty(emoji)) continue;
-
-    sum += emoji[value] * emoji[amount];
-
-    total += emoji[amount];
-  }
-
+  var total = countryEmojis.positiveEmojis + countryEmojis.negativeEmojis + countryEmojis.neutralEmojis;
+  var sum = countryEmojis.positiveEmojis - countryEmojis.negativeEmojis;
   var moodValue = sum / total;
-
   return moodValue;
 }
-
-function singleUpdate(countryName, data){
-  Country.findOne({name: countryName}).then(function(country){
-    var emojiData = country.emoji;
-    for(emojis in data){
-
-    }
-    country.emoji = emojiData;
-    country.markModified('emoji');
-    country.save();
-  });
-}
-
 
 function livingDatabase(tweetUpdate){
   for(var countries in tweetUpdate){
@@ -146,6 +143,7 @@ function livingDatabase(tweetUpdate){
         for(var emojis in countryData){
           emojiData[emojis] += countryData[emojis];
         }
+      country.mood = calculateMood(emojiData);
       country.emoji = emojiData;
       country.markModified('emoji');
       country.save();
