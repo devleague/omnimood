@@ -4,18 +4,28 @@ const mongoose = require('mongoose');
 const MONGO_URL = 'mongodb://localhost/omnimood';
 const connection = mongoose.connect(MONGO_URL);
 const Country = require('./models/countries');
+const Timeline = require('./models/timeline');
 const fs = require('fs');
-const bluebird = require('bluebird');
+const Promise = require('bluebird');
 var dataArray = {}
+const path = require('path');
 mongoose.connection.once('open', () => {
   Country.find({}).then((countryData)=>{
-    countryData.forEach((element, index, array)=>{
-      dataArray[element.countryId] = element.mood;
-    });
-    var date = new Date();
-    fs.writeFile('bitesZaDusto.json' + date, JSON.stringify(dataArray),()=>{
-      console.log("What a Beautiful Duwang");
-      mongoose.connection.close();
+    Timeline.findOne({}).then((timeData)=>{
+      var countryObject = timeData.countries;
+      var timeArray = timeData.times;
+      countryData.forEach((element, index, array)=>{
+        countryObject[element.countryId].push(element.mood);
+      });
+      timeArray.push(new Date());
+      timeData.countries = countryObject;
+      timeData.times = timeArray;
+      timeData.markModified('countries');
+      timeData.markModified('times');
+      Promise.all([timeData.save()]).then(()=>{
+        console.log("What a beautiful Duwang");
+        mongoose.connection.close();
+      });
     });
   });
 });
