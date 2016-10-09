@@ -15,15 +15,20 @@
     <link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
   <body ng-app="omniMood">
     <h1 id='title'>
+      <img src="images/36x36/1f602.png">
       Omni Mood
+      <img src="images/36x36/1f620.png">
     </h1>
     <div class="mainContainer">
       <div class="mapContainer">
-        <svg  id="svg_map" width="1560" height="960"></svg>
+        <svg  id="svg_map" style="width: 85vw; height: 100vh;" width="1560" height="600"></svg>
       </div>
       <div class="emojiList">
-        Emoji List
+        <h2>Emoji List</h2>
       </div>
+    </div>
+    <div class="legendContainer">
+      <svg id="legend" width ="400" height = "100"></svg>
     </div>
     <br>
     <div ng-controller="tweetController">
@@ -32,5 +37,6 @@
       </div>
     </div>
     <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/d3.legend.js"></script>
   </body>
 </html>
