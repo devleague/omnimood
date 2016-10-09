@@ -40,14 +40,19 @@ h2 {
   flex-grow: 1;
   background-color: #282d34;
   color: white;
+  padding: 3px;
 }
-
-// .legendContainer {
-//   width: 250px;
-//   height: 50px;
-// }
 
 .tweet {
   color: white;
   text-align: center;
+}
+
+.emojiImage {
+  padding: 5px;
+}
+
+.emojiImage:hover {
+    width: 70px;
+    height: 74px;
 }
