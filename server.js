@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const MONGO_URL = 'mongodb://localhost/omnimood';
 const connection = mongoose.connect(MONGO_URL);
 const Country = require('./models/countries');
+const Timeline = require('./models/timeline');
 const secrets = require('./json/secret.json');
 const mood = require('./public/js/mood.js');
 var tweets = require('./twitter.js');
@@ -27,8 +28,14 @@ app.get('/api/tweets', (req, res) => {
   res.json(tweets.tweets);
 });
 
+app.get('/api/timeline', (req, res) =>{
+  Timeline.find({}).then((data)=>{
+    res.json(data);
+  })
+});
+
 mongoose.connection.once('open', () => {
-  const server = app.listen(7000, function() {
+  const server = app.listen(3000, function() {
     var port = server.address().port;
     console.log('Listening on port ' + port);
   });
