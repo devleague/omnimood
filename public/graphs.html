@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Graphs Test</title>
+  <script src="Chart.js"></script>
+</head>
+<body>
+  <h1>Graphs Test</h1>
+  <canvas id="myChart" width="400" height="400"></canvas>
+  <script>
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+    }
+  };
+  xhttp.open("GET", "api/timeline", true);
+  xhttp.send();
+  </script>
+</body>
+</html>

@@ -7,6 +7,7 @@ const Country = require('./models/countries');
 const Timeline = require('./models/timeline');
 const secrets = require('./json/secret.json');
 const mood = require('./public/js/mood.js');
+const path = require('path');
 var tweets = require('./twitter.js');
 
 // Setup web server and socket
@@ -16,6 +17,10 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req,res) =>{
   res.json(index);
+});
+
+app.get('/graphs', (req, res)=>{
+  res.sendFile(path.join(__dirname+'/public/graphs.html'));
 });
 
 app.get('/countries/api', (req, res) => {
