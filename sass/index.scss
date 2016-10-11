@@ -37,10 +37,11 @@ h2 {
   box-sizing: border-box;
   border: 2px solid white;
   margin-right: 15px;
-  flex-grow: 1;
+  flex: 0 1 auto;
   background-color: #282d34;
   color: white;
   padding: 3px;
+  height: 100%;
 }
 
 .tweet {
@@ -49,10 +50,36 @@ h2 {
 }
 
 .emojiImage {
+  // position: relative;
   padding: 5px;
+  // display: inline-block;
 }
 
-.emojiImage:hover {
-    width: 70px;
-    height: 74px;
+// .emojiImage:hover {
+//   width: 70px;
+//   height: 74px;
+// }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 500px;
+  height: 250px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index:1;
+  top: -5px;
+  right: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }

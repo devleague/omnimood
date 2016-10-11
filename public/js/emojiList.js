@@ -7,8 +7,18 @@ var fileNames = ["1f600.png", "1f601.png", "1f602.png", "1f603.png", "1f604.png"
 var emojiListContainer = document.getElementById("emojiListContainer");
 
 for(var i = 0; i < 60; i++) {
+  var emojiContainer = document.createElement("div");
+  emojiContainer.className = "tooltip";
+
   var emoji = document.createElement("img");
   emoji.src = "/emojis/" + fileNames[i];
-  emoji.className = "emojiImage";
-  emojiListContainer.appendChild(emoji);
+  emoji.className = "emojiImage tooltip";
+
+  var toolTipText = document.createElement("span");
+  toolTipText.innerHTML = "100000";
+  toolTipText.className = "tooltiptext";
+
+  emojiContainer.appendChild(emoji);
+  emojiContainer.appendChild(toolTipText);
+  emojiListContainer.appendChild(emojiContainer);
 }
