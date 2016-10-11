@@ -34,7 +34,7 @@ app.get('/api/tweets', (req, res) => {
 });
 
 app.get('/api/timeline', (req, res) =>{
-  Timeline.find({}).then((data)=>{
+  Timeline.findOne({}).then((data)=>{
     res.json(data);
   })
 });

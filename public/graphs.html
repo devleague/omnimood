@@ -3,20 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <title>Graphs Test</title>
-  <script src="Chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.min.js"></script>
 </head>
 <body>
   <h1>Graphs Test</h1>
-  <canvas id="myChart" width="400" height="400"></canvas>
+  <canvas id="myChart" width="300" height="300"></canvas>
   <script>
   var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-
-    }
-  };
-  xhttp.open("GET", "api/timeline", true);
-  xhttp.send();
+  var testChart = document.getElementById("myChart").getContext("2d");
+  function countryGraph(countryNum){
+    // Request to get the data
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var data = JSON.parse(this.responseText);
+        // Limit of last first 10 entries
+        var countArray = [];
+        var testArray = [];
+        for(var i = 0; i < 10; i++){
+          countArray[i] = i;
+          testArray.push(data.countries[countryNum][i]);
+        }
+      var insertData = {
+      labels: countArray,
+      datasets: [
+          {
+              label: "Mood Data Chart",
+              fill: false,
+              lineTension: 0.1,
+              backgroundColor: "rgba(75,192,192,0.4)",
+              borderColor: "rgba(75,192,192,1)",
+              borderCapStyle: 'butt',
+              borderJoinStyle: 'miter',
+              pointBorderColor: "rgba(75,192,192,1)",
+              pointBackgroundColor: "#fff",
+              pointHoverBackgroundColor: "rgba(75,192,192,1)",
+              pointHoverBorderColor: "rgba(220,220,220,1)",
+              pointHoverBorderWidth: 2,
+              data: testArray,
+              spanGaps: false,
+          }
+      ]
+      };
+      var myLineChart = new Chart(testChart, {
+        type: 'line',
+        data: insertData,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
+        }
+      });
+      }
+    };
+    xhttp.open("GET", "api/timeline", true);
+    xhttp.send();
+  }
   </script>
 </body>
 </html>
