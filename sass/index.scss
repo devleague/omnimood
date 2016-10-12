@@ -55,10 +55,10 @@ h2 {
   // display: inline-block;
 }
 
-// .emojiImage:hover {
-//   width: 70px;
-//   height: 74px;
-// }
+.emojiImage:hover {
+  width: 70px;
+  height: 74px;
+}
 
 .tooltip {
   position: relative;
@@ -67,13 +67,11 @@ h2 {
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 500px;
-  height: 250px;
   background-color: black;
   color: white;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;
+  padding: 10px;
   position: absolute;
   z-index:1;
   top: -5px;
