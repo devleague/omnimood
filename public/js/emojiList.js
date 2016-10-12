@@ -452,11 +452,17 @@ for(var i = 0; i < 60; i++) {
 
   var emoji = document.createElement("img");
   emoji.src = "/emojis/" + fileNames[i];
-  emoji.className = "emojiImage tooltip";
+  if(i === 59) {
+    emoji.className = "animatedEmojiImage emojiImage tooltip";
+  }
+  else {
+    emoji.className = "emojiImage tooltip";
+  }
 
   var toolTipText = document.createElement("span");
   toolTipText.innerHTML = emojiJSONSorted[Object.keys(emojiJSONSorted)[i]].name;
   toolTipText.className = "tooltiptext";
+
 
   emojiContainer.appendChild(emoji);
   emojiContainer.appendChild(toolTipText);
