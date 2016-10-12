@@ -11,18 +11,20 @@
   <script>
   var xhttp = new XMLHttpRequest();
   var testChart = document.getElementById("myChart").getContext("2d");
-  function countryGraph(countryNum){
+  function countryGraph(countryNum, canvasDom){
     // Request to get the data
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var data = JSON.parse(this.responseText);
-        // Limit of last first 10 entries
+        // Limit  the first 10 entries
         var countArray = [];
         var testArray = [];
+        // Loop to insert into array
         for(var i = 0; i < 10; i++){
           countArray[i] = i;
           testArray.push(data.countries[countryNum][i]);
         }
+      // Data object that contains the X axis labels and the config for the chart.
       var insertData = {
       labels: countArray,
       datasets: [
@@ -44,7 +46,8 @@
           }
       ]
       };
-      var myLineChart = new Chart(testChart, {
+      // chart object
+      var myLineChart = new Chart(canvasDom, {
         type: 'line',
         data: insertData,
         options: {
@@ -57,6 +60,7 @@
     xhttp.open("GET", "api/timeline", true);
     xhttp.send();
   }
+  countryGraph(320, testChart);
   </script>
 </body>
 </html>
