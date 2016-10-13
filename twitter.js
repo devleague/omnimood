@@ -33,11 +33,12 @@ function listenForTweets(socket) {
         }
       }
     });
+
+    twitterStream.on('error', function (error) {
+      throw error;
+    });
   });
 
-  twitterStream.on('error', function (error) {
-    throw error;
-  });
 }
 
 function getEmoji(tweet) {
