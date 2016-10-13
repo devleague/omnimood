@@ -36,7 +36,7 @@ app.get('/api/tweets', (req, res) => {
 app.get('/api/timeline', (req, res) =>{
   Timeline.findOne({}).then((data)=>{
     res.json(data);
-  })
+  });
 });
 
 mongoose.connection.once('open', () => {
@@ -48,23 +48,6 @@ mongoose.connection.once('open', () => {
 
   io.sockets.on('connection', (socket) => {
     console.log('Client connected!');
-    socket.on('start tweets', () => {
-      tweets.stream.on(('data'), function (tweet) {
-        if(tweet.coordinates) { // if the tweet has coordinates
-          if(tweet.coordinates !== null) { // if the coordinates are not null
-            var coordinates = {lat: tweet.coordinates.coordinates[1], long: tweet.coordinates.coordinates[0]};
-            var date = new Date(parseInt(tweet.timestamp_ms)).toLocaleString();
-            var codeTweets = {};
-            var emojis = tweets.getEmoji(tweet);
-            if(emojis) { // if there's an emoji found
-              if(tweet.place.country){
-                socket.emit('tweet', emojis);
-                // tweets.parseTweet(tweets, emojis, coordinates, date, tweet, codeTweets, emojiList, {}, 15);
-              }
-            }
-          }
-        }
-      });
-    });
+    tweets.listenForTweets(socket);
   });
 });
