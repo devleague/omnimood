@@ -25,6 +25,11 @@
       </div>
       <div id="emojiListContainer">
         <h2>Emoji List</h2>
+        <div ng-controller="emojiController">
+          <div ng-repeat="emoji in Emojis">
+            <img class="emoji" ng-src="emojis/{{emoji.code}}.png" />
+          </div>
+        </div>
       </div>
     </div>
     <br>
@@ -33,8 +38,9 @@
         {{ tweet }}
       </div>
     </div>
+
     <script type="text/javascript" src="js/map.js"></script>
     <script type="text/javascript" src="js/d3.newLegend.js"></script>
-    <script type="text/javascript" src="js/emojiList.js"></script>
+<!--     <script type="text/javascript" src="js/emojiList.js"></script> -->
   </body>
 </html>
