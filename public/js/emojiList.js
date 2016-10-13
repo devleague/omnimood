@@ -452,7 +452,7 @@ for(var i = 0; i < 60; i++) {
 
   var emoji = document.createElement("img");
   emoji.src = "/emojis/" + fileNames[i];
-  if(i === 59) {
+  if(i >= 55) {
     emoji.className = "animatedEmojiImage emojiImage tooltip";
   }
   else {
