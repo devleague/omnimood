@@ -15,6 +15,10 @@ mongoose.connection.once('open', () => {
       var countryObject = timeData.countries;
       var timeArray = timeData.times;
       countryData.forEach((element, index, array)=>{
+        if(countryObject[element.countryId].length > 9){
+          countryObject[element.countryId].shift();
+        }
+
         countryObject[element.countryId].push(element.mood);
       });
       timeArray.push(new Date());
