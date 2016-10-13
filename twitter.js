@@ -4,36 +4,41 @@ var emojiList = require('./json/codeEmoji.json');
 const mongoose = require('mongoose');
 const Country = require('./models/countries');
 const emojiValues = require('./json/emoji.json');
-// var faker = require('./faker.js');
 twitter = new twit(secrets[0]);
 var tweetUpdate ={};
 var tweets = [];
 var tweetCount = 15;
 module.exports = {};
+var twitterStream;
 
 twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (stream) {
-  module.exports.stream = stream;
-  stream.on('data', function (tweet) {
-    if(tweet.coordinates) { // if the tweet has coordinates
-      if(tweet.coordinates !== null) { // if the coordinates are not null
-        var coordinates = {lat: tweet.coordinates.coordinates[1], long: tweet.coordinates.coordinates[0]};
-        var date = new Date(parseInt(tweet.timestamp_ms)).toLocaleString();
-        var codeTweets = {};
-        var emojis = getEmoji(tweet);
-        if(emojis) { // if there's an emoji found
-          if(tweet.place && tweet.place.country){
-            parseTweet(tweets, emojis, coordinates, date, tweet, codeTweets, emojiList, tweetUpdate);
+  twitterStream = stream;
+});
+
+function listenForTweets(socket) {
+  socket.on('start tweets', () => {
+    twitterStream.on(('data'), function (tweet) {
+      if(tweet.coordinates) { // if the tweet has coordinates
+        if(tweet.coordinates !== null) { // if the coordinates are not null
+          var coordinates = {lat: tweet.coordinates.coordinates[1], long: tweet.coordinates.coordinates[0]};
+          var date = new Date(parseInt(tweet.timestamp_ms)).toLocaleString();
+          var codeTweets = {};
+          var emojis = getEmoji(tweet);
+          if(emojis) { // if there's an emoji found
+            if(tweet.place && tweet.place.country){
+              socket.emit('tweet', emojis);
+              parseTweet(tweets, emojis, coordinates, date, tweet, codeTweets, emojiList, tweetUpdate);
+            }
           }
         }
       }
-    }
+    });
   });
 
-  stream.on('error', function (error) {
+  twitterStream.on('error', function (error) {
     throw error;
-    // setTimeout(faker, 1000);
   });
-});
+}
 
 function getEmoji(tweet) {
   var ranges = [
@@ -149,8 +154,7 @@ function livingDatabase(tweetUpdate){
       country.save();
     });
   }
-  console.log("Datbase Updated")
+  console.log("Datbase Updated");
 }
-module.exports.getEmoji = getEmoji;
-module.exports.parseTweet = parseTweet;
-module.exports.tweets = tweets;
+
+module.exports.listenForTweets = listenForTweets;
