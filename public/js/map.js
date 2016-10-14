@@ -28,11 +28,7 @@ d3.select("svg#svg_map")
   .style("fill", "steelblue");
   //.attr("background-color","steelblue");
 
-d3.select("svg#svg_onClick")
-  .append("rect")
-  .attr("width", "100%")
-  .attr("height", "100%")
-  .style("fill", "steelblue");
+var svgCountryInfo = d3.select("svg#svg_onClick");
 
 d3.json("json/world-50m.json", function(error, world) {
   var countries = topojson.feature(world, world.objects.countries).features;
@@ -74,37 +70,34 @@ d3.json("json/world-50m.json", function(error, world) {
     })
     .on("click", function (d) {
 
-      render(d);
+      countryId = "path#cc" + d.id;
 
       document.getElementById("svg_onClick").innerHTML = "";
 
-      var clickEvent = d3.select("svg#svg_onClick").selectAll(".country")
-        .data(countries);
-
-      clickEvent.enter()
-        .insert("path", ".granicule")
-        .attr("id", function (d) {
-          return "cc" + d.id;
-        })
+      svgCountryInfo
+        .append("g")
+        .insert("path", countryId)
         .attr("d", this.attributes.d.value)
-        .attr("stroke", outlineDefault)
-        .style("fill", fillDefault);
+        .attr("stroke", "red")
+        .style("fill", "steelblue");
 
-        countryId = "path#cc" + d.id;
+      var g = svgCountryInfo.selectAll("g");
+      var width = 1600;
+      var height = 800;
+      var centroid = path.centroid(d);
+      var x = width / 2 - centroid[0];
+      var y = height / 2 - centroid[1];
+
+      g
+        .attr("transform", "translate( " + x + "," + y + ")");
 
     })
     .append("svg:title")
     .text(function(d) {
-
       // return  "cc=" + (d.id + 0);
       return testCountryNameJSON[d.id];
      });
 });
-
-function render () {
-  console.log(countryId);
-  document.getElementById("svg_onClick").innerHTML = "";
-}
 
 function displayCountry(id) {
   d3.select("h1#title").text(id);

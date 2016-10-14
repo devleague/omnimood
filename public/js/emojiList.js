@@ -1,23 +1,9 @@
-{
+var emojiJSON = {
   "Face with tears of Joy":
   {
     "name": "Face with tears of Joy",
     "code": "1F602",
     "surrogate_pair": "\\uD83D\\uDE02",
-    "value": 1
-  },
-  "Heavy Black Heart":
-  {
-    "name": "Heavy Black Heart",
-    "code": "2764",
-    "surrogate_pair": "\\u2764",
-    "value": 1
-  },
-  "Black Heart Suits":
-  {
-    "name": "Black Heart Suits",
-    "code": "2665",
-    "surrogate_pair": "\\u2665",
     "value": 1
   },
   "Smiling face with heart-shaped eyes":
@@ -41,13 +27,6 @@
     "surrogate_pair": "\\uD83D\\uDE18",
     "value": 1
   },
-  "two hearts":
-  {
-    "name": "two hearts",
-    "code": "1F495",
-    "surrogate_pair": "\\uD83D\\uDC95",
-    "value": 1
-  },
   "white smiling face":
   {
     "name": "white smiling face",
@@ -69,13 +48,6 @@
     "surrogate_pair": "\\uD83D\\uDE09",
     "value": 1
   },
-  "thumbs up sign":
-  {
-    "name": "thumbs up sign",
-    "code": "1F44D",
-    "surrogate_pair": "\\uD83D\\uDC4D",
-    "value": 0
-  },
   "relieved face":
   {
     "name": "relieved face",
@@ -90,25 +62,11 @@
     "surrogate_pair": "\\uD83D\\uDE0E",
     "value": 1
   },
-  "victory hand":
-  {
-    "name": "victory hand",
-    "code": "270C",
-    "surrogate_pair": "\\u270c",
-    "value": 1
-  },
   "smiling face with open mouth and smiling eyes":
   {
     "name": "smiling face with open mouth and smiling eyes",
     "code": "1F604",
     "surrogate_pair": "\\uD83D\\uDE04",
-    "value": 1
-  },
-  "sparkling hearts":
-  {
-    "name": "sparkling hearts",
-    "code": "1F496",
-    "surrogate_pair": "\\uD83D\\uDC96",
     "value": 1
   },
   "face with stuck out tongue and winking eye":
@@ -173,13 +131,6 @@
     "code": "1F619",
     "surrogate_pair": "\\uD83D\\uDE19",
     "value": 1
-  },
-  "ok hand sign":
-  {
-    "name": "ok hand sign",
-    "code": "1F44C",
-    "surrogate_pair": "\\uD83D\\uDC4C",
-    "value": 0
   },
   "pensive face":
   {
@@ -321,13 +272,6 @@
     "surrogate_pair": "\\uD83D\\uDE22",
     "value": -1
   },
-  "broken heart":
-  {
-    "name": "broken heart",
-    "code": "1F494",
-    "surrogate_pair": "\\uD83D\\uDC94",
-    "value": -1
-  },
   "disappointed face":
   {
     "name": "disappointed face",
@@ -419,4 +363,103 @@
     "surrogate_pair": "\\uD83D\\uDE1F",
     "value": -1
   }
+};
+
+var extraEmojis = [
+  {
+    "name": "victory hand",
+    "code": "270C",
+    "surrogate_pair": "\\u270c",
+    "value": 1
+  },
+  {
+    "name": "ok hand sign",
+    "code": "1F44C",
+    "surrogate_pair": "\\uD83D\\uDC4C",
+    "value": 0
+  },
+  {
+    "name": "thumbs up sign",
+    "code": "1F44D",
+    "surrogate_pair": "\\uD83D\\uDC4D",
+    "value": 0
+  },
+  {
+    "name": "broken heart",
+    "code": "1F494",
+    "surrogate_pair": "\\uD83D\\uDC94",
+    "value": -1
+  },
+  {
+    "name": "two hearts",
+    "code": "1F495",
+    "surrogate_pair": "\\uD83D\\uDC95",
+    "value": 1
+  },
+  {
+    "name": "sparkling hearts",
+    "code": "1F496",
+    "surrogate_pair": "\\uD83D\\uDC96",
+    "value": 1
+  },
+  {
+    "name": "Black Heart Suits",
+    "code": "2665",
+    "surrogate_pair": "\\u2665",
+    "value": 1
+  },
+  {
+    "name": "Heavy Black Heart",
+    "code": "2764",
+    "surrogate_pair": "\\u2764",
+    "value": 1
+  }
+];
+
+/**
+ * Appends a list of emoji PNG images to the Emoji List
+ */
+
+var fileNames = ["1f600.png", "1f601.png", "1f602.png", "1f603.png", "1f604.png", "1f605.png", "1f606.png", "1f607.png", "1f609.png", "1f60a.png", "1f60b.png", "1f60c.png", "1f60d.png", "1f60e.png", "1f60f.png", "1f610.png", "1f611.png", "1f612.png", "1f613.png", "1f614.png", "1f615.png", "1f616.png", "1f618.png", "1f619.png", "1f61a.png", "1f61b.png", "1f61c.png", "1f61d.png", "1f61e.png", "1f61f.png", "1f620.png", "1f621.png", "1f622.png", "1f623.png", "1f624.png", "1f625.png", "1f627.png", "1f628.png", "1f629.png", "1f62a.png", "1f62b.png", "1f62c.png", "1f62d.png", "1f62e.png", "1f62f.png", "1f630.png", "1f631.png", "1f635.png", "1f637.png", "1f639.png", "1f63b.png", "263a.png", "270c.png", "1f44c.png", "1f44d.png", "1f494.png", "1f495.png", "1f496.png", "2665.png", "2764.png"];
+
+var emojiListContainer = document.getElementById("emojiListContainer");
+
+var emojiJSONArray = [];
+
+for(var j = 0; j < 52; j++) {
+  emojiJSONArray[j] = emojiJSON[Object.keys(emojiJSON)[j]];
 }
+
+for(j = 0; j < 52; j++) {
+  emojiJSONArray[j].code = emojiJSONArray[j].code.toLowerCase();
+}
+
+var emojiJSONSorted = emojiJSONArray.sort(function (a, b) {
+  if(a.code < b.code) {
+    return -1;
+  }
+  else
+    return 1;
+});
+
+for(j = 0; j < 8; j++) {
+  emojiJSONSorted.push(extraEmojis[j]);
+}
+
+for(var i = 0; i < 60; i++) {
+  var emojiContainer = document.createElement("div");
+  emojiContainer.className = "tooltip";
+
+  var emoji = document.createElement("img");
+  emoji.src = "/emojis/" + fileNames[i];
+  emoji.className = "emojiImage tooltip";
+
+  var toolTipText = document.createElement("span");
+  toolTipText.innerHTML = emojiJSONSorted[Object.keys(emojiJSONSorted)[i]].name;
+  toolTipText.className = "tooltiptext";
+
+  emojiContainer.appendChild(emoji);
+  emojiContainer.appendChild(toolTipText);
+  emojiListContainer.appendChild(emojiContainer);
+}
+

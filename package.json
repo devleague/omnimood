@@ -19,8 +19,10 @@
   "homepage": "https://github.com/devleague/omnimood#readme",
   "dependencies": {
     "bluebird": "^3.4.6",
+    "chart.js": "^2.3.0",
     "express": "^4.14.0",
     "faker": "^3.1.0",
+    "fs": "0.0.1-security",
     "mongoose": "^4.6.1",
     "sass": "^0.5.0",
     "socket.io": "^1.4.8",
