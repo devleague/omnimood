@@ -149,7 +149,6 @@ angular.module('omniMood')
         d3.timer(function () {
           if(!timer_ret_val) {
             var dt = Date.now() - time;
-            console.log(timer_ret_val);
             projection.rotate([rotate[0] + velocity[0] * parseFloat(dt) - 100, rotate[1] + velocity[1] * parseFloat(dt)]);
             svg.selectAll('path').attr('d', path);
           }
