@@ -13,21 +13,25 @@ data.forEach((element)=>{
   countryName[element.codeNum] = [];
   sendData.push({name: element.name, code: element.code, codeNum: parseInt(element.codeNum)});
 });
-var list = {}
+var list = {};
+var emojiNames = {};
 for(var face in emojiData){
 
   var inFace = emojiData[face];
   var nameFace = inFace.name;
   list[nameFace] = 0;
+  emojiNames[nameFace] = '';
 }
 list.amount = 0;
 list.negativeEmojis = 0;
 list.neutralEmojis = 0;
 list.positiveEmojis = 0;
 
+
 var timeSave = new Timeline({
   countries: countryName,
-  times: []
+  times: [],
+  topEmojis: emojiNames
 })
 
 mongoose.connection.once('open', function() {
