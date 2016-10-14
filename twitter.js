@@ -33,11 +33,12 @@ function listenForTweets(socket) {
         }
       }
     });
+
+    twitterStream.on('error', function (error) {
+      throw error;
+    });
   });
 
-  twitterStream.on('error', function (error) {
-    throw error;
-  });
 }
 
 function getEmoji(tweet) {
@@ -154,7 +155,7 @@ function livingDatabase(tweetUpdate){
       country.save();
     });
   }
-  console.log("Datbase Updated");
+  console.log("Database Updated");
 }
 
 module.exports.listenForTweets = listenForTweets;

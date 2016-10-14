@@ -48,7 +48,7 @@ mongoose.connection.once('open', () => {
   });
   const io = require('socket.io').listen(server);
 
-  io.sockets.on('connection', (socket) => {
+  io.on('connection', (socket) => {
     console.log('Client connected!');
     socket.on('start tweets', () => {
       tweets.stream.on(('data'), function(tweet) {
@@ -96,6 +96,10 @@ mongoose.connection.once('open', () => {
       });
     });
     tweets.listenForTweets(socket);
+
+    socket.on('disconnect', function () {
+      console.log('Client disconnected.');
+    });
   });
 });
 

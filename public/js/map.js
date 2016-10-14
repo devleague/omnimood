@@ -69,122 +69,71 @@
           } else {
              return 1.0;
           }
-       })
-       .style("fill", function(d) {
-          if (d.id == 10) {
-             return "steelblue";
-          } else {
-             return fillDefault;
-          }
-       }) //fillDefault
-       .style("fill-opacity", function(d) {
-          if (d.id == 10) {
-             return 0.0;
-          } else {
-             return 1.0;
-          }
-       })
-       .on("mouseover", function(d) {
-          d3.select(this)
-             .attr("stroke",
-                function(d) {
-                   if (d.id == 10) {
-                      return "steelblue";
-                   } else {
-                      return outlineHighlight;
-                   }
-                });
-       })
-       .on("mouseout", function() {
-          d3.select(this)
-             .attr("stroke", function(d) {
-                   if (d.id == 10) {
-                      return fillDefault; //"steelblue";
-                   } else {
-                      return outlineDefault;
-                   }
-                })
-       })
-       .append("svg:title")
-       .text(function(d) {
-          // return  "cc=" + (d.id + 0);
-          return testCountryNameJSON[d.id]
-       });
- });
 
 
- function displayCountry(id) {
-    d3.select("h1#title").text(id);
- }
-
- function setCountryMood(id, mood) {
-    svg.select("path#cc" + id)
-       .data([1, 1, 2])
-       .style("fill", "white")
-       //.attr("stroke", "red")
-       //.attr("stroke-width",5)
-       .transition()
-       .duration(2000)
-       //.attr("stroke", outlineDefault)
-       //.attr("stroke-width", 1)
-       .style("fill", mood);
- }
-
-
- var countryArrayIndex = 0;
- var countries = {};
- var previousCountries = {};
- var moodChanged = true;
-
- function testSetCountryMood() {
-
-    d3.json('http://localhost:3000/countries/api', function(error, moodData) {
-
-       countryArrayIndex = (countryArrayIndex >= moodData.length) ? 0 : countryArrayIndex;
-
-       if (moodData[countryArrayIndex].countryId == '10') {
-          countryArrayIndex++;
-       }
-
-
-       var thisMoodValue = moodData[countryArrayIndex];
-    //  console.log("countryArrayIndex=" + countryArrayIndex + "," + "path#cc" + thisMoodValue.countryId);
-       moodChanged = true;
-
-       if (countries[thisMoodValue.countryId]) {
-          if (countries[thisMoodValue.countryId] == thisMoodValue.mood) {
-             moodChanged = false;
-          }
-       } else {
-          countries[thisMoodValue.countryId] = thisMoodValue.mood;
-       }
-
-       if (moodChanged) {
-
-          svg.select("path#cc" + thisMoodValue.countryId)
-             .data([1, 1, 2])
-             .style("fill", "white")
-             .attr("stroke", "black")
-             .attr("stroke-width", 1)
-             .transition()
-             .duration(2000)
-             .attr("stroke", outlineDefault)
-             .attr("stroke-width", 1)
-             .style("fill", moodScale(thisMoodValue.mood * 10))
-       }
-
-       countryArrayIndex++;
+    }) //fillDefault
+    .on("mouseover", function(d) {
+      d3.select(this)
+        .attr("stroke", outlineHighlight);
     })
- }
 
+    .on("mouseout", function() {
+      d3.select(this)
+        .attr("stroke", outlineDefault);
+    })
+    .on("click", function (d) {
 
- setInterval(function() {
-    // var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
-    // setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
-    testSetCountryMood();
+      countryId = "path#cc" + d.id;
 
- }, 10);
+      document.getElementById("svg_onClick").innerHTML = "";
 
+      svgCountryInfo
+        .append("g")
+        .insert("path", countryId)
+        .attr("d", this.attributes.d.value)
+        .attr("stroke", "red")
+        .style("fill", "steelblue");
+
+      var g = svgCountryInfo.selectAll("g");
+      var width = 1600;
+      var height = 800;
+      var centroid = path.centroid(d);
+      var x = width / 2 - centroid[0];
+      var y = height / 2 - centroid[1];
+
+      g
+        .attr("transform", "translate( " + x + "," + y + ")");
+
+    })
+    .append("svg:title")
+    .text(function(d) {
+      // return  "cc=" + (d.id + 0);
+      return testCountryNameJSON[d.id];
+     });
+});
+
+function displayCountry(id) {
+  d3.select("h1#title").text(id);
+}
+
+function setCountryMood(id, mood) {
+  svg.select("path#cc" + id)
+    .data([1, 1, 2])
+    .style("fill", "white")
+    //.attr("stroke", "red")
+    //.attr("stroke-width",5)
+    .transition()
+    .duration(2000)
+    //.attr("stroke", outlineDefault)
+    //.attr("stroke-width", 1)
+    .style("fill", mood)
+    ;
+}
+
+setInterval(function() {
+    var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
+    setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
+}, 500);
 
  var testCountryJSON = [{
     "id": "4",
@@ -1185,7 +1134,8 @@
     "882": "Samoa",
     "887": "Yemen",
     "894": "Zambia"
- }
+ 
+ };
 
  var test2DigitToCountryNumber = {
 
