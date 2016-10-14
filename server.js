@@ -8,6 +8,7 @@ const Timeline = require('./models/timeline');
 const secrets = require('./json/secret.json');
 const mood = require('./public/js/mood.js');
 const codeEmojiObject = require('./json/codeEmoji.json');
+const path = require('path');
 var tweets = require('./twitter.js');
 
 // Setup web server and socket
@@ -17,6 +18,10 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
   res.json(index);
+});
+
+app.get('/graphs', (req, res)=>{
+  res.sendFile(path.join(__dirname+'/public/graphs.html'));
 });
 
 app.get('/countries/api', (req, res) => {
@@ -31,9 +36,9 @@ app.get('/api/tweets', (req, res) => {
 
 var test = 0;
 app.get('/api/timeline', (req, res) =>{
-  Timeline.find({}).then((data)=>{
+  Timeline.findOne({}).then((data)=>{
     res.json(data);
-  })
+  });
 });
 
 mongoose.connection.once('open', () => {
@@ -90,6 +95,7 @@ mongoose.connection.once('open', () => {
         }
       });
     });
+    tweets.listenForTweets(socket);
   });
 });
 

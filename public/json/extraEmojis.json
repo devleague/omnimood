@@ -1,0 +1,58 @@
+{
+  "victory hand":
+  {
+    "name": "victory hand",
+    "code": "270C",
+    "surrogate_pair": "\\u270c",
+    "value": 1
+  },
+  "ok hand sign":
+  {
+    "name": "ok hand sign",
+    "code": "1F44C",
+    "surrogate_pair": "\\uD83D\\uDC4C",
+    "value": 0
+  },
+  "thumbs up sign":
+  {
+    "name": "thumbs up sign",
+    "code": "1F44D",
+    "surrogate_pair": "\\uD83D\\uDC4D",
+    "value": 0
+  },
+  "broken heart":
+  {
+    "name": "broken heart",
+    "code": "1F494",
+    "surrogate_pair": "\\uD83D\\uDC94",
+    "value": -1
+  },
+  "two hearts":
+  {
+    "name": "two hearts",
+    "code": "1F495",
+    "surrogate_pair": "\\uD83D\\uDC95",
+    "value": 1
+  },
+  "sparkling hearts":
+  {
+    "name": "sparkling hearts",
+    "code": "1F496",
+    "surrogate_pair": "\\uD83D\\uDC96",
+    "value": 1
+  },
+  "Black Heart Suits":
+  {
+    "name": "Black Heart Suits",
+    "code": "2665",
+    "surrogate_pair": "\\u2665",
+    "value": 1
+  },
+  "Heavy Black Heart":
+  {
+    "name": "Heavy Black Heart",
+    "code": "2764",
+    "surrogate_pair": "\\u2764",
+    "value": 1
+  }
+}
