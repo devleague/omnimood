@@ -2,7 +2,7 @@
   width = (document.body.clientWidth*.85),
   height = (document.body.clientHeight);
 
- var outlineDefault = "#eeeeee";
+ var outlineDefault = "#cccccc"; //"#eeeeee";
  var outlineHighlight = "#1221ee";
  var fillDefault = "#000000";
 
@@ -24,7 +24,21 @@
       .attr("width",width)
       .attr("height",height)
       .style("fill","steelblue");
-      //.attr("background-color","steelblue");
+
+   d3.json("http://localhost:3000/api/timeline",function(error,timelineData){
+      console.log(timelineData);
+   });
+
+   d3.json('http://localhost:3000/countries/api',function(error,moodData){
+      console.log(moodData);
+            moodData.forEach(function(thisMood){
+         console.log(thisMood.name,thisMood.mood,thisMood.countryId);
+      }
+      )
+   })
+
+
+
 
  d3.json("json/world-50m.json", function(error, world) {
 
@@ -89,10 +103,75 @@
      ;
  }
 
+
+var countryArrayIndex=0;
+var countries={};
+var previousCountries={};
+
+function testSetCountryMood(){
+
+   
+      d3.json('http://localhost:3000/countries/api',function(error,moodData){
+
+/*
+      moodData.forEach(function(thisMood){
+         if(countries[thisMood.countryId]){
+            if(countries[thisMood.countryId].mood!=thisMoodValue.mood){
+               countries[thisMood.countryId].mood=thisMoodValue.mood;
+               countries[thisMood.countryId].update!=true;
+            }
+            else
+            {
+               countries[thisMood.countryId].update!=false;
+            }
+         }
+         else
+         {
+            countries[thisMood.countryId]={"mood":thisMoodValue.mood,"update":true};
+         }
+      })
+*/
+
+      console.log("countryArrayIndex=" + countryArrayIndex);
+
+     
+
+      if(countryArrayIndex>moodData.length){
+         console.log("countryArrayIndex>moodData.length");
+      }
+      else
+      {
+         console.log("countryArrayIndex<moodData.length");
+      }
+
+      countryArrayIndex=(countryArrayIndex>=moodData.length)?0:countryArrayIndex;
+      var thisMoodValue=moodData[countryArrayIndex];
+         console.log(thisMoodValue.name,thisMoodValue.mood,thisMoodValue.countryId);
+         console.log("path#cc" + thisMoodValue.countryId);
+
+   
+      svg.select("path#cc" + thisMoodValue.countryId)
+     .data([1, 1, 2])
+     .style("fill", "white")
+     .transition()
+     .duration(2000)
+     .style("fill", moodScale(thisMoodValue.mood *10))
+      
+     
+     countryArrayIndex++;
+
+     console.log("countryArrayIndex=" +countryArrayIndex);
+   
+   })
+}
+
+
   setInterval(function() {
     var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
-    setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
-  }, 500);
+   // setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
+     testSetCountryMood();
+
+  }, 100);
 
 
  var testCountryJSON = [{
