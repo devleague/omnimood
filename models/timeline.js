@@ -8,6 +8,9 @@ const timeline = mongoose.model(
     },
     times:{
       type:[String]
+    },
+    topEmojis:{
+      type: Object
     }
   }
 );

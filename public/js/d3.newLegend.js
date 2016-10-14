@@ -1,16 +1,16 @@
-var widthNewLegend = 170,
-    heightNewLegend = 170;
+var widthLegend = 170,
+    heightLegend = 170;
 
-var svgNew = d3.select('body')
+var svgLegend = d3.select('body')
   .append('svg')
-  .attr('width', widthNewLegend)
-  .attr('height', heightNewLegend)
+  .attr('width', widthLegend)
+  .attr('height', heightLegend)
   .attr('id', 'legend')
   .style('fill', 'white');
 
-svgNew.append('rect')
-  .attr('width', widthNewLegend)
-  .attr('height', heightNewLegend)
+svgLegend.append('rect')
+  .attr('width', widthLegend)
+  .attr('height', heightLegend)
   .attr('stroke', 'black')
   .attr('stroke-width', 1)
   .attr('fill', 'none');
@@ -19,29 +19,29 @@ var moodInfo = [
   {
     color: 'green',
     mood:'Happy',
-    y_position: heightNewLegend * .15,
+    y_position: heightLegend * .15,
     image: '/emojis/1f601.png'
   },
   {
     color: 'yellow',
     mood: 'So so',
-    y_position: heightNewLegend * .5,
+    y_position: heightLegend * .5,
     image: '/emojis/1f610.png'
   },
   {
     color: 'red',
     mood: 'Mad',
-    y_position: heightNewLegend * .81,
+    y_position: heightLegend * .81,
     image: '/emojis/1f621.png'
   },
 
 ];
 
-var colors = svgNew.selectAll('circle')
+var colors = svgLegend.selectAll('circle')
   .data(moodInfo)
     .enter().append('circle')
     .attr('r', 5)
-    .attr('cx', widthNewLegend * .1)
+    .attr('cx', widthLegend * .1)
     .attr('cy', function (d) {
       return d.y_position;
     })
@@ -49,10 +49,10 @@ var colors = svgNew.selectAll('circle')
       return d.color;
     });
 
-var moods = svgNew.selectAll('text')
+var moods = svgLegend.selectAll('text')
   .data(moodInfo)
     .enter().append('text')
-    .attr('x', widthNewLegend * .3)
+    .attr('x', widthLegend * .3)
     .attr('y', function (d) {
       return d.y_position + 5;
     })
@@ -60,12 +60,12 @@ var moods = svgNew.selectAll('text')
       return d.mood;
     });
 
-var images = svgNew.selectAll('image')
+var images = svgLegend.selectAll('image')
   .data(moodInfo)
     .enter().append('image')
     .attr('width', 30)
     .attr('height', 30)
-    .attr('x', widthNewLegend * .7)
+    .attr('x', widthLegend * .7)
     .attr('y', function (d) {
       return d.y_position - 14;
     })
