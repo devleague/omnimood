@@ -165,12 +165,11 @@ angular.module('omniMood')
       var width = 170,
           height = 170;
 
-      var svgLegend = d3.select('.mapContainer')
+      var svgLegend = d3.select(element[0])
         .append('svg')
         .attr('width', width)
         .attr('height', height)
-        .attr('id', 'legend')
-        .style('fill', 'white');
+        .attr('id', 'legend');
 
       svgLegend.append('rect')
         .attr('width', width)
@@ -221,7 +220,8 @@ angular.module('omniMood')
           })
           .text(function (d) {
             return d.mood;
-          });
+          })
+          .attr('fill', 'white');
 
       svgLegend.selectAll('image')
         .data(moodInfo)
