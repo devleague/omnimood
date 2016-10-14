@@ -3,7 +3,7 @@ const country = mongoose.model(
   "Country",
   {
     countryId:{
-      type: Number,
+      type: String,
       required: true
     },
     name: {
@@ -17,7 +17,7 @@ const country = mongoose.model(
       type: String
     },
     mood:{
-      type: String
+      type: Number
     },
     emoji: {
       type: Object

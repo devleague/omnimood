@@ -1,43 +1,52 @@
 const mongoose = require('mongoose');
 const MONGO_URL = 'mongodb://localhost/omnimood';
 const connection = mongoose.connect(MONGO_URL);
-const data = require('./json/countryList.json');
+const data = require('./json/newCountryList.json');
 const Country = require('./models/countries');
-const Emoji = require('./models/emoji');
+const Timeline = require('./models/timeline');
 const emojiData = require('./json/emoji.json');
 const bluebird = require('bluebird');
-
-var list = {}
+const emojiCode = require('./json/codeEmoji.json');
+var sendData = [];
+var countryName = {}
+data.forEach((element)=>{
+  countryName[element.codeNum] = [];
+  sendData.push({name: element.name, code: element.code, codeNum: parseInt(element.codeNum)});
+});
+var list = {};
+var emojiNames = {};
 for(var face in emojiData){
+
   var inFace = emojiData[face];
   var nameFace = inFace.name;
-  list[nameFace] = inFace.value;
+  list[nameFace] = 0;
+  emojiNames[nameFace] = '';
 }
+list.amount = 0;
+list.negativeEmojis = 0;
+list.neutralEmojis = 0;
+list.positiveEmojis = 0;
 
-var emojiArray = [];
-for(var face in emojiData){
-  emojiArray.push(emojiData[face]);
-}
+
+var timeSave = new Timeline({
+  countries: countryName,
+  times: [],
+  topEmojis: emojiNames
+})
 
 mongoose.connection.once('open', function() {
   Promise.all([
-    Country.insertMany(data.map((element, index, array) =>{
+    Country.insertMany(sendData.map((element, index, array) =>{
       return {
-        countryId: index,
+        countryId: element.codeNum,
         name: element.name,
         code: element.code,
         GPS: '0,0',
-        mood: 'Happy',
+        mood: 0,
         emoji: list
       }
     })),
-    Emoji.insertMany(emojiArray.map((element,index, array) =>{
-      return {
-        name: inFace.name,
-        code: inFace.code,
-        value: inFace.value
-      }
-    }))
+    timeSave.save()
   ])
   .then(function() {
     mongoose.connection.close();
