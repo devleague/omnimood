@@ -8,7 +8,7 @@ var city = faker.address.city();
 var country = faker.address.country();
 var countryCode = faker.address.countryCode();
 
-function generateFakeData () {
+function generateFakeData (array) {
   fakeData.push(
     {
       text: [],
