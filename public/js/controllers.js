@@ -17,6 +17,7 @@ angular.module('omniMood')
       .then(function(emojis) {
         // console.log(data);
         emojis.data.forEach(function (code) {
+          console.log(code);
           $scope.Emojis.push(code);
         })
       })

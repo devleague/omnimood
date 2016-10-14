@@ -24,12 +24,15 @@
         <svg  id="svg_map" style="width: 85vw; height: 100vh;" width="1560" height="600"></svg>
       </div>
       <div id="emojiListContainer">
-        <h2>Emoji List</h2>
-        <div ng-controller="emojiController">
-          <div ng-repeat="emoji in Emojis">
-            <img class="emoji" ng-src="emojis/{{emoji.code}}.png" />
+          <h2>Emoji List</h2>
+          <div ng-controller="emojiController">
+            <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
+              <img class="emojiImage tooltip animatedEmojiImage" ng-src="emojis/{{emoji.code.toLowerCase()}}.png" />
+              <p class="tooltiptext">
+                {{ emoji.name }}
+              </p>
+            </div>
           </div>
-        </div>
       </div>
     </div>
     <br>
@@ -41,6 +44,5 @@
 
     <script type="text/javascript" src="js/map.js"></script>
     <script type="text/javascript" src="js/d3.newLegend.js"></script>
-<!--     <script type="text/javascript" src="js/emojiList.js"></script> -->
   </body>
 </html>
