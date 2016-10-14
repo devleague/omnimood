@@ -9,4 +9,15 @@ angular.module('omniMood')
         $scope.Tweets.push(tweet);
       });
     }
-  ]);
+  ])
+  .controller('emojiController', ['$scope', 'EmojiFactory', function($scope, EmojiFactory) {
+    // console.log(EmojiFactory);
+    $scope.Emojis = [];
+    EmojiFactory.getEmojis()
+      .then(function(emojis) {
+        // console.log(data);
+        emojis.data.forEach(function (code) {
+          $scope.Emojis.push(code);
+        })
+      })
+  }]);

@@ -50,10 +50,45 @@ h2 {
 }
 
 .emojiImage {
-  // position: relative;
+  position: relative;
   padding: 5px;
-  // display: inline-block;
 }
+
+.animatedEmojiImage {
+  animation-duration: 3s;
+  animation-timing-function: ease-in;
+  animation-name: fadeOutUp;
+}
+
+@keyframes fadeOutUp {
+  0% {
+    top: 0px;
+    opacity: 1;
+  }
+  45% {
+    top: 0px;
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    top: -60vh;
+    transform: scale(4);
+    opacity: 0.2;
+  }
+}
+
+@keyframes fadeInSpinDown {
+  0% {
+    top: -60vh;
+    opacity: 0.2;
+  }
+  100% {
+    top: 0px;
+    opacity: 1;
+    transform: rotate(1080deg);
+  }
+}
+
 
 .emojiImage:hover {
   width: 70px;

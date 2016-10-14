@@ -1,51 +1,54 @@
- var svg = d3.select("svg#svg_map"),
+var svg = d3.select("svg#svg_map"),
   width = (document.body.clientWidth*.85),
   height = (document.body.clientHeight);
 
- var outlineDefault = "#eeeeee";
- var outlineHighlight = "#1221ee";
- var fillDefault = "#000000";
+var outlineDefault = "#eeeeee";
+var outlineHighlight = "#1221ee";
+var fillDefault = "#000000";
 
- var moodMin = -10;
- var moodMid = 0;
- var moodMax = 10;
+var moodMin = -10;
+var moodMid = 0;
+var moodMax = 10;
 
- var testText = d3.select("body").append("div").attr("id", "testText");
- //var x=d3.scale.ordinal()
- //.domain(["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]);
- // var moodScale=d3.scale.ordinal().range(['#dd2222','#cccccc','#2222dd']); //.domain([-10,0,10]);
+var countryId;
 
- var moodScale = d3.scaleLinear()
-   .domain([moodMin, moodMid, moodMax])
-   .range(["red", "yellow", "green"]);
+var testText = d3.select("body").append("div").attr("id", "testText");
+//var x=d3.scale.ordinal()
+//.domain(["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]);
+// var moodScale=d3.scale.ordinal().range(['#dd2222','#cccccc','#2222dd']); //.domain([-10,0,10]);
 
-   d3.select("svg#svg_map")
-      .append("rect")
-      .attr("width",width)
-      .attr("height",height)
-      .style("fill","steelblue");
-      //.attr("background-color","steelblue");
+var moodScale = d3.scaleLinear()
+  .domain([moodMin, moodMid, moodMax])
+  .range(["red", "yellow", "green"]);
 
- d3.json("json/world-50m.json", function(error, world) {
+d3.select("svg#svg_map")
+  .append("rect")
+  .attr("width", width)
+  .attr("height", height)
+  .style("fill", "steelblue");
+  //.attr("background-color","steelblue");
 
-   var countries = topojson.feature(world, world.objects.countries).features
+var svgCountryInfo = d3.select("svg#svg_onClick");
 
-   var projection = d3.geoMercator()
-     .scale((width - 3) / (2 * Math.PI))
-     .translate([width / 2, height / 2]);
+d3.json("json/world-50m.json", function(error, world) {
+  var countries = topojson.feature(world, world.objects.countries).features;
 
-   var path = d3.geoPath()
-     .projection(projection);
+  var projection = d3.geoMercator()
+    .scale((width - 3) / (2 * Math.PI))
+    .translate([width / 2, height / 2]);
 
-   svg.selectAll(".country")
-     .data(countries)
-     .enter().insert("path", ".graticule")
-     .attr("id", function(d) {
-       return "cc" + d.id;
-     })
-     .attr("d", path)
-     .attr("stroke", outlineDefault)
-     .style("fill", function(d) {
+  var path = d3.geoPath()
+    .projection(projection);
+
+  svg.selectAll(".country")
+    .data(countries)
+    .enter().insert("path", ".graticule")
+    .attr("id", function(d) {
+      return "cc" + d.id;
+    })
+    .attr("d", path)
+    .attr("stroke", outlineDefault)
+    .style("fill", function(d) {
           if(d.id==10){
             return "steelblue";
           }
@@ -54,46 +57,70 @@
             return fillDefault;
           }
 
-     }) //fillDefault
-     .on("mouseover", function(d) {
-       d3.select(this)
-         .attr("stroke", outlineHighlight);
-     })
-     .on("mouseout", function() {
-       d3.select(this)
-         .attr("stroke", outlineDefault)
-     })
-     .append("svg:title")
-     .text(function(d) {
+
+    }) //fillDefault
+    .on("mouseover", function(d) {
+      d3.select(this)
+        .attr("stroke", outlineHighlight);
+    })
+
+    .on("mouseout", function() {
+      d3.select(this)
+        .attr("stroke", outlineDefault);
+    })
+    .on("click", function (d) {
+
+      countryId = "path#cc" + d.id;
+
+      document.getElementById("svg_onClick").innerHTML = "";
+
+      svgCountryInfo
+        .append("g")
+        .insert("path", countryId)
+        .attr("d", this.attributes.d.value)
+        .attr("stroke", "red")
+        .style("fill", "steelblue");
+
+      var g = svgCountryInfo.selectAll("g");
+      var width = 1600;
+      var height = 800;
+      var centroid = path.centroid(d);
+      var x = width / 2 - centroid[0];
+      var y = height / 2 - centroid[1];
+
+      g
+        .attr("transform", "translate( " + x + "," + y + ")");
+
+    })
+    .append("svg:title")
+    .text(function(d) {
       // return  "cc=" + (d.id + 0);
-      return testCountryNameJSON[d.id]
+      return testCountryNameJSON[d.id];
      });
- });
+});
 
+function displayCountry(id) {
+  d3.select("h1#title").text(id);
+}
 
- function displayCountry(id) {
-   d3.select("h1#title").text(id);
- }
+function setCountryMood(id, mood) {
+  svg.select("path#cc" + id)
+    .data([1, 1, 2])
+    .style("fill", "white")
+    //.attr("stroke", "red")
+    //.attr("stroke-width",5)
+    .transition()
+    .duration(2000)
+    //.attr("stroke", outlineDefault)
+    //.attr("stroke-width", 1)
+    .style("fill", mood)
+    ;
+}
 
- function setCountryMood(id, mood) {
-   svg.select("path#cc" + id)
-     .data([1, 1, 2])
-     .style("fill", "white")
-     //.attr("stroke", "red")
-     //.attr("stroke-width",5)
-     .transition()
-     .duration(2000)
-     //.attr("stroke", outlineDefault)
-     //.attr("stroke-width", 1)
-     .style("fill", mood)
-     ;
- }
-
-  setInterval(function() {
+setInterval(function() {
     var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
     setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
-  }, 500);
-
+}, 500);
 
  var testCountryJSON = [{
    "id": "4",
@@ -1094,7 +1121,7 @@
    "882": "Samoa",
    "887": "Yemen",
    "894": "Zambia"
- }
+ };
 
  var test2DigitToCountryNumber={
 
