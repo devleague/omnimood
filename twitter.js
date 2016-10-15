@@ -45,12 +45,14 @@ function getVariables(tweet) {
 function listenForTweets(socket) {
   socket.on('start tweets', () => {
     twitterStream.on(('data'), function (tweet) {
-      var emojis = getVariables(tweet).emojis;
-      if(emojis) { // if there's an emoji found
-        if(tweet.place && tweet.place.country){
-          socket.emit('tweet', emojis);
+      var tweetObj = getVariables(tweet);
+      if(tweetObj)
+        if(tweetObj.emojis) { // if there's an emoji found
+          socket.emit('tweet', {
+            emojis: tweetObj.emojis,
+            coordinates: tweetObj.coordinates
+          });
         }
-      }
     });
 
     twitterStream.on('error', function (error) {

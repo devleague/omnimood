@@ -2,15 +2,17 @@ angular.module('omniMood')
   .directive('globe', function () {
     return {
       restrict: 'E',
-      templateUrl: '../views/globe.html',
+      scope: {
+        coordinates: '='
+      },
       link: link
     };
 
     function link (scope, element, attr) {
-      var width = 800,
-          height = 700,
-          velocity = ['.007', 0],
-          rotate = [180, 0],
+      var width = 900,
+          height = 500,
+          velocity = [.015, 0],
+          rotate = [0, 0],
           time = Date.now(),
           timer_ret_val = false,
           countryById,
@@ -19,7 +21,7 @@ angular.module('omniMood')
 
       var projection = d3.geoOrthographic()
         .translate([width / 2, height / 2])
-        .scale(250)
+        .scale(245)
         .clipAngle(90)
         .precision(0.1)
         .rotate(rotate);
@@ -41,12 +43,12 @@ angular.module('omniMood')
             projection.rotate([-rotateCoords2[0], -rotateCoords2[1]]);
           }
 
-          path = d3.geoPath().projection(projection)
+          path = d3.geoPath().projection(projection);
           d3.select('.globe').selectAll('path')
             .attr('d', path);
         });
 
-      var svg = d3.select(element[0]).select('.globeContainer')
+      var svg = d3.select(element[0])
         .append('svg')
         .attr('class', 'globe')
         .attr('width', width)
@@ -69,15 +71,37 @@ angular.module('omniMood')
         .attr('d', path);
 
       var countryToolTip = d3.select(element[0])
-        .select('.globeContainer')
         .append('div')
         .attr('class', 'countryToolTip')
         .style('position', 'absolute');
 
-      d3.json('../json/world-50m.json', function (err, world) {
+      d3.json('../json/world-50m-fast.json', function (err, world) {
         countries = topojson.feature(world, world.objects.countries).features;
 
         drawCountries('country', countries);
+      });
+
+      scope.$watch('coordinates', function (coordinates) {
+        if(coordinates) {
+          console.log(coordinates);
+          var coordArr = [];
+          coordArr.push(coordinates);
+          svg.selectAll('path.ping')
+            .data(coordArr)
+              .enter()
+              .append('path', '.ping')
+              .datum(function (d) {
+                return {
+                  type: 'Point',
+                  coordinates: [d.long, d.lat],
+                  radius: 0.1
+                };
+              })
+              .style('fill', 'white')
+              .style('fill-opacity', 0.1)
+              .style('stroke-width', 0)
+              .attr('d', path);
+        }
       });
 
       function drawCountries(className, countries) {
@@ -149,11 +173,93 @@ angular.module('omniMood')
         d3.timer(function () {
           if(!timer_ret_val) {
             var dt = Date.now() - time;
-            projection.rotate([rotate[0] + velocity[0] * parseFloat(dt) - 100, rotate[1] + velocity[1] * parseFloat(dt)]);
+            projection.rotate([rotate[0] + velocity[0] * dt - 100, rotate[1] + velocity[1] * dt]);
             svg.selectAll('path').attr('d', path);
           }
           return timer_ret_val;
         });
       }
+    }
+  })
+  .directive('legend', function () {
+    return {
+      restrict: 'E',
+      link: link
+    };
+
+    function link (scope, element, attr) {
+      var width = 170,
+          height = 170;
+
+      var svgLegend = d3.select(element[0])
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('class', 'legend');
+
+      svgLegend.append('rect')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('stroke', 'black')
+        .attr('stroke-width', 1)
+        .attr('fill', 'none');
+
+      var moodInfo = [
+        {
+          color: 'green',
+          mood:'Happy',
+          y_position: height * .15,
+          image: '/emojis/1f601.png'
+        },
+        {
+          color: 'yellow',
+          mood: 'So so',
+          y_position: height * .5,
+          image: '/emojis/1f610.png'
+        },
+        {
+          color: 'red',
+          mood: 'Mad',
+          y_position: height * .81,
+          image: '/emojis/1f621.png'
+        },
+      ];
+
+      svgLegend.selectAll('circle')
+        .data(moodInfo)
+          .enter().append('circle')
+          .attr('r', 5)
+          .attr('cx', width * .1)
+          .attr('cy', function (d) {
+            return d.y_position;
+          })
+          .style('fill', function (d) {
+            return d.color;
+          });
+
+      svgLegend.selectAll('text')
+        .data(moodInfo)
+          .enter().append('text')
+          .attr('x', width * .3)
+          .attr('y', function (d) {
+            return d.y_position + 5;
+          })
+          .text(function (d) {
+            return d.mood;
+          })
+          .attr('fill', 'white');
+
+      svgLegend.selectAll('image')
+        .data(moodInfo)
+          .enter().append('image')
+          .attr('width', 30)
+          .attr('height', 30)
+          .attr('x', width * .7)
+          .attr('y', function (d) {
+            return d.y_position - 14;
+          })
+          .attr('xlink:href', function (d) {
+            return d.image;
+          });
     }
   });
