@@ -3,6 +3,7 @@
 @import "partials/_clearfix";
 @import "partials/_reset";
 @import "globe.scss";
+@import "legend.scss";
 
 body {
   background-color: #282d34;
@@ -28,9 +29,21 @@ h2 {
   display: flex;
 }
 
+.mapRelated {
+  display: flex;
+  justify-content: center;
+
+  button {
+    position: absolute;
+    margin-top: 10px;
+  }
+}
+
 .mapContainer {
-  margin-left: 5px;
-  width: 85vw;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  margin-top: 40px;
 }
 
 #emojiListContainer {
