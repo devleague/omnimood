@@ -9,8 +9,8 @@ angular.module('omniMood')
     };
 
     function link (scope, element, attr) {
-      var width = 800,
-          height = 700,
+      var width = 900,
+          height = 500,
           velocity = [.015, 0],
           rotate = [0, 0],
           time = Date.now(),
@@ -21,7 +21,7 @@ angular.module('omniMood')
 
       var projection = d3.geoOrthographic()
         .translate([width / 2, height / 2])
-        .scale(250)
+        .scale(245)
         .clipAngle(90)
         .precision(0.1)
         .rotate(rotate);
@@ -43,7 +43,7 @@ angular.module('omniMood')
             projection.rotate([-rotateCoords2[0], -rotateCoords2[1]]);
           }
 
-          path = d3.geoPath().projection(projection)
+          path = d3.geoPath().projection(projection);
           d3.select('.globe').selectAll('path')
             .attr('d', path);
         });
@@ -195,7 +195,7 @@ angular.module('omniMood')
         .append('svg')
         .attr('width', width)
         .attr('height', height)
-        .attr('id', 'legend');
+        .attr('class', 'legend');
 
       svgLegend.append('rect')
         .attr('width', width)
