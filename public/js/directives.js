@@ -2,6 +2,9 @@ angular.module('omniMood')
   .directive('globe', function () {
     return {
       restrict: 'E',
+      scope: {
+        coordinates: '='
+      },
       link: link
     };
 
@@ -76,6 +79,29 @@ angular.module('omniMood')
         countries = topojson.feature(world, world.objects.countries).features;
 
         drawCountries('country', countries);
+      });
+
+      scope.$watch('coordinates', function (coordinates) {
+        if(coordinates) {
+          console.log(coordinates);
+          var coordArr = [];
+          coordArr.push(coordinates);
+          svg.selectAll('path.ping')
+            .data(coordArr)
+              .enter()
+              .append('path', '.ping')
+              .datum(function (d) {
+                return {
+                  type: 'Point',
+                  coordinates: [d.long, d.lat],
+                  radius: 0.1
+                };
+              })
+              .style('fill', 'white')
+              .style('fill-opacity', 0.1)
+              .style('stroke-width', 0)
+              .attr('d', path);
+        }
       });
 
       function drawCountries(className, countries) {
