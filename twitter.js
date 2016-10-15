@@ -47,9 +47,10 @@ function listenForTweets(socket) {
     twitterStream.on(('data'), function (tweet) {
       var emojis = getVariables(tweet).emojis;
       if(emojis) { // if there's an emoji found
-        if(tweet.place && tweet.place.country){
-          socket.emit('tweet', emojis);
-        }
+        socket.emit('tweet', {
+          emojis: emojis,
+          coordinates: coordinates
+        });
       }
     });
 
