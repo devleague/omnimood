@@ -1,41 +1,34 @@
- var svg = d3.select("svg#svg_map"),
-    width = (document.body.clientWidth * .85),
-    height = (document.body.clientHeight * .84);
+var svg = d3.select("svg#svg_map"),
+  width = (document.body.clientWidth*.85),
+  height = (document.body.clientHeight * .4);
 
- var outlineDefault = "#cccccc"; //"#eeeeee";
- var outlineHighlight = "#1221ee";
- var fillDefault = "#000000";
+var outlineDefault = "#eeeeee";
+var outlineHighlight = "#1221ee";
+var fillDefault = "#000000";
 
- var moodMin = -10;
- var moodMid = 0;
- var moodMax = 10;
+var moodMin = -10;
+var moodMid = 0;
+var moodMax = 10;
 
- var testText = d3.select("body").append("div").attr("id", "testText");
-
- var moodScale = d3.scaleLinear()
-    .domain([moodMin, moodMid, moodMax])
-    .range(["red", "yellow", "green"]);
-
- d3.select("svg#svg_map")
-    .append("rect")
-    .attr("width", width)
-    .attr("height", height)
-    .style("fill", "steelblue");
- /*
-    d3.json("http://localhost:3000/api/timeline",function(error,timelineData){
-       console.log(timelineData);
-    });
-
-    d3.json('http://localhost:3000/countries/api',function(error,moodData){
-       console.log(moodData);
-             moodData.forEach(function(thisMood){
-          console.log(thisMood.name,thisMood.mood,thisMood.countryId);
-       }
-       )
-    })
- */
+var countryId;
 
 
+console.log("*********" + height);
+var testText = d3.select("body").append("div").attr("id", "testText");
+//var x=d3.scale.ordinal()
+//.domain(["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]);
+// var moodScale=d3.scale.ordinal().range(['#dd2222','#cccccc','#2222dd']); //.domain([-10,0,10]);
+
+var moodScale = d3.scaleLinear()
+   .domain([moodMin,moodMid, moodMax])
+   .range(["red","yellow","green"]);
+
+d3.select("svg#svg_map")
+  .append("rect")
+  .attr("width", width)
+  .attr("height", height)  //height)
+  .style("fill", "steelblue");
+  //.attr("background-color","steelblue");
 
  d3.json("json/world-50m.json", function(error, world) {
 
@@ -45,6 +38,12 @@
     var projection = d3.geoMercator()
        .scale((height) / (4.5))  //(3.0 * Math.PI)  
        .translate([width / 2, height / 2.5]);  //2 2.077
+d3.json("json/world-50m_DoNotShowAntarctica.json", function(error, world) {
+  var countries = topojson.feature(world, world.objects.countries).features;
+
+  var projection = d3.geoMercator()
+    .scale((height - 3) / (1.4 * Math.PI))
+    .translate([width / 2, height / 2]);
 
     var path = d3.geoPath()
        .projection(projection);
@@ -101,8 +100,7 @@
       var x = width / 2 - centroid[0];
       var y = height / 2 - centroid[1];
 
-      g
-        .attr("transform", "translate( " + x + "," + y + ")");
+      g.attr("transform", "translate( " + x + "," + y + ")");
 
     })
     .append("svg:title")
@@ -111,6 +109,7 @@
       return testCountryNameJSON[d.id];
      });
 });
+})
 
 function displayCountry(id) {
   d3.select("h1#title").text(id);
@@ -130,11 +129,58 @@ function setCountryMood(id, mood) {
     ;
 }
 
-setInterval(function() {
-    var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
-    setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
-}, 500);
+var countryArrayIndex=0;
+var countries={};
 
+ function testSetCountryMood() {
+
+    d3.json('http://localhost:3000/countries/api', function(error, moodData) {
+
+       countryArrayIndex = (countryArrayIndex >= moodData.length) ? 0 : countryArrayIndex;
+
+       if (moodData[countryArrayIndex].countryId == '10') {
+          countryArrayIndex++;
+       }
+
+
+       var thisMoodValue = moodData[countryArrayIndex];
+    //  console.log("countryArrayIndex=" + countryArrayIndex + "," + "path#cc" + thisMoodValue.countryId);
+       moodChanged = true;
+
+       if (countries[thisMoodValue.countryId]) {
+          if (countries[thisMoodValue.countryId] == thisMoodValue.mood) {
+             moodChanged = false;
+          }
+       } else {
+          countries[thisMoodValue.countryId] = thisMoodValue.mood;
+       }
+
+       if (moodChanged) {
+
+          svg.select("path#cc" + thisMoodValue.countryId)
+             .data([1, 1, 2])
+             .style("fill", "white")
+             .attr("stroke", "black")
+             .attr("stroke-width", 1)
+             .transition()
+             .duration(2000)
+             .attr("stroke", outlineDefault)
+             .attr("stroke-width", 1)
+             .style("fill", moodScale(thisMoodValue.mood * 10))
+       }
+
+       countryArrayIndex++;
+    })
+ }
+
+setInterval(function() {
+   // var thisCountryObject = testCountryJSON[Math.floor((Math.random() * testCountryJSON.length))];
+   // setCountryMood(thisCountryObject.id, moodScale(Math.floor((Math.random() * (moodMax - moodMin)) - 10)));
+
+   testSetCountryMood();
+}, 50);
+
+/*
  var testCountryJSON = [{
     "id": "4",
     "c": "Afghanistan"
@@ -883,6 +929,7 @@ setInterval(function() {
     "id": "894 ",
     "c": "Zambia"
  }];
+*/
 
  var testCountryNameJSON = {
     "4": "Afghanistan",
