@@ -72,16 +72,17 @@ d3.json("json/world-50m.json", function(error, world) {
 
       countryId = "path#cc" + d.id;
 
-      document.getElementById("svg_onClick").innerHTML = "";
-
-      svgCountryInfo
+      svg
         .append("g")
+        .attr("id", "country-wrapper")
         .insert("path", countryId)
         .attr("d", this.attributes.d.value)
         .attr("stroke", "red")
         .style("fill", "steelblue");
 
-      var g = svgCountryInfo.selectAll("g");
+      document.getElementById("country-wrapper").innerHTML = "";
+
+      var g = svg.select("g#country-wrapper");
       var width = 1600;
       var height = 800;
       var centroid = path.centroid(d);
