@@ -13,23 +13,42 @@ var twitterStream;
 
 twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (stream) {
   twitterStream = stream;
+  twitterStream.on(('data'), function (tweet) {
+    var tweetObj = getVariables(tweet);
+    if(tweetObj) {
+      if(tweet.place && tweet.place.country){
+        parseTweet(tweets, tweetObj.emojis, tweetObj.coordinates, tweetObj.date, tweet, tweetObj.codeTweets, emojiList, tweetUpdate);
+      }
+    }
+  });
 });
+
+function getVariables(tweet) {
+  if(tweet.coordinates) { // if the tweet has coordinates
+    if(tweet.coordinates !== null) { // if the coordinates are not null
+      var coordinates = {lat: tweet.coordinates.coordinates[1], long: tweet.coordinates.coordinates[0]};
+      var date = new Date(parseInt(tweet.timestamp_ms)).toLocaleString();
+      var codeTweets = {};
+      var emojis = getEmoji(tweet);
+      if(emojis) {
+        return {
+          coordinates: coordinates,
+          date: date,
+          codeTweets: codeTweets,
+          emojis: emojis
+        };
+      }
+    }
+  }
+}
 
 function listenForTweets(socket) {
   socket.on('start tweets', () => {
     twitterStream.on(('data'), function (tweet) {
-      if(tweet.coordinates) { // if the tweet has coordinates
-        if(tweet.coordinates !== null) { // if the coordinates are not null
-          var coordinates = {lat: tweet.coordinates.coordinates[1], long: tweet.coordinates.coordinates[0]};
-          var date = new Date(parseInt(tweet.timestamp_ms)).toLocaleString();
-          var codeTweets = {};
-          var emojis = getEmoji(tweet);
-          if(emojis) { // if there's an emoji found
-            if(tweet.place && tweet.place.country){
-              socket.emit('tweet', emojis);
-              parseTweet(tweets, emojis, coordinates, date, tweet, codeTweets, emojiList, tweetUpdate);
-            }
-          }
+      var emojis = getVariables(tweet).emojis;
+      if(emojis) { // if there's an emoji found
+        if(tweet.place && tweet.place.country){
+          socket.emit('tweet', emojis);
         }
       }
     });
