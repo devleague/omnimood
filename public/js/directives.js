@@ -136,7 +136,6 @@ angular.module('omniMood')
 
           if (moodChanged) {
             d3.select("path#cc" + thisMoodValue.countryId)
-              .data([1, 1, 2])
               .style("fill", "white")
               .attr("stroke", "black")
               .attr("stroke-width", 1)

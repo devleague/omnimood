@@ -184,6 +184,7 @@ function livingDatabase(tweetUpdate, countEmoji, argCount){
     }
     data.totalCount = totalCount;
     data.markModified('totalCount');
+    console.log(data)
     data.save().then(()=>{
       for(var countries in tweetUpdate){
         Country.findOne({name: countries})
