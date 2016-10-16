@@ -187,7 +187,8 @@ angular.module('omniMood')
         .rotate(rotate);
 
       var path = d3.geoPath()
-        .projection(projection);
+        .projection(projection)
+        .pointRadius(2);
 
       var moodScale = d3.scaleLinear()
         .domain([moodMin, moodMid, moodMax])
@@ -209,7 +210,7 @@ angular.module('omniMood')
 
           path = d3.geoPath().projection(projection);
           d3.select('.globe').selectAll('path')
-            .attr('d', path);
+            .attr('d', path.pointRadius(2));
         });
 
       var svg = d3.select(element[0])
@@ -263,13 +264,14 @@ angular.module('omniMood')
               return {
                 type: 'Point',
                 coordinates: [d.long, d.lat],
-                radius: 0.1
               };
             })
             .style('fill', moodScale(tweet.moodValue*10))
-            .style('fill-opacity', 0.1)
-            .style('stroke-width', 0)
-            .attr('d', path);
+            .style('fill-opacity', 0.2)
+            .style('stroke-width', 5)
+            .style('stroke-opacity', 0.1)
+            .style('stroke', moodScale(tweet.moodValue*10))
+            .attr('d', path.pointRadius(2));
         }
       });
 
@@ -283,8 +285,8 @@ angular.module('omniMood')
           })
           .on('mouseover', function(d) {
             countryToolTip.text(countryById[d.properties.iso_n3])
-              .style('left', (d3.event.pageX - 95) + 'px')
-              .style('top', (d3.event.pageY - 100) + 'px')
+              .style('left', (d3.event.pageX + 7) + 'px')
+              .style('top', (d3.event.pageY + 10) + 'px')
               .style('display', 'block')
               .style('opacity', 1);
           })
@@ -295,8 +297,8 @@ angular.module('omniMood')
           })
           .on('mousemove', function(d) {
             countryToolTip
-              .style('left', (d3.event.pageX - 95) + 'px')
-              .style('top', (d3.event.pageY - 100) + 'px');
+              .style('left', (d3.event.pageX + 7) + 'px')
+              .style('top', (d3.event.pageY + 10) + 'px');
           })
           .on('click', function(d) {
             timer_ret_val = true;
