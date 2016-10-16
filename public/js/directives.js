@@ -230,7 +230,7 @@ angular.module('omniMood')
           .enter().append('g')
           .attr('class', className)
           .attr('id', function(d) {
-            return 'cc' + d.id;
+            return 'cc' + d.properties.iso_n3;
           })
           .on('mouseover', function(d) {
             countryToolTip.text(countryById[d.properties.iso_n3])
