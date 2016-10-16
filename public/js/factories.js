@@ -13,10 +13,19 @@ angular.module('omniMood')
   '$http', function($http) {
     return {
       getEmojis: function () {
-        return $http.get('../json/emojisSpecialOrder.json');
+        return $http.get('../json/orderedEmojis.json');
       }
     }
   }])
+  .factory('EmojiMetricsFactory', [
+    '$http', function($http) {
+      var endpoint = '/api/timeline';
+      return {
+        getEmojiMetrics: function () {
+          return $http.get(endpoint);
+        }
+      }
+    }])
   .factory('socket', function ($rootScope) {
     var socket = io.connect('http://localhost:3000');
     return {

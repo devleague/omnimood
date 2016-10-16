@@ -3,7 +3,6 @@
 @import "partials/_clearfix";
 @import "partials/_reset";
 @import "globe.scss";
-@import "legend.scss";
 
 body {
   background-color: #282d34;
@@ -38,7 +37,6 @@ h2 {
     margin-top: 10px;
   }
 }
-
 .mapContainer {
   margin-top: 40px;
 }
@@ -59,15 +57,46 @@ h2 {
   text-align: center;
 }
 
+// .tweet:last-child {
+//   display: none;
+// }
+
+// .emojiContainer:nth-child(odd) {
+//   animation-timing-function: ease-in;
+//   animation: colorFade 4s infinite;
+// }
+
 .emojiImage {
   position: relative;
-  padding: 5px;
+  padding: 4px;
 }
 
-.animatedEmojiImage {
-  animation-duration: 3s;
+.emojiImage:hover{
+  animation: colorFade 4s infinite;
   animation-timing-function: ease-in;
-  animation-name: fadeOutUp;
+}
+
+// .animatedEmojiImage {
+//   animation: colorFade 4s infinite;
+//   animation-timing-function: ease-in;
+// }
+
+@keyframes colorFade {
+  from {
+    filter: grayscale(100%);
+  }
+  50% {
+    filter: grayscale(0%);
+  }
+  to {
+    filter: grayscale(100%);
+  }
+}
+
+@keyframes glowGold {
+  from {  -webkit-box-shadow: 0 0 9px #333; }
+  50% {  -webkit-box-shadow: 0 0 18px #F9FF33; }
+  to {  -webkit-box-shadow: 0 0 9px #333; }
 }
 
 @keyframes fadeOutUp {
@@ -97,12 +126,6 @@ h2 {
     opacity: 1;
     transform: rotate(1080deg);
   }
-}
-
-
-.emojiImage:hover {
-  width: 70px;
-  height: 74px;
 }
 
 .tooltip {

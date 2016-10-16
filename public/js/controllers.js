@@ -2,24 +2,60 @@ angular.module('omniMood')
   .controller('tweetController', [
     '$scope',
     'socket',
-    function ($scope, socket) {
+    'EmojiFactory',
+    'EmojiMetricsFactory',
+    function ($scope, socket, EmojiFactory, EmojiMetricsFactory) {
+      $scope.Tweets = [];
       socket.emit('start tweets', true);
       socket.on('tweet', function (tweet) {
         $scope.tweet = tweet;
       });
-    }
-  ])
-  .controller('emojiController', [
-    '$scope',
-    'EmojiFactory',
-    function($scope, EmojiFactory) {
-      $scope.Emojis = [];
+
+      var emojiArray = [];
+      // $scope.Emojis = [];
       EmojiFactory.getEmojis()
         .then(function(emojis) {
-          emojis.data.forEach(function (code) {
-            $scope.Emojis.push(code);
-          });
+          emojis.data.forEach(function(code) {
+            // $scope.Emojis.push(code);
+            emojiArray.push(code);
+          })
+          EmojiMetricsFactory.getEmojiMetrics()
+          .then(function(values) {
+            var emojiMetricsArray = [];
+            var emojiMetrics = {
+              count: 0,
+              percentage: 0
+            };
+            for(var emoji in values.data.totalCount) {
+              var obj = values.data.totalCount[emoji];
+              if(obj.count) {
+                emojiMetrics.count = obj.count;
+                emojiMetrics.percentage = obj.percentage;
+                // console.log(emojiMetrics);
+                emojiMetricsArray.push(emojiMetrics);
+                emojiMetrics = {};
+              }
+            }
+            console.log(emojiMetricsArray);
+
+            var emojiObject = {};
+            $scope.Emojis = emojiMetricsArray.map(function(value, index) {
+              // console.log(value);
+              return {
+                emoji: emojiArray[index],
+                emojiMetrics: value
+              }
+            })
+
+            // console.log(emojiObject);
+            // $scope.Emojis = emojiObject;
+            // console.log($scope.Emojis);
+          })
         });
+
+
+
+      // console.log($scope.Emojis);
     }
   ])
   .controller('toggleViewController', function ($scope) {
