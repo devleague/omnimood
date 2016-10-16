@@ -11,8 +11,8 @@ angular.module('omniMood')
     function somethingelse(scope, element, attr) {
       var mapSVG = d3.select(element[0]).append("svg")
         .attr("id", "svg_map"),
-        width = (document.body.clientWidth * .85),
-        height = (document.body.clientHeight * .83),
+        width = window.innerWidth * .70,
+        height = window.innerHeight * .70,
         outlineDefault = "#eeeeee",
         outlineHighlight = "#1221ee",
         fillDefault = "#000000",
@@ -40,8 +40,8 @@ angular.module('omniMood')
       d3.json("../json/countries_no_show_antarctica.json", function(error, world) {
         var countries = topojson.feature(world, world.objects.countries).features;
         var projection = d3.geoMercator()
-          .scale((height - 3) / (1.4 * Math.PI))
-          .translate([width / 2, height / 2]);
+          .scale((height + 50) / (1.55 * Math.PI))
+          .translate([width / 2, height / 1.5]);
 
         var path = d3.geoPath()
           .projection(projection);
