@@ -3,7 +3,7 @@ angular.module('omniMood')
     return {
       restrict: 'E',
       scope: {
-        "coordinates": '='
+        "tweet": '='
       },
       link: somethingelse
     };
@@ -56,6 +56,13 @@ angular.module('omniMood')
         .style("fill", "steelblue");
 
       //  var codeToCountry; // You are on your own!  10/15/16
+
+      var emojiList;
+      d3.json("/json/codeEmoji.json", function(error, thisEmojiList) {
+        emojiList = thisEmojiList;
+      });
+
+
 
       d3.json("../json/countries_no_show_antarctica.json", function(error, world) {
         var countries = topojson.feature(world, world.objects.countries).features;
@@ -112,14 +119,12 @@ angular.module('omniMood')
         */
 
 
-        scope.$watch('coordinates', function(coordinates) {
-
-
-          if (coordinates) {
+        scope.$watch('tweet', function(tweet) {
+          if (tweet) {
             //    console.log(coordinates);
 
             var latLngData = [
-              [coordinates.long, coordinates.lat]
+              [tweet.coordinates.long, tweet.coordinates.lat]
               //  [coordinates.lat, coordinates.long]
             ];
 
@@ -133,37 +138,48 @@ angular.module('omniMood')
                 return projection(d)[1];
               })
               .attr("r", "300px")
-              .attr("fill", "white")
+              .attr("fill", moodScale(tweet.moodValue * 10)) //"white")
               .style("fill-opacity", 0.5)
               .transition()
               .duration(2000)
               .attr("r", "3px")
-              .attr("fill", "red")
+              .attr("fill", moodScale(tweet.moodValue * 10))
               .style("fill-opacity", 0.3);
 
-            var emojiX=projection(latLngData[0])[0]; //-120;
-            var emojiY=projection(latLngData[0])[1]; //-140;
+            var emojiX = projection(latLngData[0])[0]; //-120;
+            var emojiY = projection(latLngData[0])[1]; //-140;
+            //var thisEmoji = tweet.emojis[0];
 
-            console.log(emojiY);
 
-            mapSVG.append('image')
-              .data(latLngData)
-              .attr('xlink:href', '../emojis/1f600.png')
-              .attr('x', 0)
-              .attr('y', 0)
-              .attr("x", function(d) {
-                return emojiX;
-              })
-              .attr("y", function(d) {
-                return emojiY;
-              })
-              .attr('height', 300)
-              .attr('width', 200)
-              .style('fill-opacity', 0.5)
-              .transition()
-              .duration(1000)
-              .attr('height', 3)
-              .attr('width', 2);
+            var surrogate = tweet.emojis.map((emoji) => {
+              return '\\u' + emoji.charCodeAt(0).toString(16).toUpperCase() + '\\u' + emoji.charCodeAt(1).toString(16).toUpperCase();
+            });
+            surrogate.forEach(function(surrogate) {
+              if (emojiList[surrogate]) {
+                mapSVG.append('image')
+                  .data(latLngData)
+                  .attr('xlink:href', '../emojis/' + emojiList[surrogate].code.toLowerCase() + '.png')
+                  .attr('x', 0)
+                  .attr('y', 0)
+                  .attr("x", function(d) {
+                    return emojiX;
+                  })
+                  .attr("y", function(d) {
+                    return emojiY;
+                  })
+                  .attr('height', 300)
+                  .attr('width', 200)
+                  .style('fill-opacity', 0.5)
+                  .transition()
+                  .duration(1000)
+                  .attr('height', 3)
+                  .attr('width', 2);
+              }
+              else
+              {
+                console.log(surrogate);
+              }
+            });
 
             /*
               console.log(latLng);

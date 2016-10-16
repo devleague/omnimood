@@ -26,7 +26,7 @@
         <button ng-click="show = !show">{{ toggleText }}</button>
         <div class="mapContainer" ng-controller="tweetController">
           <div ng-show="show" id="flat-map">
-            <whateveryouwant  coordinates="coordinates"></whateveryouwant>
+            <whateveryouwant  tweet="tweet"></whateveryouwant>
           </div>
           <div ng-show="!show">
             <globe coordinates="coordinates"></globe>
