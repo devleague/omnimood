@@ -13,7 +13,7 @@ angular.module('omniMood')
   '$http', function($http) {
     return {
       getEmojis: function () {
-        return $http.get('../json/emojisSpecialOrder.json');
+        return $http.get('../json/orderedEmojis.json');
       }
     }
   }])
