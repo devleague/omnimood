@@ -24,13 +24,13 @@
       <div class="mapRelated" ng-controller="toggleViewController">
         <button ng-click="show = !show">{{ toggleText }}</button>
         <div class="mapContainer" ng-controller="tweetController">
-          <div ng-show="show">
-            <svg id="svg_map" style="width: 85vw; height: 100vh;" width="1560" height="600"></svg>
+          <div ng-show="show" id="flat-map">
+            <whateveryouwant></whateveryouwant>
           </div>
           <div ng-show="!show">
             <globe coordinates="coordinates"></globe>
           </div>
-          <legend></legend>
+       <!--   <legend></legend>  -->
         </div>
         <svg id="svg_onClick" width="2000" height="2000" style="width: 85vw; height: 100vh;">
         </svg>
@@ -53,6 +53,7 @@
         {{ tweet }}
       </div>
     </div> -->
-    <script type="text/javascript" src="js/map.js"></script>
+   <!-- <script type="text/javascript" src="js/map.js"></script> -->
+   <!-- <script type="text/javascript" src="js/map.js"></script> -->
   </body>
 </html>
