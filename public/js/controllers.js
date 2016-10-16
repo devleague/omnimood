@@ -3,7 +3,8 @@ angular.module('omniMood')
     '$scope',
     'socket',
     'EmojiFactory',
-    function ($scope, socket, EmojiFactory) {
+    'EmojiMetricsFactory'
+    function ($scope, socket, EmojiFactory, EmojiMetricsFactory) {
       $scope.Tweets = [];
       $scope.moodMin = -10;
       $scope.moodMid = 0;
@@ -20,6 +21,12 @@ angular.module('omniMood')
           emojis.data.forEach(function(code) {
             $scope.Emojis.push(code);
           });
+        });
+
+      $scope.EmojiMetrics = [];
+      EmojiMetrics.getEmojiMetrics()
+        .then(function(values) {
+
         });
     }
   ])

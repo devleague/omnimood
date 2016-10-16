@@ -17,6 +17,15 @@ angular.module('omniMood')
       }
     }
   }])
+  .factory('EmojiMetricsFactory', [
+    '$http', function($http) {
+      var endpoint = '/api/timeline';
+      return {
+        getEmojiMetrics: function () {
+          return $http.get(endpoint);
+        }
+      }
+    }])
   .factory('socket', function ($rootScope) {
     var socket = io.connect('http://localhost:3000');
     return {
