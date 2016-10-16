@@ -9,6 +9,9 @@ const timeline = mongoose.model(
     times:{
       type:[String]
     },
+    totalCount:{
+      type:Object
+    },
     topEmojis:{
       type: Object
     }
