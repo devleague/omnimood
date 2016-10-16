@@ -50,51 +50,6 @@ mongoose.connection.once('open', () => {
 
   io.on('connection', (socket) => {
     console.log('Client connected!');
-    socket.on('start tweets', () => {
-      tweets.stream.on(('data'), function(tweet) {
-        if (tweet.coordinates && (tweet.place != null) && (tweet.place.country_code != null) && (tweet.text != null)) { // if the tweet has coordinates
-          if (tweet.coordinates !== null) { // if the coordinates are not null
-            var coordinates = {
-              lat: tweet.coordinates.coordinates[1],
-              long: tweet.coordinates.coordinates[0]
-            };
-            //  var date = new Date(parseInt(tweet.timestamp_ms)).toLocaleString();
-            var codeTweets = {};
-            var emojis = getEmoji(tweet);
-
-            var emoji;
-            if (emojis != null) { // if there's an emoji found
-              if (tweet.place.country) {
-
-                var surrogate = emojis.map(function(emoji) {
-                  return '\\u' + emoji.charCodeAt(0).toString(16).toUpperCase() + '\\u' + emoji.charCodeAt(1).toString(16).toUpperCase();
-                });
-
-                console.log(emojis);
-                getMoodValue(surrogate);
-
-                var codeTweets2 = {
-                  "emoji": emojis,
-                  "coord": coordinates,
-                  "cc": tweet.place.country_code,
-                  "emoji_codes": surrogate,
-                  "text": tweet.text,
-                  "value": getMoodValue(surrogate)
-                };
-
-                if (test == 0) {
-                  socket.emit('tweet', tweet);
-                } else {
-                  socket.emit('tweet', codeTweets2);
-                }
-
-                test++;
-              }
-            }
-          }
-        }
-      });
-    });
     tweets.listenForTweets(socket);
 
     socket.on('disconnect', function () {
@@ -102,35 +57,3 @@ mongoose.connection.once('open', () => {
     });
   });
 });
-
-
-function getEmoji(tweet) {
-  var ranges = [
-    '\ud83c[\udf00-\udfff]', // U+1F300 to U+1F3FF
-    '\ud83d[\udc00-\ude4f]', // U+1F400 to U+1F64F
-    '\ud83d[\ude80-\udeff]' // U+1F680 to U+1F6FF
-  ]; // emoji ranges
-  var text = tweet.text;
-  var emojis = text.match(new RegExp(ranges.join('|'), 'g'));
-  return emojis;
-}
-
-function getMoodValue(emojiList) {
-  var total = 0;
-  var returnTotal = 0;
-
-  console.log('********** IN List ************');
-  console.log(emojiList);
-  emojiList.forEach(function(currentEmoji) {
-    if (codeEmojiObject[currentEmoji]) {
-
-      console.log(codeEmojiObject[currentEmoji].value);
-      total += codeEmojiObject[currentEmoji].value;
-    }
-  })
-
-  returnTotal = (total / emojiList.length) * 10;
-  console.log("Total=" + total);
-  console.log("returnTotal=" + returnTotal);
-  return returnTotal;
-}
