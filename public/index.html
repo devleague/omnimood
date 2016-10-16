@@ -25,15 +25,13 @@
         <button ng-click="show = !show">{{ toggleText }}</button>
         <div class="mapContainer" ng-controller="tweetController">
           <div ng-show="show">
-            <svg id="svg_map" style="width: 85vw; height: 100vh;" width="1560" height="600"></svg>
+            <svg id="svg_map" width="1560" height="600"></svg>
           </div>
           <div ng-show="!show">
             <globe coordinates="coordinates"></globe>
           </div>
           <legend></legend>
         </div>
-        <svg id="svg_onClick" width="2000" height="2000" style="width: 85vw; height: 100vh;">
-        </svg>
       </div>
       <div id="emojiListContainer">
           <h2>Emoji List</h2>

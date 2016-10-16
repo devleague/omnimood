@@ -3,7 +3,6 @@
 @import "partials/_clearfix";
 @import "partials/_reset";
 @import "globe.scss";
-@import "legend.scss";
 
 body {
   background-color: #282d34;
@@ -38,12 +37,9 @@ h2 {
     margin-top: 10px;
   }
 }
-
 .mapContainer {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  margin-top: 40px;
+  margin-left: 5px;
+  width: 85vw;
 }
 
 #emojiListContainer {
@@ -62,15 +58,48 @@ h2 {
   text-align: center;
 }
 
+// .tweet:last-child {
+//   display: none;
+// }
+
+// .emojiContainer:nth-child(odd) {
+//   animation-timing-function: ease-in;
+//   animation: colorFade 4s infinite;
+// }
+
 .emojiImage {
   position: relative;
-  padding: 5px;
+  padding: 4px;
+  border-radius: 500%;
+  box-shadow:0 0 50px gold,0 0 150px gold;
 }
 
-.animatedEmojiImage {
-  animation-duration: 3s;
+.emojiImage:hover{
+  animation: colorFade 4s infinite;
   animation-timing-function: ease-in;
-  animation-name: fadeOutUp;
+}
+
+// .animatedEmojiImage {
+//   animation: colorFade 4s infinite;
+//   animation-timing-function: ease-in;
+// }
+
+@keyframes colorFade {
+  from {
+    filter: grayscale(100%);
+  }
+  50% {
+    filter: grayscale(0%);
+  }
+  to {
+    filter: grayscale(100%);
+  }
+}
+
+@keyframes glowGold {
+  from {  -webkit-box-shadow: 0 0 9px #333; }
+  50% {  -webkit-box-shadow: 0 0 18px #F9FF33; }
+  to {  -webkit-box-shadow: 0 0 9px #333; }
 }
 
 @keyframes fadeOutUp {
@@ -102,12 +131,6 @@ h2 {
   }
 }
 
-
-.emojiImage:hover {
-  width: 70px;
-  height: 74px;
-}
-
 .tooltip {
   position: relative;
   display: inline-block;
@@ -130,6 +153,17 @@ h2 {
   visibility: visible;
 }
 
-.ping {
-  color: green;
+.countryView {
+  display: block;
+  border: 2px solid white;
+  width: 850px;
+  height: 600px;
+}
+
+#legend {
+  display: block;
+}
+
+#svg_onClick {
+  display: block;
 }
