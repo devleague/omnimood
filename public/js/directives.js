@@ -37,8 +37,6 @@ angular.module('omniMood')
         .attr("height", height)
         .style("fill", "steelblue");
 
-      //  var codeToCountry; // You are on your own!  10/15/16
-
       d3.json("../json/countries_no_show_antarctica.json", function(error, world) {
         var countries = topojson.feature(world, world.objects.countries).features;
         var projection = d3.geoMercator()
@@ -66,8 +64,9 @@ angular.module('omniMood')
               .attr("stroke", outlineDefault);
           })
           .on("click", function (d) {
-            var w = 1600;
-            var h = 700;
+            console.log(d);
+            var w = width;
+            var h = height;
             var centroid = path.centroid(d);
             var x = w / 2 - centroid[0];
             var y = h / 2 - centroid[1];
@@ -136,7 +135,6 @@ angular.module('omniMood')
 
           if (moodChanged) {
             d3.select("path#cc" + thisMoodValue.countryId)
-              .data([1, 1, 2])
               .style("fill", "white")
               .attr("stroke", "black")
               .attr("stroke-width", 1)
