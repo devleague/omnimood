@@ -1,4 +1,7 @@
 var svg = d3.select("svg#svg_map"),
+   g = svg
+    .append("g")
+    .attr("id", "mapContainer"),
   width = (document.body.clientWidth*.85),
   height = (document.body.clientHeight);
 
@@ -10,8 +13,6 @@ var moodMin = -10;
 var moodMid = 0;
 var moodMax = 10;
 
-var countryId;
-
 var testText = d3.select("body").append("div").attr("id", "testText");
 //var x=d3.scale.ordinal()
 //.domain(["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]);
@@ -21,14 +22,12 @@ var moodScale = d3.scaleLinear()
   .domain([moodMin, moodMid, moodMax])
   .range(["red", "yellow", "green"]);
 
-d3.select("svg#svg_map")
+d3.select("g#mapContainer")
   .append("rect")
   .attr("width", width)
   .attr("height", height)
   .style("fill", "steelblue");
   //.attr("background-color","steelblue");
-
-var svgCountryInfo = d3.select("svg#svg_onClick");
 
 d3.json("json/world-50m.json", function(error, world) {
   var countries = topojson.feature(world, world.objects.countries).features;
@@ -40,7 +39,7 @@ d3.json("json/world-50m.json", function(error, world) {
   var path = d3.geoPath()
     .projection(projection);
 
-  svg.selectAll(".country")
+  g.selectAll(".country")
     .data(countries)
     .enter().insert("path", ".graticule")
     .attr("id", function(d) {
@@ -67,31 +66,6 @@ d3.json("json/world-50m.json", function(error, world) {
     .on("mouseout", function() {
       d3.select(this)
         .attr("stroke", outlineDefault);
-    })
-    .on("click", function (d) {
-
-      countryId = "path#cc" + d.id;
-
-      svg
-        .append("g")
-        .attr("id", "country-wrapper")
-        .insert("path", countryId)
-        .attr("d", this.attributes.d.value)
-        .attr("stroke", "red")
-        .style("fill", "steelblue");
-
-      document.getElementById("country-wrapper").innerHTML = "";
-
-      var g = svg.select("g#country-wrapper");
-      var width = 1600;
-      var height = 800;
-      var centroid = path.centroid(d);
-      var x = width / 2 - centroid[0];
-      var y = height / 2 - centroid[1];
-
-      g
-        .attr("transform", "translate( " + x + "," + y + ")");
-
     })
     .append("svg:title")
     .text(function(d) {
