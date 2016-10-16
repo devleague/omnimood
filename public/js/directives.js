@@ -111,7 +111,7 @@ angular.module('omniMood')
         })
       }, 500);
 
-      
+
     }
   })
   .directive('globe', function() {
@@ -130,7 +130,7 @@ angular.module('omniMood')
         rotate = [0, 0],
         time = Date.now(),
         timer_ret_val = false,
-        countryById,
+        countryById = {},
         mouseCoords,
         rotateCoords;
 
@@ -192,9 +192,12 @@ angular.module('omniMood')
         .attr('class', 'countryToolTip')
         .style('position', 'absolute');
 
-      d3.json('../json/world-50m-fast.json', function(err, world) {
+      d3.json('../json/countries.json', function(err, world) {
         countries = topojson.feature(world, world.objects.countries).features;
 
+        countries.forEach(function (country) {
+          countryById[country.properties.iso_n3] = country.properties.name;
+        });
         drawCountries('country', countries);
       });
 
@@ -230,7 +233,7 @@ angular.module('omniMood')
             return 'cc' + d.id;
           })
           .on('mouseover', function(d) {
-            countryToolTip.text([d.id])
+            countryToolTip.text(countryById[d.properties.iso_n3])
               .style('left', (d3.event.pageX + 7) + 'px')
               .style('top', (d3.event.pageY - 15) + 'px')
               .style('display', 'block')
