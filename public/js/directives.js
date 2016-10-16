@@ -35,54 +35,46 @@ angular.module('omniMood')
 
       //  var codeToCountry; // You are on your own!  10/15/16
 
-      d3.json("../json/codeToCountry.json", function(error, codeToCountry) {
-        console.log(codeToCountry);
-        d3.json("../json/world-50m-fast.json", function(error, world) {
-          var countries = topojson.feature(world, world.objects.countries).features;
+      d3.json("../json/countries_no_show_antarctica.json", function(error, world) {
+        var countries = topojson.feature(world, world.objects.countries).features;
+        var projection = d3.geoMercator()
+          .scale((height - 3) / (1.4 * Math.PI))
+          .translate([width / 2, height / 2]);
 
+        var path = d3.geoPath()
+          .projection(projection);
 
-          var projection = d3.geoMercator()
-            .scale((height - 3) / (1.4 * Math.PI))
-            .translate([width / 2, height / 2]);
+        mapSVG.selectAll(".country")
+          .data(countries)
+          .enter().insert("path", ".graticule")
+          .attr("id", function(d) {
+            return "cc" + (d.properties.iso_n3 / 1);
+          })
+          .attr("d", path)
+          .attr("stroke", outlineDefault)
+          .on("mouseover", function(d) {
+            d3.select(this)
+              .attr("stroke", outlineHighlight);
+          })
 
-          var path = d3.geoPath()
-            .projection(projection);
-
-          mapSVG.selectAll(".country")
-            .data(countries)
-            .enter().insert("path", ".graticule")
-            .attr("id", function(d) {
-              return "cc" + d.id;
-            })
-            .attr("d", path)
-            .attr("stroke", outlineDefault)
-            .on("mouseover", function(d) {
-              d3.select(this)
-                .attr("stroke", outlineHighlight);
-            })
-
-          .on("mouseout", function() {
-              d3.select(this)
-                .attr("stroke", outlineDefault);
-            })
-            .append("svg:title")
-            .text(function(d) {
-              console.log(codeToCountry[d.id]);
-              return codeToCountry[d.id];
-            });
-        });
+        .on("mouseout", function() {
+            d3.select(this)
+              .attr("stroke", outlineDefault);
+          })
+          .append("svg:title")
+          .text(function(d) {
+            return d.properties.name;
+          });
       });
-
-      d3.selectAll("path#cc36").style('fill','red');
-
-
 
       setInterval(function() {
         d3.json('http://localhost:3000/countries/api', function(error, moodData) {
 
           countryArrayIndex = (countryArrayIndex >= moodData.length) ? 0 : countryArrayIndex;
+          if (moodData[countryArrayIndex].countryId == '10') {
+            countryArrayIndex++;
+          }
           var thisMoodValue = moodData[countryArrayIndex];
-          //  console.log("countryArrayIndex=" + countryArrayIndex + "," + "path#cc" + thisMoodValue.countryId);
           moodChanged = true;
 
           if (countries[thisMoodValue.countryId]) {
@@ -94,7 +86,6 @@ angular.module('omniMood')
           }
 
           if (moodChanged) {
-            console.log(thisMoodValue.countryId);
             d3.select("path#cc" + thisMoodValue.countryId)
               .data([1, 1, 2])
               .style("fill", "white")
@@ -109,7 +100,7 @@ angular.module('omniMood')
 
           countryArrayIndex++;
         })
-      }, 500);
+      }, 200);
 
 
     }
@@ -195,7 +186,7 @@ angular.module('omniMood')
       d3.json('../json/countries.json', function(err, world) {
         countries = topojson.feature(world, world.objects.countries).features;
 
-        countries.forEach(function (country) {
+        countries.forEach(function(country) {
           countryById[country.properties.iso_n3] = country.properties.name;
         });
         drawCountries('country', countries);
@@ -203,7 +194,7 @@ angular.module('omniMood')
 
       scope.$watch('coordinates', function(coordinates) {
         if (coordinates) {
-       //   console.log(coordinates);
+          //   console.log(coordinates);
           var coordArr = [];
           coordArr.push(coordinates);
           svg.selectAll('path.ping')
