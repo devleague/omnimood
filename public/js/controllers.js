@@ -3,7 +3,7 @@ angular.module('omniMood')
     '$scope',
     'socket',
     'EmojiFactory',
-    'EmojiMetricsFactory'
+    'EmojiMetricsFactory',
     function ($scope, socket, EmojiFactory, EmojiMetricsFactory) {
       $scope.Tweets = [];
       $scope.moodMin = -10;
@@ -24,9 +24,16 @@ angular.module('omniMood')
         });
 
       $scope.EmojiMetrics = [];
-      EmojiMetrics.getEmojiMetrics()
+      EmojiMetricsFactory.getEmojiMetrics()
         .then(function(values) {
-
+          for(var emoji in values.data.totalCount) {
+            var obj = values.data.totalCount[emoji];
+            if(obj.count) {
+              console.log(obj.count);
+              console.log(obj.percentage);
+              $scope.EmojiMetrics.push(obj.count);
+            }
+          }
         });
     }
   ])

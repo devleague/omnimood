@@ -21,11 +21,11 @@
     <div id="emojiListContainer">
       <h2>Emoji List</h2>
       <div ng-controller="tweetController">
-        <div ng-repeat="emoji in Emojis track by $index" class="emojiContainer tooltip">
+        <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
           <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.code.toLowerCase()}}.png" />
-          <p class="tooltiptext">
-            {{ emoji.name }}
-          </p>
+            <span ng-repeat="value in EmojiMetrics track by $index" class="tooltiptext">
+              {{ value }}
+            </span>
         </div>
 
         <!-- <div ng-repeat="tweet in Tweets" class="tweet">
