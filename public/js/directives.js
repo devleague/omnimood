@@ -64,7 +64,6 @@ angular.module('omniMood')
               .attr("stroke", outlineDefault);
           })
           .on("click", function (d) {
-            console.log(d);
             var w = width;
             var h = height;
             var centroid = path.centroid(d);
@@ -161,7 +160,7 @@ angular.module('omniMood')
     return {
       restrict: 'E',
       scope: {
-        coordinates: '='
+        tweet: '=',
       },
       link: link
     };
@@ -175,7 +174,10 @@ angular.module('omniMood')
         timer_ret_val = false,
         countryById = {},
         mouseCoords,
-        rotateCoords;
+        rotateCoords,
+        moodMin = -10,
+        moodMid = 0,
+        moodMax = 10;
 
       var projection = d3.geoOrthographic()
         .translate([width / 2, height / 2])
@@ -186,6 +188,10 @@ angular.module('omniMood')
 
       var path = d3.geoPath()
         .projection(projection);
+
+      var moodScale = d3.scaleLinear()
+        .domain([moodMin, moodMid, moodMax])
+        .range(["red", "yellow", "green"]);
 
       var drag = d3.drag()
         .on('start', function() {
@@ -244,11 +250,11 @@ angular.module('omniMood')
         drawCountries('country', countries);
       });
 
-      scope.$watch('coordinates', function(coordinates) {
-        if (coordinates) {
-          //   console.log(coordinates);
+      scope.$watch('tweet', function(tweet) {
+        if (tweet) {
+            // console.log(tweet.coordinates);
           var coordArr = [];
-          coordArr.push(coordinates);
+          coordArr.push(tweet.coordinates);
           svg.selectAll('path.ping')
             .data(coordArr)
             .enter()
@@ -260,7 +266,7 @@ angular.module('omniMood')
                 radius: 0.1
               };
             })
-            .style('fill', 'white')
+            .style('fill', moodScale(tweet.moodValue*10))
             .style('fill-opacity', 0.1)
             .style('stroke-width', 0)
             .attr('d', path);
