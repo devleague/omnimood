@@ -15,13 +15,21 @@ data.forEach((element)=>{
 });
 var list = {};
 var emojiNames = {};
+var totalCount = {};
+
 for(var face in emojiData){
 
   var inFace = emojiData[face];
   var nameFace = inFace.name;
   list[nameFace] = 0;
   emojiNames[nameFace] = '';
+  totalCount[nameFace] = {
+    count: 0,
+    percentage: 0
+  };
 }
+
+totalCount.total = 0;
 list.amount = 0;
 list.negativeEmojis = 0;
 list.neutralEmojis = 0;
@@ -31,7 +39,8 @@ list.positiveEmojis = 0;
 var timeSave = new Timeline({
   countries: countryName,
   times: [],
-  topEmojis: emojiNames
+  topEmojis: emojiNames,
+  totalCount: totalCount
 })
 
 mongoose.connection.once('open', function() {

@@ -9,6 +9,14 @@ angular.module('omniMood')
     };
   }
   ])
+  .factory('EmojiFactory', [
+  '$http', function($http) {
+    return {
+      getEmojis: function () {
+        return $http.get('../json/emojisSpecialOrder.json');
+      }
+    }
+  }])
   .factory('socket', function ($rootScope) {
     var socket = io.connect('http://localhost:3000');
     return {

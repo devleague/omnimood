@@ -2,7 +2,8 @@
 @import "partials/_general_styles";
 @import "partials/_clearfix";
 @import "partials/_reset";
-
+@import "globe.scss";
+@import "legend.scss";
 
 body {
   background-color: #282d34;
@@ -28,9 +29,21 @@ h2 {
   display: flex;
 }
 
+.mapRelated {
+  display: flex;
+  justify-content: center;
+
+  button {
+    position: absolute;
+    margin-top: 10px;
+  }
+}
+
 .mapContainer {
-  margin-left: 5px;
-  width: 85vw;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  margin-top: 40px;
 }
 
 #emojiListContainer {
@@ -50,10 +63,45 @@ h2 {
 }
 
 .emojiImage {
-  // position: relative;
+  position: relative;
   padding: 5px;
-  // display: inline-block;
 }
+
+.animatedEmojiImage {
+  animation-duration: 3s;
+  animation-timing-function: ease-in;
+  animation-name: fadeOutUp;
+}
+
+@keyframes fadeOutUp {
+  0% {
+    top: 0px;
+    opacity: 1;
+  }
+  45% {
+    top: 0px;
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    top: -60vh;
+    transform: scale(4);
+    opacity: 0.2;
+  }
+}
+
+@keyframes fadeInSpinDown {
+  0% {
+    top: -60vh;
+    opacity: 0.2;
+  }
+  100% {
+    top: 0px;
+    opacity: 1;
+    transform: rotate(1080deg);
+  }
+}
+
 
 .emojiImage:hover {
   width: 70px;
@@ -80,4 +128,8 @@ h2 {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.ping {
+  color: green;
 }
