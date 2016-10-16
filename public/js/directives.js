@@ -221,12 +221,12 @@ angular.module('omniMood')
           .enter().append('g')
           .attr('class', className)
           .attr('id', function(d) {
-            return 'cc' + d.id;
+            return 'cc' + d.properties.iso_n3;
           })
           .on('mouseover', function(d) {
             countryToolTip.text(countryById[d.properties.iso_n3])
-              .style('left', (d3.event.pageX + 7) + 'px')
-              .style('top', (d3.event.pageY - 15) + 'px')
+              .style('left', (d3.event.pageX - 95) + 'px')
+              .style('top', (d3.event.pageY - 100) + 'px')
               .style('display', 'block')
               .style('opacity', 1);
           })
@@ -237,8 +237,8 @@ angular.module('omniMood')
           })
           .on('mousemove', function(d) {
             countryToolTip
-              .style('left', (d3.event.pageX + 10) + 'px')
-              .style('top', (d3.event.pageY - 10) + 'px');
+              .style('left', (d3.event.pageX - 95) + 'px')
+              .style('top', (d3.event.pageY - 100) + 'px');
           })
           .on('click', function(d) {
             timer_ret_val = true;
