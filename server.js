@@ -7,7 +7,6 @@ const Country = require('./models/countries');
 const Timeline = require('./models/timeline');
 const secrets = require('./json/secret.json');
 const mood = require('./public/js/mood.js');
-const codeEmojiObject = require('./json/codeEmoji.json');
 const path = require('path');
 var tweets = require('./twitter.js');
 
@@ -16,7 +15,7 @@ const http = require('http');
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', (req, res) => {
+app.get('/', (req,res) =>{
   res.json(index);
 });
 
@@ -26,15 +25,14 @@ app.get('/graphs', (req, res)=>{
 
 app.get('/countries/api', (req, res) => {
   Country
-    .find({})
-    .then(results => res.json(results));
+  .find({})
+  .then(results => res.json(results));
 });
 
 app.get('/api/tweets', (req, res) => {
   res.json(tweets.tweets);
 });
 
-var test = 0;
 app.get('/api/timeline', (req, res) =>{
   Timeline.findOne({}).then((data)=>{
     res.json(data);
