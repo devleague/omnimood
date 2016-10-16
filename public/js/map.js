@@ -1,6 +1,6 @@
 var svg = d3.select("svg#svg_map"),
   width = (document.body.clientWidth*.85),
-  height = (document.body.clientHeight * .4);
+  height = (document.body.clientHeight * .83);
 
 var outlineDefault = "#eeeeee";
 var outlineHighlight = "#1221ee";
@@ -11,7 +11,6 @@ var moodMid = 0;
 var moodMax = 10;
 
 var countryId;
-
 
 console.log("*********" + height);
 var testText = d3.select("body").append("div").attr("id", "testText");
