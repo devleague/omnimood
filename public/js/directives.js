@@ -25,9 +25,13 @@ angular.module('omniMood')
         .domain([moodMin, moodMid, moodMax])
         .range(["red", "yellow", "green"]);
 
-      mapSVG
-        .attr("width", width)
-        .attr("height", height)
+      var g = mapSVG
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("id", "map-container");
+
+      g
         .append("rect")
         .attr("width", width)
         .attr("height", height)
@@ -44,7 +48,7 @@ angular.module('omniMood')
         var path = d3.geoPath()
           .projection(projection);
 
-        mapSVG.selectAll(".country")
+        g.selectAll(".country")
           .data(countries)
           .enter().insert("path", ".graticule")
           .attr("id", function(d) {
@@ -54,17 +58,62 @@ angular.module('omniMood')
           .attr("stroke", outlineDefault)
           .on("mouseover", function(d) {
             d3.select(this)
-              .attr("stroke", outlineHighlight);
+            .attr("stroke", outlineHighlight);
           })
 
-        .on("mouseout", function() {
+          .on("mouseout", function() {
             d3.select(this)
               .attr("stroke", outlineDefault);
           })
-          .append("svg:title")
-          .text(function(d) {
-            return d.properties.name;
-          });
+          .on("click", function (d) {
+            var w = 1600;
+            var h = 700;
+            var centroid = path.centroid(d);
+            var x = w / 2 - centroid[0];
+            var y = h / 2 - centroid[1];
+
+            countryId = "path#cc" + d.properties.iso_n3;
+
+            mapSVG
+              .append("g")
+              .attr("id", "countryInfo-wrapper");
+
+            d3.select("g#map-container")
+              .transition()
+              .delay(250)
+              .attr("visibility", "hidden");
+
+            var g = d3.select("g#countryInfo-wrapper")
+              .append("g")
+              .attr("id", "country-wrapper")
+              .insert("path", countryId)
+              .attr("d", this.attributes.d.value)
+              .attr("stroke", "red")
+              .transition()
+              .delay(250)
+              .attr("transform", "translate(" + x + "," + y + ")")
+              .style("stroke", "#eeeeee")
+              .style("fill", "#000000");
+
+            d3.select("g#country-wrapper")
+              .append("text")
+              .text(d3.select(this).text())
+              .attr("transform", "translate(800, 50)")
+              .transition()
+              .delay(250)
+              .style("font-size", "25")
+              .style("font-family", "serif")
+              .style("text-anchor", "middle")
+              .style("font-weight", "bold")
+              .style("fill", "orange");
+
+            d3.select("g#countryInfo-wrapper")
+              .on("click", backToMap);
+        })
+        .append("svg:title")
+        .text(function(d) {
+          return d.properties.name;
+        });
       });
 
       setInterval(function() {
@@ -95,14 +144,19 @@ angular.module('omniMood')
               .duration(2000)
               .attr("stroke", outlineDefault)
               .attr("stroke-width", 1)
-              .style("fill", moodScale(thisMoodValue.mood * 10))
+              .style("fill", moodScale(thisMoodValue.mood * 10));
           }
 
           countryArrayIndex++;
-        })
+        });
       }, 200);
+    }
 
-
+    function backToMap () {
+      d3.select("g#countryInfo-wrapper")
+        .remove();
+      d3.select("g#map-container")
+        .attr("visibility", "visible");
     }
   })
   .directive('globe', function() {
