@@ -40,9 +40,6 @@ h2 {
 }
 
 .mapContainer {
-  display: flex;
-  justify-content: center;
-  position: absolute;
   margin-top: 40px;
 }
 
@@ -128,8 +125,4 @@ h2 {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-}
-
-.ping {
-  color: green;
 }
