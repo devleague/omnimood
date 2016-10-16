@@ -66,8 +66,8 @@ angular.module('omniMood')
               .attr("stroke", outlineDefault);
           })
           .on("click", function (d) {
-            var w = 1600;
-            var h = 700;
+            var w = width;
+            var h = height;
             var centroid = path.centroid(d);
             var x = w / 2 - centroid[0];
             var y = h / 2 - centroid[1];
