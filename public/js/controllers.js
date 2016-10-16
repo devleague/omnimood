@@ -15,15 +15,18 @@ angular.module('omniMood')
         $scope.Tweets.push(tweet.emojis);
       });
 
-      $scope.Emojis = [];
+      var emojiArray = [];
+      // $scope.Emojis = [];
       EmojiFactory.getEmojis()
         .then(function(emojis) {
           emojis.data.forEach(function(code) {
-            $scope.Emojis.push(code);
+            // $scope.Emojis.push(code);
+            emojiArray.push(code);
           });
         });
 
-      $scope.EmojiMetrics = [];
+      var emojiMetrics = [];
+      // $scope.EmojiMetrics = [];
       EmojiMetricsFactory.getEmojiMetrics()
         .then(function(values) {
           for(var emoji in values.data.totalCount) {
@@ -31,10 +34,18 @@ angular.module('omniMood')
             if(obj.count) {
               console.log(obj.count);
               console.log(obj.percentage);
-              $scope.EmojiMetrics.push(obj.count);
+              // $scope.EmojiMetrics.push(obj.count);
+              emojiMetric.push(obj.count);
             }
           }
         });
+
+      var emojiObject = {
+        emojiArray: emojiArray,
+        emojiMetrics: emojiMetrics
+      };
+
+      $scope.Emojis.push(emojiObject);
     }
   ])
   .controller('toggleViewController', function($scope) {
