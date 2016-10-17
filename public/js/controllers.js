@@ -12,11 +12,9 @@ angular.module('omniMood')
       });
 
       var emojiArray = [];
-      // $scope.Emojis = [];
       EmojiFactory.getEmojis()
         .then(function(emojis) {
           emojis.data.forEach(function(code) {
-            // $scope.Emojis.push(code);
             emojiArray.push(code);
           })
           EmojiMetricsFactory.getEmojiMetrics()
@@ -31,7 +29,6 @@ angular.module('omniMood')
               if(obj.count) {
                 emojiMetrics.count = obj.count;
                 emojiMetrics.percentage = obj.percentage;
-                // console.log(emojiMetrics);
                 emojiMetricsArray.push(emojiMetrics);
                 emojiMetrics = {};
               }
@@ -40,22 +37,13 @@ angular.module('omniMood')
 
             var emojiObject = {};
             $scope.Emojis = emojiMetricsArray.map(function(value, index) {
-              // console.log(value);
               return {
                 emoji: emojiArray[index],
                 emojiMetrics: value
               }
             })
-
-            // console.log(emojiObject);
-            // $scope.Emojis = emojiObject;
-            // console.log($scope.Emojis);
           })
         });
-
-
-
-      // console.log($scope.Emojis);
     }
   ])
   .controller('toggleViewController', function ($scope) {
