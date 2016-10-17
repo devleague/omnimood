@@ -13,15 +13,15 @@
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/factories.js"></script>
     <script type="text/javascript" src="js/directives.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
   <body ng-app="omniMood">
-    <h1 id='title'>
-      <img src="emojis/1f602.png">
-      Omni Mood
-      <img src="emojis/1f620.png">
-    </h1>
     <div class="mainContainer" ng-controller="toggleViewController">
       <div class="sideBar">
+        <h1 id='title'>
+          <img src="emojis/1f602.png">
+          Omni Mood
+          <img src="emojis/1f620.png">
+        </h1>
         <button ng-click="show = !show">{{ toggleText }}</button>
       </div>
       <div class="mapContainer" ng-controller="tweetController">
