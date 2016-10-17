@@ -22,7 +22,7 @@
       <h2>Emoji List</h2>
       <div ng-controller="tweetController">
         <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-          <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" />
+          <img id="{{emoji.emoji.code}}" ng-class="glow" class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" />
             <span class="tooltiptext">
               {{ emoji.emoji.name }}
               Count:
@@ -32,9 +32,8 @@
             </span>
         </div>
 
-        <div ng-repeat="tweet in Tweets" class="tweet">
+        <div ng-repeat="tweet in Tweets track by $index" class="tweet">
           <span>
-            <!-- {{ tweet.toString().includes("&#x2665;") ? tweet : 'nope' }} -->
             {{ tweet.toString() }}
           </span>
         </div>

@@ -69,8 +69,22 @@ h2 {
 .emojiImage {
   position: relative;
   padding: 4px;
-  animation: grayToColor 4s;
+  // animation: grayToColor 4s;
+  // animation-timing-function: ease-in;
+}
+
+.active {
+  animation: grayToColor 2s;
   animation-timing-function: ease-in;
+}
+
+.inactive {
+  filter: grayscale(100%);
+}
+
+.glow {
+  animation: glowGold 2s infinite;
+  animation-timing-function: ease-in-out;
 }
 
 // .emojiImage:hover{

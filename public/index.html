@@ -37,7 +37,7 @@
           <h2>Emoji List</h2>
           <div ng-controller="tweetController">
             <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" />
+              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" id="{{emoji.emoji.code.toLowerCase()}}"/>
             <span class="tooltiptext">
               {{ emoji.emoji.name }}
               Count:
