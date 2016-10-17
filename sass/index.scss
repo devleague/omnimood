@@ -69,17 +69,28 @@ h2 {
 .emojiImage {
   position: relative;
   padding: 4px;
-}
-
-.emojiImage:hover{
-  animation: colorFade 4s infinite;
+  animation: grayToColor 4s;
   animation-timing-function: ease-in;
 }
+
+// .emojiImage:hover{
+//   animation: grayToColor 4s infinite;
+//   animation-timing-function: ease-in;
+// }
 
 // .animatedEmojiImage {
 //   animation: colorFade 4s infinite;
 //   animation-timing-function: ease-in;
 // }
+
+@keyframes grayToColor {
+  from {
+    filter: grayscale(100%);
+  }
+  to {
+    filter: grayscale(0%);
+  }
+}
 
 @keyframes colorFade {
   from {
