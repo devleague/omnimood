@@ -16,7 +16,7 @@ angular.module('omniMood')
         .then(function(emojis) {
           emojis.data.forEach(function(code) {
             emojiArray.push(code);
-          })
+          });
           EmojiMetricsFactory.getEmojiMetrics()
           .then(function(values) {
             var emojiMetricsArray = [];
@@ -40,9 +40,9 @@ angular.module('omniMood')
               return {
                 emoji: emojiArray[index],
                 emojiMetrics: value
-              }
-            })
-          })
+              };
+            });
+          });
         });
     }
   ])
