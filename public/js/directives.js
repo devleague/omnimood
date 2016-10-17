@@ -187,7 +187,8 @@ angular.module('omniMood')
         .rotate(rotate);
 
       var path = d3.geoPath()
-        .projection(projection);
+        .projection(projection)
+        .pointRadius(2);
 
       var moodScale = d3.scaleLinear()
         .domain([moodMin, moodMid, moodMax])
@@ -209,7 +210,7 @@ angular.module('omniMood')
 
           path = d3.geoPath().projection(projection);
           d3.select('.globe').selectAll('path')
-            .attr('d', path);
+            .attr('d', path.pointRadius(2));
         });
 
       var svg = d3.select(element[0])
@@ -236,6 +237,10 @@ angular.module('omniMood')
         .attr('class', 'graticule')
         .attr('d', path);
 
+      var countryList = d3.select('.sideBar')
+        .append('select')
+        .attr('class','countryList');
+
       var countryToolTip = d3.select(element[0])
         .append('div')
         .attr('class', 'countryToolTip')
@@ -243,10 +248,21 @@ angular.module('omniMood')
 
       d3.json('../json/countries.json', function(err, world) {
         countries = topojson.feature(world, world.objects.countries).features;
+        countries.sort(function (a, b) {
+          return a.properties.name > b.properties.name ? 1 : -1;
+        });
+
+        countryList.append('option')
+        .text('Choose a country')
+        .attr('disabled', true);
 
         countries.forEach(function(country) {
           countryById[country.properties.iso_n3] = country.properties.name;
+          option = countryList.append('option');
+          option.text(country.properties.name);
+          option.property('value', country.properties.iso_n3);
         });
+
         drawCountries('country', countries);
       });
 
@@ -263,13 +279,14 @@ angular.module('omniMood')
               return {
                 type: 'Point',
                 coordinates: [d.long, d.lat],
-                radius: 0.1
               };
             })
             .style('fill', moodScale(tweet.moodValue*10))
-            .style('fill-opacity', 0.1)
-            .style('stroke-width', 0)
-            .attr('d', path);
+            .style('fill-opacity', 0.2)
+            .style('stroke-width', 5)
+            .style('stroke-opacity', 0.1)
+            .style('stroke', moodScale(tweet.moodValue*10))
+            .attr('d', path.pointRadius(2));
         }
       });
 
@@ -283,8 +300,8 @@ angular.module('omniMood')
           })
           .on('mouseover', function(d) {
             countryToolTip.text(countryById[d.properties.iso_n3])
-              .style('left', (d3.event.pageX - 95) + 'px')
-              .style('top', (d3.event.pageY - 100) + 'px')
+              .style('left', (d3.event.pageX + 7) + 'px')
+              .style('top', (d3.event.pageY + 10) + 'px')
               .style('display', 'block')
               .style('opacity', 1);
           })
@@ -295,18 +312,17 @@ angular.module('omniMood')
           })
           .on('mousemove', function(d) {
             countryToolTip
-              .style('left', (d3.event.pageX - 95) + 'px')
-              .style('top', (d3.event.pageY - 100) + 'px');
+              .style('left', (d3.event.pageX + 7) + 'px')
+              .style('top', (d3.event.pageY + 10) + 'px');
           })
           .on('click', function(d) {
-            timer_ret_val = true;
             d3.selectAll('.selected')
               .classed('selected', false);
-
             d3.select(this)
               .select('path')
               .classed('selected', true);
             rotateToFocus(d);
+            countryList.property('value', this.id.slice(2));
           });
 
         set.append('path')
@@ -317,10 +333,31 @@ angular.module('omniMood')
           .attr('class', 'overlay')
           .attr('d', path);
 
+        countryList
+          .on('change', function () {
+            var selectedCountryId = countryList.node().value;
+            var selectedCountry = getSelectedCountry(countries, selectedCountryId);
+            d3.selectAll('.selected')
+              .classed('selected', false);
+            var selectedNode = d3.select('g#cc' + selectedCountryId).node();
+            d3.select(selectedNode)
+              .select('path')
+              .classed('selected', true);
+            rotateToFocus(selectedCountry);
+          });
+
         return set;
       }
 
+      function getSelectedCountry(countries, id) {
+        for(var i = 0; i < countries.length; i++) {
+          if(countries[i].properties.iso_n3 === id)
+            return countries[i];
+        }
+      }
+
       function rotateToFocus(d) {
+        timer_ret_val = true;
         var coords = d3.geoCentroid(d);
         coords[0] = -coords[0];
         coords[1] = -coords[1];
