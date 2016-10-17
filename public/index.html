@@ -13,47 +13,42 @@
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/factories.js"></script>
     <script type="text/javascript" src="js/directives.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
   <body ng-app="omniMood">
-    <h1 id='title'>
-      <img src="emojis/1f602.png">
-      Omni Mood
-      <img src="emojis/1f620.png">
-    </h1>
-    <div class="mainContainer">
-      <div class="mapRelated" ng-controller="toggleViewController">
+    <div class="mainContainer" ng-controller="toggleViewController">
+      <div class="sideBar">
+        <h1 id='title'>
+          <img src="emojis/1f602.png">
+          Omni Mood
+          <img src="emojis/1f620.png">
+        </h1>
         <button ng-click="show = !show">{{ toggleText }}</button>
-        <div class="mapContainer" ng-controller="tweetController">
-          <div ng-show="show" id="flat-map">
-            <whateveryouwant></whateveryouwant>
-          </div>
-          <div ng-show="!show">
-            <globe coordinates="coordinates"></globe>
-          </div>
-       <!--   <legend></legend>  -->
+      </div>
+      <div class="mapContainer" ng-controller="tweetController">
+        <div ng-show="show" id="flat-map">
+          <whateveryouwant></whateveryouwant>
         </div>
-        <svg id="svg_onClick" width="2000" height="2000" style="width: 85vw; height: 100vh;">
-        </svg>
+        <div ng-show="!show">
+          <globe tweet="tweet"></globe>
+        </div>
+       <legend></legend>
       </div>
       <div id="emojiListContainer">
           <h2>Emoji List</h2>
-          <div ng-controller="emojiController">
+          <div ng-controller="tweetController">
             <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-              <img class="emojiImage tooltip animatedEmojiImage" ng-src="emojis/{{emoji.code.toLowerCase()}}.png" />
-              <p class="tooltiptext">
-                {{ emoji.name }}
-              </p>
+              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" />
+            <span class="tooltiptext">
+              {{ emoji.emoji.name }}
+              Count:
+              {{ emoji.emojiMetrics.count }}
+              Percent:
+              {{ emoji.emojiMetrics.percentage * 100 }}%
+            </span>
             </div>
           </div>
       </div>
     </div>
     <br>
-    <!-- <div ng-controller="tweetController">
-      <div ng-repeat="tweet in Tweets" class="tweet">
-        {{ tweet }}
-      </div>
-    </div> -->
-   <!-- <script type="text/javascript" src="js/map.js"></script> -->
-   <!-- <script type="text/javascript" src="js/map.js"></script> -->
   </body>
 </html>

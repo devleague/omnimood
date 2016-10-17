@@ -39,6 +39,10 @@ app.get('/api/timeline', (req, res) =>{
   });
 });
 
+app.get('/flatmapping', (req, res)=>{
+  res.sendFile(path.join(__dirname+'/public/flatmapping.html'));
+});
+
 mongoose.connection.once('open', () => {
   const server = app.listen(3000, function() {
     var port = server.address().port;

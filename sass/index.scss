@@ -3,15 +3,14 @@
 @import "partials/_clearfix";
 @import "partials/_reset";
 @import "globe.scss";
-@import "legend.scss";
 
 body {
   background-color: #282d34;
-  font-family: 'Jura', sans-serif;
+  font-family: 'Bungee Inline', cursive;
 }
 
 h1 {
-  font-size: 3.5em;
+  font-size: 2.5em;
 }
 
 #title {
@@ -29,6 +28,34 @@ h2 {
   display: flex;
 }
 
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  button {
+    margin-top: 35px;
+    border: 0;
+    border-radius: 5px;
+    background: rgba(83, 90, 99, 0.7);
+    color: white;
+    padding: 15px;
+    font-size: 1.2em;
+    font-family: 'Bungee Inline', cursive;
+  }
+}
+
+.countryList {
+  border: 0;
+  margin-top: 20px;
+  background: rgba(83, 90, 99, 0.7);
+  height: 57px;
+  color: white;
+  font-size: 0.9em;
+  width: 100%;
+  font-family: 'Bungee Inline', cursive;
+}
+
 .mapRelated {
   display: flex;
   justify-content: center;
@@ -38,11 +65,7 @@ h2 {
     margin-top: 10px;
   }
 }
-
 .mapContainer {
-  display: flex;
-  justify-content: center;
-  position: absolute;
   margin-top: 40px;
 }
 
@@ -62,15 +85,57 @@ h2 {
   text-align: center;
 }
 
+// .tweet:last-child {
+//   display: none;
+// }
+
+// .emojiContainer:nth-child(odd) {
+//   animation-timing-function: ease-in;
+//   animation: colorFade 4s infinite;
+// }
+
 .emojiImage {
   position: relative;
-  padding: 5px;
+  padding: 4px;
+  animation: grayToColor 4s;
+  animation-timing-function: ease-in;
 }
 
-.animatedEmojiImage {
-  animation-duration: 3s;
-  animation-timing-function: ease-in;
-  animation-name: fadeOutUp;
+// .emojiImage:hover{
+//   animation: grayToColor 4s infinite;
+//   animation-timing-function: ease-in;
+// }
+
+// .animatedEmojiImage {
+//   animation: colorFade 4s infinite;
+//   animation-timing-function: ease-in;
+// }
+
+@keyframes grayToColor {
+  from {
+    filter: grayscale(100%);
+  }
+  to {
+    filter: grayscale(0%);
+  }
+}
+
+@keyframes colorFade {
+  from {
+    filter: grayscale(100%);
+  }
+  50% {
+    filter: grayscale(0%);
+  }
+  to {
+    filter: grayscale(100%);
+  }
+}
+
+@keyframes glowGold {
+  from {  -webkit-box-shadow: 0 0 9px #333; }
+  50% {  -webkit-box-shadow: 0 0 18px #F9FF33; }
+  to {  -webkit-box-shadow: 0 0 9px #333; }
 }
 
 @keyframes fadeOutUp {
@@ -102,12 +167,6 @@ h2 {
   }
 }
 
-
-.emojiImage:hover {
-  width: 70px;
-  height: 74px;
-}
-
 .tooltip {
   position: relative;
   display: inline-block;
@@ -128,8 +187,4 @@ h2 {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-}
-
-.ping {
-  color: green;
 }
