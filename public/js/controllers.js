@@ -6,7 +6,10 @@ angular.module('omniMood')
     'EmojiMetricsFactory',
     function ($scope, socket, EmojiFactory, EmojiMetricsFactory) {
       var emojiArray = [];
+      var emojiMetricsArray = [];
       var lightEmoji = '';
+      $scope.Tweets = [];
+      $scope.Emojis = [];
       EmojiFactory.getEmojis()
         .then(function(emojis) {
           emojis.data.forEach(function(code) {
@@ -14,7 +17,6 @@ angular.module('omniMood')
           });
           EmojiMetricsFactory.getEmojiMetrics()
           .then(function(values) {
-            var emojiMetricsArray = [];
             var emojiMetrics = {
               count: 0,
               percentage: 0
@@ -28,13 +30,7 @@ angular.module('omniMood')
                 emojiMetrics = {};
               }
             }
-
             var emojiObject = {};
-            $scope.Emojis = [];
-            $scope.Emojis.setGlow = function(lightEmoji) {
-              console.log("Setting " + lightEmoji + " to glow.");
-              return "glow";
-            }
             $scope.Emojis = emojiMetricsArray.map(function(value, index) {
               return {
                 emoji: emojiArray[index],
@@ -44,7 +40,7 @@ angular.module('omniMood')
           });
         });
 
-        $scope.Tweets = [];
+
         socket.emit('start tweets', true);
         socket.on('tweet', function (tweet) {
           $scope.tweet = tweet;
@@ -55,20 +51,12 @@ angular.module('omniMood')
             emojiCodes[i] = String.fromCodePoint(htmlCodes[i]);
           }
           for(i = 0; i < tweet.emojis.length; i++) {
-            // console.log(tweet.emojis[i].toString());
             if(emojiCodes.indexOf(tweet.emojis[i].toString()) !== -1) {
               // console.log("match found!");
               lightEmoji = pngValues[i];
-              // console.log(lightEmoji);
             }
           }
-          tweet.lightEmoji = lightEmoji;
-          var selectEmoji = angular.element( document.getElementById(lightEmoji));
-          selectEmoji.className = "glow";
-          $scope.Emojis.glow = [];
-          $scope.Emojis.glow.push("glow");
-          // $scope.Tweets.push(tweet.emojis);
-          $scope.Tweets.push(tweet.lightEmoji);
+          $scope.Tweets.push(tweet.emojis);
         });
     }
   ])

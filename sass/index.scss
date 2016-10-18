@@ -97,29 +97,24 @@ h2 {
 .emojiImage {
   position: relative;
   padding: 4px;
+  filter: grayscale(40%);
   // animation: grayToColor 4s;
   // animation-timing-function: ease-in;
 }
 
-.active {
-  animation: grayToColor 2s;
-  animation-timing-function: ease-in;
+.emojiImage:hover{
+  filter: grayscale(0%);
+  cursor: pointer;
 }
 
-.inactive {
+.grayscale {
   filter: grayscale(100%);
 }
 
-.glow {
-  animation: glowGold 2s infinite;
+.grayToColor {
+  animation: grayToColor 2s;
   animation-timing-function: ease-in-out;
 }
-
-// .emojiImage:hover{
-//   animation: grayToColor 4s infinite;
-//   animation-timing-function: ease-in;
-// }
-
 // .animatedEmojiImage {
 //   animation: colorFade 4s infinite;
 //   animation-timing-function: ease-in;
@@ -197,8 +192,23 @@ h2 {
   z-index:1;
   top: -5px;
   right: 105%;
+  width: 250px;
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.tooltipTitle {
+  font-weight: bold;
+  text-transform: capitalize;
+  margin: 5px;
+}
+
+.tooltipCount {
+  display: inline;
+}
+
+.tooltipPercent {
+  display: inline;
 }

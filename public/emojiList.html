@@ -22,21 +22,21 @@
       <h2>Emoji List</h2>
       <div ng-controller="tweetController">
         <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-          <img id="{{emoji.emoji.code}}" ng-class="glow" class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" />
+          <img id="{{emoji.emoji.code}}" ng-class="class" class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" />
+
             <span class="tooltiptext">
-              {{ emoji.emoji.name }}
+              <p class="tooltipTitle">{{ emoji.emoji.name }} </p>
               Count:
-              {{ emoji.emojiMetrics.count }}
+              <p class="tooltipCount"> {{ emoji.emojiMetrics.count }} </p>
               Percent:
-              {{ emoji.emojiMetrics.percentage * 100 }}%
+              <p class="tooltipPercent">
+              {{ emoji.emojiMetrics.percentage * 100 }}% </p>
             </span>
         </div>
 
-        <div ng-repeat="tweet in Tweets track by $index" class="tweet">
-          <span>
-            {{ tweet.toString() }}
-          </span>
-        </div>
+        <!-- <div ng-repeat="tweet in Tweets track by $index" class="tweet" style="display:inline-block;">
+            <span>{{ tweet.toString() }}</span>
+        </div> -->
       </div>
     </div>
   </body>
