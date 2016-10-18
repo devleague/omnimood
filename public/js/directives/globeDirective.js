@@ -62,10 +62,10 @@ angular.module('omniMood')
           .attr('class', 'globe')
           .attr('width', width)
           .attr('height', height)
-          .append('g')
-          .attr('class', 'globeGroup')
           .call(drag)
-          .call(autoRotateGlobe);
+          .call(autoRotateGlobe)
+          .append('g')
+          .attr('class', 'globeGroup');
 
         var features = svg.append('g');
 
@@ -162,6 +162,7 @@ angular.module('omniMood')
                 .style('top', (d3.event.pageY + 10) + 'px');
             })
             .on('click', function(d) {
+              var isCountryPathSelected = d3.select(this).select('path').classed('selected');
               if(isCountrySelected) {
                 d3.selectAll('.selected')
                   .classed('selected', false);
@@ -171,7 +172,16 @@ angular.module('omniMood')
                 rotateToFocus(d);
                 countryList.property('value', this.id.slice(2));
                 isCountrySelected = false;
-              } else if(isCountrySelected === false && d3.select(this).select('path').classed('selected')){
+              } else if(isCountrySelected === false && !(isCountryPathSelected)) {
+                d3.selectAll('.selected')
+                  .classed('selected', false);
+                d3.select(this)
+                  .select('path')
+                  .classed('selected', true);
+                rotateToFocus(d);
+                countryList.property('value', this.id.slice(2));
+                isCountrySelected = false;
+              } else if(isCountrySelected === false && isCountryPathSelected){
                 getCountryInfo(d, countries);
                 isCountrySelected = true;
               }
