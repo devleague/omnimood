@@ -21,8 +21,11 @@ angular.module('omniMood')
               count: 0,
               percentage: 0
             };
+            // console.log(Object.keys(values.data.totalCount).length);
+
             for(var emoji in values.data.totalCount) {
               var obj = values.data.totalCount[emoji];
+              console.log(obj.count);
               if(obj.count) {
                 emojiMetrics.count = obj.count;
                 emojiMetrics.percentage = obj.percentage;
