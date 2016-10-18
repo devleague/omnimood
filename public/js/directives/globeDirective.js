@@ -163,7 +163,11 @@ angular.module('omniMood')
             })
             .on('click', function(d) {
               var isCountryPathSelected = d3.select(this).select('path').classed('selected');
-              if(isCountrySelected) {
+
+              if(isCountrySelected && isCountryPathSelected) {
+                getCountryInfo(d, countries);
+                isCountrySelected = true;
+              } else if(isCountrySelected && !(isCountryPathSelected)) {
                 d3.selectAll('.selected')
                   .classed('selected', false);
                 d3.select(this)
@@ -261,7 +265,8 @@ angular.module('omniMood')
             countryArr.push(getSelectedCountry(topoCountries, clickedCountry.properties.iso_n3));
 
           var countryProjection = d3.geoMercator()
-            .scale(100)
+            .scale(200)
+            .center([centroid[0], centroid[1]])
             .translate([width/2, height/2]);
 
           var countryPath = d3.geoPath()
