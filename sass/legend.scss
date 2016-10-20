@@ -1,4 +1,44 @@
 legend {
-  padding: 10px;
-  margin-top: 30px;
+  margin-top: 3vw;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .mood {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+
+    .legendText {
+      color: white;
+      font-size: 1vw;
+      margin-left: 1vw;
+      margin-right: 1vw;
+    }
+
+    img {
+      width: 2vw;
+    }
+
+    .gcircle {
+      display: inline-block;
+      background-color: green;
+      width: 1.5vw;
+      height: 1.5vw;
+      border-radius: 50px;
+    }
+
+    .ycircle {
+      background-color: yellow;
+      @extend .gcircle;
+    }
+
+    .rcircle {
+      background-color: red;
+      @extend .gcircle;
+    }
+
+  }
 }
