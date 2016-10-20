@@ -92,7 +92,7 @@ angular.module('omniMood')
           .attr('class', 'graticule')
           .attr('d', path);
 
-        var countryList = d3.select('.sideBar')
+        var countryList = d3.select('.selectCountryContainer')
           .append('select')
           .attr('class','countryList');
 

@@ -15,13 +15,6 @@ angular.module('omniMood')
         .attr('height', height)
         .attr('class', 'legend');
 
-      svgLegend.append('rect')
-        .attr('width', width)
-        .attr('height', height)
-        .attr('stroke', 'black')
-        .attr('stroke-width', 1)
-        .attr('fill', 'none');
-
       var moodInfo = [{
         color: 'green',
         mood: 'Happy',

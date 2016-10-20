@@ -25,6 +25,8 @@
           <img src="emojis/1f620.png">
         </h1>
         <button ng-click="show = !show">{{ toggleText }}</button>
+        <div class="selectCountryContainer"></div>
+        <legend></legend>
       </div>
       <div class="mapContainer" ng-controller="tweetController">
         <div ng-show="show" id="flat-map">
@@ -33,7 +35,6 @@
         <div ng-show="!show">
           <globe tweet="tweet"></globe>
         </div>
-       <legend></legend>
       </div>
       <div id="emojiListContainer">
           <h2>Emoji List</h2>
