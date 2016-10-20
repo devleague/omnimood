@@ -12,30 +12,24 @@
     <script type="text/javascript" src="js/omniMood.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/factories.js"></script>
-    <script type="text/javascript" src="js/directives.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
+    <script type="text/javascript" src="js/timeDirective.js"></script>
+    <script type="text/javascript" src="js/directives/globeDirective.js"></script>
+    <script type="text/javascript" src="js/directives/legendDirective.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
   <body ng-app="omniMood">
-    <h1 id='title'>
-      Time Line
-    </h1>
-    <div class="mainContainer">
-      <div class="mapRelated" ng-controller="toggleViewController">
-        <div class="mapContainer" ng-controller="tweetController">
-          <div ng-show="show" id="flat-map">
-            <whateveryouwant></whateveryouwant>
-          </div>
-        <input type="range" id="timeRange" min="1" max="10">
+    <div class="mainContainer" ng-controller="toggleViewController">
+      <div class="sideBar">
+        <h1 id='title'>
+          Timeline
+        </h1>
+      </div>
+      <div class="mapContainer" ng-controller="tweetController">
+        <div ng-show="show" id="flat-map">
+          <whateveryouwant></whateveryouwant>
         </div>
-        <svg id="svg_onClick" width="2000" height="2000" style="width: 85vw; height: 100vh;">
-        </svg>
+        <input type='range' id='timeRange' min='0' max='9'></input>
       </div>
+    </div>
     <br>
-    <!-- <div ng-controller="tweetController">
-      <div ng-repeat="tweet in Tweets" class="tweet">
-        {{ tweet }}
-      </div>
-    </div> -->
-   <!-- <script type="text/javascript" src="js/map.js"></script> -->
-   <!-- <script type="text/javascript" src="js/map.js"></script> -->
   </body>
 </html>
