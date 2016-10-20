@@ -21,7 +21,8 @@ angular.module('omniMood')
           moodMin = -10,
           moodMid = 0,
           moodMax = 10,
-          isCountrySelected = true;
+          isCountrySelected = true,
+          isZoomed = false;
 
         var projection = d3.geoOrthographic()
           .translate([width / 2, height / 2])
@@ -114,7 +115,6 @@ angular.module('omniMood')
 
         scope.$watch('tweet', function(tweet) {
           if (tweet) {
-              // console.log(tweet.coordinates);
             var coordArr = [];
             coordArr.push(tweet.coordinates);
             svg.selectAll('path.ping')
@@ -163,9 +163,14 @@ angular.module('omniMood')
             })
             .on('click', function(d) {
               var isCountryPathSelected = d3.select(this).select('path').classed('selected');
-
               if(isCountrySelected && isCountryPathSelected) {
-                getCountryInfo(d, countries);
+                if(isZoomed) {
+                  rotateToFocus(d, 210);
+                  isZoomed = false;
+                } else {
+                  rotateToFocus(d, 500);
+                  isZoomed = true;
+                }
                 isCountrySelected = true;
               } else if(isCountrySelected && !(isCountryPathSelected)) {
                 d3.selectAll('.selected')
@@ -173,21 +178,24 @@ angular.module('omniMood')
                 d3.select(this)
                   .select('path')
                   .classed('selected', true);
-                rotateToFocus(d);
+                rotateToFocus(d, 210);
                 countryList.property('value', this.id.slice(2));
                 isCountrySelected = false;
+                isZoomed = false;
               } else if(isCountrySelected === false && !(isCountryPathSelected)) {
                 d3.selectAll('.selected')
                   .classed('selected', false);
                 d3.select(this)
                   .select('path')
                   .classed('selected', true);
-                rotateToFocus(d);
+                rotateToFocus(d, 210);
                 countryList.property('value', this.id.slice(2));
                 isCountrySelected = false;
+                isZoomed = false;
               } else if(isCountrySelected === false && isCountryPathSelected){
-                getCountryInfo(d, countries);
+                rotateToFocus(d, 500);
                 isCountrySelected = true;
+                isZoomed = true;
               }
             });
 
@@ -209,7 +217,8 @@ angular.module('omniMood')
               d3.select(selectedNode)
                 .select('path')
                 .classed('selected', true);
-              rotateToFocus(selectedCountry);
+              rotateToFocus(selectedCountry, 210);
+              isZoomed = false;
               isCountrySelected = false;
             });
 
@@ -223,7 +232,7 @@ angular.module('omniMood')
           }
         }
 
-        function rotateToFocus(d) {
+        function rotateToFocus(d, scale) {
           timer_ret_val = true;
           var coords = d3.geoCentroid(d);
           coords[0] = -coords[0];
@@ -234,7 +243,7 @@ angular.module('omniMood')
             .tween('rotate', function() {
               var r = d3.interpolate(projection.rotate(), coords);
               return function(t) {
-                projection.rotate(r(t));
+                projection.rotate(r(t)).scale(scale);
                 svg.selectAll('path')
                   .attr('d', path);
               };
@@ -251,72 +260,6 @@ angular.module('omniMood')
             }
             return timer_ret_val;
           });
-        }
-
-        function getCountryInfo(clickedCountry, topoCountries) {
-          var width = d3.select('.globe').attr('width'),
-            height = d3.select('.globe').attr('height'),
-            centroid = path.centroid(clickedCountry),
-            x = width / 2 - centroid[0],
-            y = height / 2 - centroid[1],
-            countryArr =[],
-            countryId = '#cc' + clickedCountry.properties.iso_n3/1,
-            countryElement = d3.select('g#map-container').select('path' + countryId).node();
-            countryArr.push(getSelectedCountry(topoCountries, clickedCountry.properties.iso_n3));
-
-          var countryProjection = d3.geoMercator()
-            .scale(200)
-            .center([centroid[0], centroid[1]])
-            .translate([width/2, height/2]);
-
-          var countryPath = d3.geoPath()
-            .projection(countryProjection);
-
-          d3.select('.globeGroup')
-            .transition()
-            .delay(250)
-            .attr('visibility', 'hidden');
-
-          var globeg = d3.select('.globe')
-            .append('g')
-            .attr('id', 'globeCountry');
-
-          globeg.selectAll('.selectedCountry')
-            .data(countryArr)
-              .enter().append('path')
-              .attr('d', path)
-              .attr('class', 'selectedCountry')
-              .transition()
-              .delay(250)
-              .attr('transform', 'translate(' + x + ',' + y + ')')
-              .style('stroke', '#eeeeee')
-              .style('fill', 'white');
-
-          globeg.selectAll('.countryText')
-            .data(countryArr)
-              .enter().append('text')
-              .text(function (d) {
-                return d.properties.name;
-              })
-              .attr('class', 'countryText')
-              .attr('transform', 'translate(800, 50)')
-              .transition()
-              .delay(250)
-              .style('font-size', '25')
-              .style('font-family', 'serif')
-              .style('text-anchor', 'middle')
-              .style('font-weight', 'bold')
-              .style('fill', 'orange');
-
-          d3.select('#globeCountry')
-            .on('click', backToMap);
-        }
-
-        function backToMap () {
-          d3.select('#globeCountry')
-            .remove();
-          d3.select('.globeGroup')
-            .attr('visibility', 'visible');
         }
       }
     });
