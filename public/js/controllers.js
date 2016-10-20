@@ -13,6 +13,7 @@ angular.module('omniMood')
       EmojiFactory.getEmojis()
         .then(function(emojis) {
           emojis.data.forEach(function(code) {
+            // console.log(code.code);
             emojiArray.push(code);
           });
           EmojiMetricsFactory.getEmojiMetrics()
@@ -25,7 +26,8 @@ angular.module('omniMood')
 
             for(var emoji in values.data.totalCount) {
               var obj = values.data.totalCount[emoji];
-              console.log(obj.count);
+              console.log(obj.percentage);
+              console.log("\n");
               if(obj.count) {
                 emojiMetrics.count = obj.count;
                 emojiMetrics.percentage = obj.percentage;

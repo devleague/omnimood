@@ -66,18 +66,23 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.tsv("/data/data.tsv", function(error, data) {
+svg.append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + height + ")")
+  .call(xAxis);
+
+d3.tsv("/data/data4.tsv", function(error, data) {
 
   data.forEach(function(d) {
-    console.log(d);
+    // console.log(d);
     d.frequency = +d.frequency;
   });
 
   x.domain(data.map(function(d) {
-    console.log("letter:" + d.letter);
+    // console.log("letter:" + d.letter);
     return d.letter; }));
   y.domain([0, d3.max(data, function(d) {
-    console.log("freq: " + d.frequency);
+    // console.log("freq: " + d.frequency);
     return d.frequency; })]);
 
   svg.append("g")
@@ -103,6 +108,27 @@ d3.tsv("/data/data.tsv", function(error, data) {
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.frequency); })
       .attr("height", function(d) { return height - y(d.frequency); });
+
+  // svg.select(".axis").selectAll("text").remove();
+
+  var ticks = svg.select(".axis").selectAll(".tick")
+    .data(data)
+    .enter()
+    .append("svg:image")
+    .attr("xlink:href", function (d) {
+      console.log("file: " + d.letter);
+      return "emojis/" + d.letter.toLowerCase() + ".png"; })
+    .attr("width", 20)
+    .attr("height", 20);
+
+  // svg.select(".x.axis").selectAll("text").remove();
+  // var xTicks = svg.select(".x.axis").selectAll(".text")
+  //   .append("svg:image")
+  //   .attr("xlink:href", function (d) {
+  //     console.log("file: " + d.letter);
+  //     return "emojis/" + d.letter.toLowerCase() + ".png" ; })
+  //   .attr("width", 20)
+  //   .attr("height", 20);
 
   d3.select("input").on("change", change);
 
