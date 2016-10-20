@@ -43,6 +43,10 @@ app.get('/flatmapping', (req, res)=>{
   res.sendFile(path.join(__dirname+'/public/flatmapping.html'));
 });
 
+app.get('/newBarGraph', (re, res)=> {
+  res.sendFile(path.join(__dirname+'/public/newBarGraph.html'));
+})
+
 mongoose.connection.once('open', () => {
   const server = app.listen(3000, function() {
     var port = server.address().port;
