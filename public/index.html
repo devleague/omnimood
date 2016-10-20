@@ -19,11 +19,17 @@
   <body ng-app="omniMood">
     <div class="mainContainer" ng-controller="toggleViewController">
       <div class="sideBar">
-        <h1 id='title'>
-          <img src="emojis/1f602.png">
-          Omni Mood
-          <img src="emojis/1f620.png">
-        </h1>
+        <div>
+          <div class='title'>
+            Omni
+          </div>
+          <div class='title2'>
+            M
+            <img src="emojis/1f602.png">
+            <img src="emojis/1f620.png">
+            d
+          </div>
+        </div>
         <button ng-click="show = !show">{{ toggleText }}</button>
         <div class="selectCountryContainer"></div>
         <legend></legend>
