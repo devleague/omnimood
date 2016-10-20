@@ -274,7 +274,13 @@ angular.module('omniMood')
 
         function resizePage () {
           var widthResized = window.innerWidth * .65,
-          heightResized = widthResized/2;
+          heightResized = widthResized/2,
+          widthSideBar = parseInt(d3.select('.sideBar').style('width').slice(0,-2)),
+          heightLegend = widthSideBar;
+
+          var legendScale = d3.scaleLinear()
+            .domain([320, 1600])
+            .range([0.2, 1.2]);
 
           d3.select('.globe')
             .attr('width', widthResized)
