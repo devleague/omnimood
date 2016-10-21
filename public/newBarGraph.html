@@ -177,10 +177,10 @@ var svg = d3.select("body").append("svg")
       .attr("class", "emoji")
       .attr("x", function(d, index) {
         // console.log("i: " + index);
-        return x(d.name);
+        return x(d.name) + 20;
       })
       .attr("y", function(d, index) {
-        return x(d.percentage);
+        return height + 5;
       })
       .attr("width", 20)
       .attr("height", 20)
