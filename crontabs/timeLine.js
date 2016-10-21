@@ -1,10 +1,9 @@
-console.log("It just works");
 
 const mongoose = require('mongoose');
 const MONGO_URL = 'mongodb://localhost/omnimood';
 const connection = mongoose.connect(MONGO_URL);
-const Country = require('./models/countries');
-const Timeline = require('./models/timeline');
+const Country = require('../models/countries');
+const Timeline = require('../models/timeline');
 const fs = require('fs');
 const Promise = require('bluebird');
 var dataArray = {}
@@ -27,7 +26,6 @@ mongoose.connection.once('open', () => {
       timeData.markModified('countries');
       timeData.markModified('times');
       Promise.all([timeData.save()]).then(()=>{
-        console.log("What a beautiful Duwang");
         mongoose.connection.close();
       });
     });
