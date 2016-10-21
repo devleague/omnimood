@@ -1,3 +1,7 @@
+globe {
+  display: block;
+}
+
 .globe {
   path {
     fill: none;
@@ -16,19 +20,21 @@
   }
 
   .selected {
-    fill: #33CC33;
+    fill: #4DFFDB;
+    opacity: 0.2;
   }
 
   .land:hover {
-    fill: #33CC33;
+    fill: #4DFFDB;
+    opacity: 0.2;
     stroke-width: 1px;
   }
 }
 
 .countryToolTip {
   display: none;
-  border: 1px solid #ccc;
   font-size: 14px;
   padding: 5px;
-  background: #fff;
+  background: rgba(83, 90, 99, 0.7);
+  color: white;
 }

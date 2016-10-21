@@ -1,46 +1,73 @@
 [
   {
-  	"name": "grinning face", "code": "1f600", "surrogate_pair": "\\uD83D\\uDE00", "value": 1
-	},
+    "name": "Face with tears of Joy", "code": "1f602", "surrogate_pair": "\\uD83D\\uDE02", "value": 1
+  },
+  {
+    "name": "Heavy Black Heart", "code": "2764", "surrogate_pair": "\\u2764", "value": 1
+  },
+  {
+    "name": "Black Heart Suits", "code": "2665", "surrogate_pair": "\\u2665", "value": 1
+  },
+  {
+    "name": "Smiling face with heart-shaped eyes", "code": "1f60d", "surrogate_pair": "\\uD83D\\uDE0D", "value": 1
+  },
+  {
+    "name": "Smiling face with smiling eyes", "code": "1f60a", "surrogate_pair": "\\uD83D\\uDE0A", "value": 1
+  },
+  {
+    "name": "face throwing a kiss", "code": "1f618", "surrogate_pair": "\\uD83D\\uDE18", "value": 1
+  },
+  {
+    "name": "two hearts", "code": "1F495", "surrogate_pair": "\\uD83D\\uDC95", "value": 1
+  },
+  {
+    "name": "white smiling face", "code": "263a", "surrogate_pair": "\\u263a", "value": 1
+  },
 	{
   	"name": "grinning face with smiling eyes", "code": "1f601", "surrogate_pair": "\\uD83D\\uDE01", "value": 1
 	},
-	{
-  	"name": "Face with tears of Joy", "code": "1f602", "surrogate_pair": "\\uD83D\\uDE02", "value": 1
-	},
+  {
+    "name": "winking face", "code": "1f609", "surrogate_pair": "\\uD83D\\uDE09", "value": 1
+  },
+  {
+    "name": "thumbs up sign", "code": "1F44D", "surrogate_pair": "\\uD83D\\uDC4D", "value": 0
+  },
+  {
+    "name": "relieved face", "code": "1f60c", "surrogate_pair": "\\uD83D\\uDE0C", "value": 1
+  },
+  {
+    "name": "grinning face", "code": "1f600", "surrogate_pair": "\\uD83D\\uDE00", "value": 1
+  },
 	{
   	"name": "smiling face with open mouth", "code": "1f603", "surrogate_pair": "\\uD83D\\uDE03", "value": 1
 	},
 	{
   	"name": "smiling face with open mouth and smiling eyes", "code": "1f604", "surrogate_pair": "\\uD83D\\uDE04", "value": 1
 	},
+  {
+    "name": "sparkling hearts", "code": "1F496", "surrogate_pair": "\\uD83D\\uDC96", "value": 1
+  },
 	{
   	"name": "smiling face with open mouth and cold sweat", "code": "1f605", "surrogate_pair": "\\uD83D\\uDE05", "value": 0
 	},
 	{
   	"name": "laughing", "code": "1f606", "surrogate_pair": "\\uD83D\\uDE06", "value": 1
 	},
+  {
+    "name": "smiling cat face with heart-shaped eyes", "code": "1f63b", "surrogate_pair": "\\uD83D\\uDE3B", "value": 1
+  },
 	{
   	"name": "smiling face with halo", "code": "1f607", "surrogate_pair": "\\uD83D\\uDE07", "value": 1
-	},
-	{
-  	"name": "winking face", "code": "1f609", "surrogate_pair": "\\uD83D\\uDE09", "value": 1
-	},
-	{
-  	"name": "Smiling face with smiling eyes", "code": "1f60a", "surrogate_pair": "\\uD83D\\uDE0A", "value": 1
 	},
 	{
   	"name": "face savouring delicious food", "code": "1f60b", "surrogate_pair": "\\uD83D\\uDE0B", "value": -1
 	},
 	{
-  	"name": "relieved face", "code": "1f60c", "surrogate_pair": "\\uD83D\\uDE0C", "value": 1
-	},
-	{
-  	"name": "Smiling face with heart-shaped eyes", "code": "1f60d", "surrogate_pair": "\\uD83D\\uDE0D", "value": 1
-	},
-	{
   	"name": "smiling face with sunglasses", "code": "1f60e", "surrogate_pair": "\\uD83D\\uDE0E", "value": 1
 	},
+  {
+    "name": "victory hand", "code": "270C", "surrogate_pair": "\\u270c", "value": 1
+  },
 	{
   	"name": "smirking face", "code": "1f60f", "surrogate_pair": "\\uD83D\\uDE0F", "value": 0
 	},
@@ -66,11 +93,11 @@
   	"name": "confounded face", "code": "1f616", "surrogate_pair": "\\uD83D\\uDE16", "value": -1
 	},
 	{
-  	"name": "face throwing a kiss", "code": "1f618", "surrogate_pair": "\\uD83D\\uDE18", "value": 1
-	},
-	{
   	"name": "kissing face with smiling eyes", "code": "1f619", "surrogate_pair": "\\uD83D\\uDE19", "value": 1
 	},
+  {
+    "name": "ok hand sign", "code": "1F44C", "surrogate_pair": "\\uD83D\\uDC4C", "value": 0
+  },
 	{
   	"name": "kissing face with closed eyes", "code": "1f61a", "surrogate_pair": "\\uD83D\\uDE1A", "value": 1
 	},
@@ -98,6 +125,9 @@
 	{
   	"name": "crying face", "code": "1f622", "surrogate_pair": "\\uD83D\\uDE22", "value": -1
 	},
+  {
+    "name": "broken heart", "code": "1F494", "surrogate_pair": "\\uD83D\\uDC94", "value": -1
+  }
 	{
   	"name": "persevering face", "code": "1f623", "surrogate_pair": "\\uD83D\\uDE23", "value": -1
 	},
@@ -148,35 +178,5 @@
 	},
 	{
   	"name": "cat face with tears of joy", "code": "1f639", "surrogate_pair": "\\uD83D\\uDE39", "value": 1
-	},
-	{
-  	"name": "smiling cat face with heart-shaped eyes", "code": "1f63b", "surrogate_pair": "\\uD83D\\uDE3B", "value": 1
-	},
-	{
-  	"name": "white smiling face", "code": "263a", "surrogate_pair": "\\u263a", "value": 1
-	},
-	{
-  	"name": "victory hand", "code": "270C", "surrogate_pair": "\\u270c", "value": 1
-	},
-	{
-  	"name": "ok hand sign", "code": "1F44C", "surrogate_pair": "\\uD83D\\uDC4C", "value": 0
-	},
-	{
-  	"name": "thumbs up sign", "code": "1F44D", "surrogate_pair": "\\uD83D\\uDC4D", "value": 0
-	},
-	{
-  	"name": "broken heart", "code": "1F494", "surrogate_pair": "\\uD83D\\uDC94", "value": -1
-	},
-	{
-  	"name": "two hearts", "code": "1F495", "surrogate_pair": "\\uD83D\\uDC95", "value": 1
-	},
-	{
-  	"name": "sparkling hearts", "code": "1F496", "surrogate_pair": "\\uD83D\\uDC96", "value": 1
-	},
-	{
-  	"name": "Black Heart Suits", "code": "2665", "surrogate_pair": "\\u2665", "value": 1
-	},
-	{
-  	"name": "Heavy Black Heart", "code": "2764", "surrogate_pair": "\\u2764", "value": 1
 	}
 ]
