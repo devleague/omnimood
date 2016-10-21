@@ -24,18 +24,7 @@ body {
   fill-opacity: .9;
 }
 
-.x.axis path {
-  display: none;
-}
-
-label {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
 </style>
-<!-- <label><input type="checkbox"> Sort values</label> -->
 <script src="//d3js.org/d3.v3.min.js"></script>
 <body>
   <script>
@@ -78,7 +67,7 @@ label {
     emojiArray.push(emojiObject);
   });
 
-  console.log(emojiArray);
+  // console.log(emojiArray);
 
   emojiArray.sort(compare);
 
@@ -94,100 +83,228 @@ label {
     return 0;
   }
 
-  console.log(emojiArray);
+  // var width = 1000;
+  // var height = 500;
+  // var tickHeight = 10;
+  // var emojiWidth = 50;
+  // var emojiHeight = 50;
+  // var yPadding = 50;
+  // var xAxisHeight = height - 10 - yPadding;
+  // var yAxisLength = height - 10 - yPadding;
 
-  var width = 1000;
-  var height = 500;
-  var tickHeight = 10;
-  var emojiWidth = 50;
-  var emojiHeight = 50;
-  var yPadding = 50;
-  var xAxisHeight = height - 10 - yPadding;
-  var yAxisLength = height - 10 - yPadding;
+  // set the dimensions of the canvas
+var margin = {top: 20, right: 20, bottom: 70, left: 40},
+    width = 600 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
 
-  var svg = d3.select("body")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
 
-  svg.append("line")
-    .attr("class", "xAxis")
-    .attr("x1", 0)
-    .attr("x2", width - 10)
-    .attr("y1", xAxisHeight)
-    .attr("y2", xAxisHeight)
-    .attr("stroke", "black")
-    .attr("stroke-width", 3);
+// set the ranges
+var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
 
-  svg.append("line")
-    .attr("class", "yAxis")
-    .attr("x1", 0)
-    .attr("x2", 0)
-    .attr("y1", 0)
-    .attr("y2", yAxisLength)
-    .attr("stroke", "black")
-    .attr("stroke-width", 3);
+var y = d3.scale.linear().range([height, 0]);
 
-  svg.append("text")
-    .attr("x", 50)
-    .attr("y", 250)
-    .text("HEllo").transition().duration(2000)
-    .attr("x", 100)
-    .attr("y", 300);
+// define the axis
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
 
-  var formatPercent = d3.format(".0%");
-
-  var y = d3.scale.linear()
-    .range([height, 0]);
-
-  var yAxis = d3.svg.axis()
+var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left")
-    .tickFormat(formatPercent);
+    .ticks(10);
 
-  svg.selectAll(".xAxis.tick")
-    .data(emojiArray)
-    .enter()
-    .append("line")
-    .attr("class", "tick")
-    .attr("x1", function(d, i) {
-      return (i + 1) * emojiWidth;
-    })
-    .attr("x2", function(d, i) {
-      return (i + 1) * emojiWidth;
-    })
-    .attr("y1", xAxisHeight)
-    .attr("y2", xAxisHeight + tickHeight)
-    .attr("stroke", "black")
-    .attr("stroke-width", 3);
 
-    for(var i = 0; i < 10; i++) {
-      svg.selectAll(".yAxis.tick")
-        .append("line")
-        .attr("class", "tick")
-        .attr("x1", 5)
-        .attr("x2", 10)
-        .attr("y1", i * 5)
-        .attr("y2", i * 5)
-        .attr("stroke", "black")
-        .attr("stroke-width", 3);
-    }
+// add the SVG element
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
 
-  svg.selectAll("image.emoji")
-    .data(emojiArray)
-    .enter()
-    .append("image")
-    .attr("class", "emoji")
-    .attr("xlink:href",function(d) {
-      // console.log(d);
-      // console.log(Object.keys(d)[0]);
-      return "emojis/" + Object.keys(d)[0] + ".png"})
-    .attr("x", function(d, i) {
-      return i * emojiWidth + (emojiWidth / 2);
-    })
-    .attr("y", xAxisHeight + 10)
-    .attr("width", emojiWidth)
-    .attr("height", emojiHeight);
+  d3.json(emojiArray, function(error, data) {
+    for(var i = 0; i < emojiArray.length; i++) {
+        data = emojiArray;
+        data[i].name = emojiArray[i].name;
+        data[i].percentage = emojiArray[i].percentage;
+      }
+
+  // scale the range of the data
+  x.domain(data.map(function(d) { return d.name; }));
+  y.domain([0, d3.max(data, function(d) { return d.percentage + 0.05; })]);
+
+  // add axis
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+    .selectAll("text")
+      .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("dy", "-.55em")
+      .attr("transform", "rotate(-90)" );
+
+  svg.selectAll("x axis")
+    .append("text")
+      .style("text-achor", "end")
+      .text("emoji");
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 5)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("percentage");
+
+
+  // Add bar chart
+  svg.selectAll("bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.name); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.percentage); })
+      .attr("height", function(d) { return height - y(d.percentage); });
+
+  svg.selectAll("bar")
+      .data(data)
+      .enter()
+      .append("image")
+      .attr("class", "emoji")
+      .attr("x", function(d, index) {
+        // console.log("i: " + index);
+        return x(d.name);
+      })
+      .attr("y", function(d, index) {
+        return x(d.percentage);
+      })
+      .attr("width", 20)
+      .attr("height", 20)
+      .attr("xlink:href", function(d) {
+        console.log("d: ");
+        console.log(d);
+        return "emojis/" + d.name + ".png"
+      });
+
+  // add images to ticks
+  // for(var i = 0; i < emojiArray.length; i++) {
+  //   svg.selectAll(".x axis.tick")
+  //     .data(emojiArray[i])
+  //     .enter()
+  //     .append("image")
+  //     .attr("class", "emoji")
+  //     .attr("xlink:href", function(d) {
+  //       console.log("d: ");
+  //       console.log(d);
+  //       return "emojis/" + d.name + ".png"
+  //     })
+  //     .attr("x", function(d, index) {
+  //       console.log("i: " + index);
+  //       return (i + 1) * 20;
+  //     })
+  //     .attr("y", height + 40)
+  //     .attr("width", 20)
+  //     .attr("height", 20);
+  //     // .attr("y", xAxisHeight + 10)
+  //     // .attr("width", emojiWidth)
+  //     // .attr("height", emojiHeight);
+  // }
+
+
+
+  // svg.selectAll("image.emoji")
+  //   .data(emojiArray)
+  //   .enter()
+  //   .append("image")
+  //   .attr("class", "emoji")
+  //   .attr("xlink:href",function(d) {
+  //     // console.log(d);
+  //     // console.log(Object.keys(d)[0]);
+  //     return "emojis/" + d.name + ".png"})
+  //   .attr("x", function(d, i) {
+  //     // return i * emojiWidth + (emojiWidth / 2);
+  //     return i * 20 + (20 / 2);
+  //   })
+  //   .attr("y", 1 + 10)
+  //   .attr("width", 20)
+  //   .attr("height", 20);
+    // .attr("y", xAxisHeight + 10)
+    // .attr("width", emojiWidth)
+    // .attr("height", emojiHeight);
+
+});
+  // var svg = d3.select("body")
+  //   .append("svg")
+  //   .attr("width", width)
+  //   .attr("height", height);
+
+  // svg.append("line")
+  //   .attr("class", "xAxis")
+  //   .attr("x1", 0)
+  //   .attr("x2", width - 10)
+  //   .attr("y1", xAxisHeight)
+  //   .attr("y2", xAxisHeight)
+  //   .attr("stroke", "black")
+  //   .attr("stroke-width", 3);
+
+  // svg.append("line")
+  //   .attr("class", "yAxis")
+  //   .attr("x1", 0)
+  //   .attr("x2", 0)
+  //   .attr("y1", 0)
+  //   .attr("y2", yAxisLength)
+  //   .attr("stroke", "black")
+  //   .attr("stroke-width", 3);
+
+  // svg.append("text")
+  //   .attr("x", 50)
+  //   .attr("y", 250)
+  //   .text("HEllo").transition().duration(2000)
+  //   .attr("x", 100)
+  //   .attr("y", 300);
+
+  // var formatPercent = d3.format(".0%");
+
+  // var y = d3.scale.linear()
+  //   .range([height, 0]);
+
+  // var yAxis = d3.svg.axis()
+  //   .scale(y)
+  //   .orient("left")
+  //   .tickFormat(formatPercent);
+
+  // svg.selectAll(".xAxis.tick")
+  //   .data(emojiArray)
+  //   .enter()
+  //   .append("line")
+  //   .attr("class", "tick")
+  //   .attr("x1", function(d, i) {
+  //     return (i + 1) * emojiWidth;
+  //   })
+  //   .attr("x2", function(d, i) {
+  //     return (i + 1) * emojiWidth;
+  //   })
+  //   .attr("y1", xAxisHeight)
+  //   .attr("y2", xAxisHeight + tickHeight)
+  //   .attr("stroke", "black")
+  //   .attr("stroke-width", 3);
+
+  //   for(var i = 0; i < 10; i++) {
+  //     svg.selectAll(".yAxis.tick")
+  //       .append("line")
+  //       .attr("class", "tick")
+  //       .attr("x1", 5)
+  //       .attr("x2", 10)
+  //       .attr("y1", i * 5)
+  //       .attr("y2", i * 5)
+  //       .attr("stroke", "black")
+  //       .attr("stroke-width", 3);
+  //   }
+
 
   </script>
 </body>
