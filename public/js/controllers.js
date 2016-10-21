@@ -6,7 +6,6 @@ angular.module('omniMood')
     'EmojiMetricsFactory',
     function ($scope, socket, EmojiFactory, EmojiMetricsFactory) {
       $scope.Tweets = [];
-      socket.emit('start tweets', true);
       socket.on('tweet', function (tweet) {
         $scope.tweet = tweet;
       });
