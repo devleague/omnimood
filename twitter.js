@@ -51,7 +51,6 @@ function listenForTweets(socket) {
       var tweetObj = getVariables(tweet);
       if(tweetObj) {
         if(tweetObj.emojis) { // if there's an emoji found
-          console.log(tweetObj.emojis);
           var tweetMoodValue = calculateTweetMood(tweetObj.emojis);
           socket.emit('tweet', {
             emojis: tweetObj.emojis,
