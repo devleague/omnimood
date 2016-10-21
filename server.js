@@ -43,8 +43,8 @@ app.get('/flatmapping', (req, res)=>{
   res.sendFile(path.join(__dirname+'/public/flatmapping.html'));
 });
 
-app.get('/newBarGraph', (re, res)=> {
-  res.sendFile(path.join(__dirname+'/public/newBarGraph.html'));
+app.get('/newBarGraphd4', (re, res)=> {
+  res.sendFile(path.join(__dirname+'/public/newBarGraphd4.html'));
 })
 
 mongoose.connection.once('open', () => {
