@@ -23,7 +23,11 @@ for(var face in emojiData){
   var nameFace = inFace.name;
   list[nameFace] = 0;
   emojiNames[nameFace] = '';
-  totalCount[nameFace] = {
+}
+
+for(var code in emojiCode){
+  var codeCode = emojiCode[code].code;
+  totalCount[codeCode] = {
     count: 0,
     percentage: 0
   };

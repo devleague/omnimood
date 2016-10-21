@@ -1,15 +1,15 @@
 angular.module('omniMood')
-  .directive('whateveryouwant', function() {
+  .directive('killerqueen', function() {
     return {
       restrict: 'E',
       scope: {
 
       },
-      link: somethingelse
+      link: timeelse
     };
 
-    function somethingelse(scope, element, attr) {
-      var mapSVG = d3.select(element[0]).append("svg")
+    function timeelse(scope, element, attr) {
+      var timeSVG = d3.select(element[0]).append("svg")
         .attr("id", "svg_map"),
         width = window.innerWidth * .70,
         height = window.innerHeight * .70,
@@ -20,12 +20,11 @@ angular.module('omniMood')
         moodMid = 0,
         moodMax = 10,
         countryArrayIndex = 0;
-
-      var moodScale = d3.scaleLinear()
-        .domain([moodMin, moodMid, moodMax])
+      var timeScale = d3.scaleLinear()
+        .domain([-10, 0, 10])
         .range(["red", "yellow", "green"]);
 
-      var g = mapSVG
+      var g = timeSVG
       .attr("width", width)
       .attr("height", height)
       .append("g")
@@ -50,7 +49,7 @@ angular.module('omniMood')
           .data(countries)
           .enter().insert("path", ".graticule")
           .attr("id", function(d) {
-            return "cc" + (d.properties.iso_n3 / 1);
+            return "dd" + (d.properties.iso_n3 / 1);
           })
           .attr("d", path)
           .attr("stroke", outlineDefault)
@@ -70,9 +69,9 @@ angular.module('omniMood')
             var x = w / 2 - centroid[0];
             var y = h / 2 - centroid[1];
 
-            countryId = "path#cc" + d.properties.iso_n3;
+            countryId = "path#dd" + d.properties.iso_n3;
 
-            mapSVG
+            timeSVG
               .append("g")
               .attr("id", "countryInfo-wrapper");
 
@@ -81,7 +80,7 @@ angular.module('omniMood')
               .delay(250)
               .attr("visibility", "hidden");
 
-            var g = d3.select("g#countryInfo-wrapper")
+            d3.select("g#countryInfo-wrapper")
               .append("g")
               .attr("id", "country-wrapper")
               .insert("path", countryId)
@@ -113,7 +112,30 @@ angular.module('omniMood')
           return d.properties.name;
         });
       });
+
+      d3.json('http://localhost:3000/api/timeline', function(error, timeData) {
+          var countries = timeData.countries;
+          var timeSelect = document.getElementById("timeRange");
+          var textSelect = document.getElementById("timeDisplay");
+          d3.select(timeSelect).
+            on('change', function(stuff){
+              var timePlace = document.getElementById("timeRange").value;
+              textSelect.innerHTML = timeData.times[timePlace];
+              for(var country in countries){
+                d3.select("path#dd" + country)
+                    .style("fill", "white")
+                    .attr("stroke", "black")
+                    .attr("stroke-width", 1)
+                    .transition()
+                    .duration(2000)
+                    .attr("stroke","#eeeeee")
+                    .attr("stroke-width", 1)
+                    .style("fill", timeScale(countries[country][timePlace] * 10));
+            }
+          });
+      });
     }
+
     function backToMap () {
       d3.select("g#countryInfo-wrapper")
         .remove();
@@ -121,25 +143,3 @@ angular.module('omniMood')
         .attr("visibility", "visible");
     }
   });
-      var moodScale = d3.scaleLinear()
-        .domain([-10, 0, 10])
-        .range(["red", "yellow", "green"]);
-
-d3.json('http://localhost:3000/api/timeline', function(error, timeData) {
-    var countries = timeData.countries;
-    d3.select('#timeRange').
-      on('change', function(stuff){
-        var timePlace = document.getElementById("timeRange").value;
-        for(var country in countries){
-          d3.select("path#cc" + country)
-              .style("fill", "white")
-              .attr("stroke", "black")
-              .attr("stroke-width", 1)
-              .transition()
-              .duration(2000)
-              .attr("stroke","#eeeeee")
-              .attr("stroke-width", 1)
-              .style("fill", moodScale(countries[country][timePlace] * 10));
-        }
-      });
-    });

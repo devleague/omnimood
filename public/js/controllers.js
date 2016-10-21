@@ -46,7 +46,53 @@ angular.module('omniMood')
   ])
   .controller('toggleViewController', function ($scope) {
     $scope.show = true;
-    $scope.$watch('show', function () {
+    $scope.showTwo = false;
+    $scope.time = false;
+    $scope.toggleText = '3D View';
+    $scope.toggleTime = 'TimeMap';
+    $scope.lastView = "3D View"
+    $scope.toggleView = function(){
+      $scope.time = false;
+      if($scope.toggleText === "3D View"){
+        $scope.showTwo = true;
+        $scope.show = false;
+        $scope.lastView = "2D View";
+      }
+      else{
+        $scope.show = true;
+        $scope.showTwo = false;
+        $scope.lastView = "3D View";
+      }
       $scope.toggleText = $scope.show ? '3D View' : '2D View';
-    });
+      $scope.toggleTime = "TimeMap";
+    }
+    $scope.toggleMap = function(){
+      if($scope.time){
+        if($scope.lastView === "3D View"){
+          $scope.showTwo = true;
+          $scope.show = false;
+          $scope.time = false;
+        }
+        else{
+          $scope.showTwo = false;
+          $scope.show = true;
+          $scope.time = false;
+        }
+        $scope.toggleTime = "TimeMap";
+      }
+      else{
+        if($scope.show){
+          $scope.lastView = "2D View";
+          $scope.toggleText = "3D View";
+        }
+        else{
+          $scope.lastView = "3D View";
+          $scope.toggleText = "2D View";
+        }
+        $scope.show = false;
+        $scope.showTwo = false;
+        $scope.time = true;
+        $scope.toggleTime = $scope.lastView;
+      }
+    }
   });
