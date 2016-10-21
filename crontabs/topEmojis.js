@@ -1,12 +1,11 @@
-console.log("Do you understand?");
 
 const mongoose = require('mongoose');
 const MONGO_URL = 'mongodb://localhost/omnimood';
 const connection = mongoose.connect(MONGO_URL);
-const Timeline = require('./models/timeline');
-const Country = require('./models/countries');
+const Timeline = require('../models/timeline');
+const Country = require('../models/countries');
 const fs = require('fs');
-const emojiList = require('./json/emoji.json');
+const emojiList = require('../json/emoji.json');
 const Promise = require('bluebird');
 var dataArray = {}
 const path = require('path');
@@ -28,7 +27,6 @@ mongoose.connection.once('open', () => {
       timeData.topEmojis = emojiObject;
       timeData.markModified('topEmojis');
       Promise.all([timeData.save()]).then(()=>{
-        console.log("I Refuse");
         mongoose.connection.close();
       });
     });
