@@ -1,3 +1,7 @@
+globe {
+  display: block;
+}
+
 .globe {
   path {
     fill: none;
@@ -16,12 +20,12 @@
   }
 
   .selected {
-    fill: #33CC33;
+    fill: #4DFFDB;
     opacity: 0.2;
   }
 
   .land:hover {
-    fill: #33CC33;
+    fill: #4DFFDB;
     opacity: 0.2;
     stroke-width: 1px;
   }

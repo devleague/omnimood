@@ -20,27 +20,37 @@
   <body ng-app="omniMood">
     <div class="mainContainer" ng-controller="toggleViewController">
       <div class="sideBar">
-        <h1 id='title'>
-          <img src="emojis/1f602.png">
-          Omni Mood
-          <img src="emojis/1f620.png">
-        </h1>
+        <div>
+          <div class='title'>
+            Omni
+          </div>
+          <div class='title2'>
+            M
+            <img src="emojis/1f602.png">
+            <img src="emojis/1f620.png">
+            d
+          </div>
+        </div>
         <button ng-click="toggleView()">{{ toggleText }}</button>
         <button ng-click="toggleMap()">{{ toggleTime }}</button>
+        <div class="selectCountryContainer"></div>
+        <legend></legend>
       </div>
       <div class="mapContainer" ng-controller="tweetController">
         <div ng-show="show" id="flat-map">
           <whateveryouwant></whateveryouwant>
         </div>
+
         <div ng-show="showTwo">
           <globe tweet="tweet"></globe>
         </div>
+
         <div ng-show="time">
           <killerqueen></killerqueen>
           <div id='timeDisplay'></div>
           <input type="range" id ='timeRange' min ='0' max ='9'><input>
         </div>
-       <legend></legend>
+
       </div>
       <div id="emojiListContainer">
           <h2>Emoji List</h2>
