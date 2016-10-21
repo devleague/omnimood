@@ -16,6 +16,7 @@
     <script type="text/javascript" src="js/directives/globeDirective.js"></script>
     <script type="text/javascript" src="js/directives/legendDirective.js"></script>
     <script type="text/javascript" src="js/directives/timeDirective.js"></script>
+    <script type="text/javascript" src="js/directives/emojiCloud.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
   <body ng-app="omniMood">
     <div class="mainContainer" ng-controller="toggleViewController">
@@ -57,6 +58,9 @@
           <div ng-controller="tweetController">
             <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
               <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" id="{{emoji.emoji.code.toLowerCase()}}"/>
+            <cloud tweet="tweet"></cloud>
+            <!-- <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
+              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" />
             <span class="tooltiptext">
               {{ emoji.emoji.name }}
               Count:
@@ -64,7 +68,7 @@
               Percent:
               {{ emoji.emojiMetrics.percentage * 100 }}%
             </span>
-            </div>
+            </div> -->
           </div>
       </div>
     </div>

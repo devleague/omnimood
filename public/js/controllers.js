@@ -5,6 +5,10 @@ angular.module('omniMood')
     'EmojiFactory',
     'EmojiMetricsFactory',
     function ($scope, socket, EmojiFactory, EmojiMetricsFactory) {
+      $scope.Tweets = [];
+      socket.on('tweet', function (tweet) {
+        $scope.tweet = tweet;
+      });
       var emojiArray = [];
       var emojiMetricsArray = [];
       var lightEmoji = '';

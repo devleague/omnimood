@@ -28,7 +28,7 @@ angular.module('omniMood')
     }])
   .factory('socket', function ($rootScope) {
     var socket = io.connect('http://localhost:3000');
-    return {
+    var socketFunctions = {
       on: function (eventName, callback) {
         socket.on(eventName, function () {
           var args = arguments;
@@ -48,4 +48,6 @@ angular.module('omniMood')
         });
       }
     };
+    socketFunctions.emit('start tweets', true);
+    return socketFunctions;
   });
