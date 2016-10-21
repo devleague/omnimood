@@ -180,11 +180,10 @@ function livingDatabase(tweetUpdate, countEmoji, argCount){
       totalCount[add].count +=  countEmoji[add];
       totalCount[add].percentage = Math.round(100 *(totalCount[add].count/totalCount.total))/100;
       if(totalCount[add].count > 0 && totalCount[add].percentage === 0)
-        totalCount[add].percentage = 0.01
+        totalCount[add].percentage = 0.01;
     }
     data.totalCount = totalCount;
     data.markModified('totalCount');
-    console.log(data)
     data.save().then(()=>{
       for(var countries in tweetUpdate){
         Country.findOne({name: countries})

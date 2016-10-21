@@ -64,7 +64,7 @@ angular.module('omniMood')
               .attr("stroke", outlineDefault);
           })
           .on("click", function (d) {
-            console.log(d);
+
             var w = width;
             var h = height;
             var centroid = path.centroid(d);
@@ -75,38 +75,145 @@ angular.module('omniMood')
 
             mapSVG
               .append("g")
-              .attr("id", "countryInfo-wrapper");
+              .attr("id", "countryInfo");
+
+            d3.select("div#emojiListContainer")
+              .remove();
+
+            d3.select("svg.legend")
+              .attr("visibility", "hidden");
 
             d3.select("g#map-container")
               .transition()
-              .delay(250)
+              .delay(75)
               .attr("visibility", "hidden");
 
-            var g = d3.select("g#countryInfo-wrapper")
+            var countryInfo = d3.select("g#countryInfo");
+
+            countryInfo
               .append("g")
-              .attr("id", "country-wrapper")
+              .attr("id", "country-container")
               .insert("path", countryId)
               .attr("d", this.attributes.d.value)
               .attr("stroke", "red")
               .transition()
-              .delay(250)
+              .delay(75)
               .attr("transform", "translate(" + x + "," + y + ")")
               .style("stroke", "#eeeeee")
               .style("fill", "#000000");
 
-            d3.select("g#country-wrapper")
+            var countryName = d3.select(this).text();
+
+            var countryContainer = d3.select("g#country-container");
+
+            countryContainer
               .append("text")
-              .text(d3.select(this).text())
+              .text(countryName)
               .attr("transform", "translate(800, 50)")
               .transition()
-              .delay(250)
+              .delay(75)
               .style("font-size", "25")
               .style("font-family", "serif")
               .style("text-anchor", "middle")
               .style("font-weight", "bold")
               .style("fill", "orange");
 
-            d3.select("g#countryInfo-wrapper")
+            d3.json("../json/REST-countries.json", function (objects) {
+
+              var alpha3code = d.properties.iso_a3;
+
+              for(k in objects) {
+                var object = objects[k];
+
+                if(alpha3code === object.alpha3Code) {
+                  var info = countryInfo.append("g");
+
+                  info
+                    .append("text")
+                    .text("ISO ALPHA-2 Code: " + object.alpha2Code)
+                    .attr("transform", "translate(50, 250)");
+
+                  info
+                    .append("text")
+                    .text("ISO ALPHA-3 Code: " + object.alpha3Code)
+                    .attr("transform", "translate(50, 300)");
+
+                  info
+                    .append("text")
+                    .text("Capital: " + object.capital)
+                    .attr("transform", "translate(50, 350)");
+
+                  info
+                    .append("text")
+                    .text("Population: " + object.population)
+                    .attr("transform", "translate(50, 400)");
+
+                  info
+                    .append("text")
+                    .text("Calling Code: " + object.callingCodes[0])
+                    .attr("transform", "translate(50, 450)");
+
+                  info
+                    .append("text")
+                    .text("Demonym: " + object.demonym)
+                    .attr("transform", "translate(50, 500)");
+
+                  info
+                    .append("text")
+                    .text("Region: " + object.region)
+                    .attr("transform", "translate(50, 550)");
+
+                  info
+                    .append("text")
+                    .text("Sub-Region: " + object.subregion)
+                    .attr("transform", "translate(50, 600)");
+
+                  info
+                    .append("text")
+                    .text("Currency: " + object.currencies)
+                    .attr("transform", "translate(50, 650)");
+
+                  info.selectAll("text")
+                    .style("font-size", "20")
+                    .style("font-family", "serif")
+                    .style("fill", "orange");
+                }
+              }
+            });
+
+            countryInfo
+              .append("svg:image")
+              .transition()
+              .delay(75)
+              .attr("xlink:href", "/flags/" + d.properties.iso_a3 + ".png")
+              .attr("width", "250")
+              .attr("height", "225")
+              .attr("transform", "translate(50, 0)");
+
+            countryContainer
+              .append("a")
+              .attr("xlink:href", "http://www.localhost:3000/graphs")
+              .append("rect")
+              .attr("x", 730)
+              .attr("y", 725)
+              .attr("height", 50)
+              .attr("width", 160)
+              .attr("rx", 5)
+              .attr("ry", 5)
+              .style("fill", "#eeeeee");
+
+            countryContainer
+              .append("text")
+              .text("Show Graph")
+              .attr("x", 740)
+              .attr("y", 760)
+              .style("font-size", "25")
+              .style("font-family", "serif")
+              .style("font-weight", "bold")
+              .style("pointer-events", "none")
+              .style("fill", "#000000");
+
+            countryInfo
               .on("click", backToMap);
         })
         .append("svg:title")
@@ -151,8 +258,19 @@ angular.module('omniMood')
     }
 
     function backToMap () {
-      d3.select("g#countryInfo-wrapper")
+      d3.selectAll("g#country-container").select("path")
+        .transition()
+        .delay(75)
+        .attr("transform", "translate(0, 0)");
+
+      d3.select("g#countryInfo")
+        .transition()
+        .delay(75)
         .remove();
+
+      d3.select("svg.legend")
+        .attr("visibility", "visible");
+
       d3.select("g#map-container")
         .attr("visibility", "visible");
     }
