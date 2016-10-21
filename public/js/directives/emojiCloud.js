@@ -12,18 +12,23 @@ angular.module('omniMood')
         var width = 640;
         var height = 480;
 
-        var canvas = d3.select('cloud')
+        var canvas = d3.select(element[0])
           .append('svg')
           .attr('width', width)
           .attr('height', height);
 
         scope.$watch('tweet', function (tweet) {
           if(tweet) {
-            console.log(tweet.emojis);
-            var pack = d3.pack()
-              .size([width, height]);
+            var bubble = d3.pack(tweet.emojis)
+              .size([width, height])
+              .padding(3);
 
-            // console.log(pack);
+            // var node = canvas.selectAll('.node')
+            //   .data(bubble.nodes(tweet)
+            //   .filter(function(d) { return !d.children; }))
+            //   .enter()
+            //     .append('g')
+            //     .attr('class', 'node');
           }
         });
       }
