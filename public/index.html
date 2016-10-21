@@ -15,6 +15,7 @@
     <script type="text/javascript" src="js/directives/mapDirective.js"></script>
     <script type="text/javascript" src="js/directives/globeDirective.js"></script>
     <script type="text/javascript" src="js/directives/legendDirective.js"></script>
+    <script type="text/javascript" src="js/directives/timeDirective.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
   <body ng-app="omniMood">
     <div class="mainContainer" ng-controller="toggleViewController">
@@ -30,7 +31,8 @@
             d
           </div>
         </div>
-        <button ng-click="show = !show">{{ toggleText }}</button>
+        <button ng-click="toggleView()">{{ toggleText }}</button>
+        <button ng-click="toggleMap()">{{ toggleTime }}</button>
         <div class="selectCountryContainer"></div>
         <legend></legend>
       </div>
@@ -38,9 +40,17 @@
         <div ng-show="show" id="flat-map">
           <whateveryouwant></whateveryouwant>
         </div>
-        <div ng-show="!show">
+
+        <div ng-show="showTwo">
           <globe tweet="tweet"></globe>
         </div>
+
+        <div ng-show="time">
+          <killerqueen></killerqueen>
+          <div id='timeDisplay'></div>
+          <input type="range" id ='timeRange' min ='0' max ='9'><input>
+        </div>
+
       </div>
       <div id="emojiListContainer">
           <h2>Emoji List</h2>
