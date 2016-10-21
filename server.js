@@ -15,8 +15,8 @@ const http = require('http');
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', (req,res) =>{
-  res.json(index);
+app.get('/timeline', (req,res)=>{
+  res.sendFile(path.join(__dirname+'/public/timeline.html'));
 });
 
 app.get('/graphs', (req, res)=>{
