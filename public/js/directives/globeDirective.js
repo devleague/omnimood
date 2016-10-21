@@ -9,8 +9,8 @@ angular.module('omniMood')
       };
 
       function link(scope, element, attr) {
-        var width = window.innerWidth * .70,
-          height = window.innerHeight * .70,
+        var width = window.innerWidth * .65,
+          height = width/2,
           velocity = [.015, 0],
           rotate = [0, 0],
           time = Date.now(),
@@ -23,21 +23,6 @@ angular.module('omniMood')
           moodMax = 10,
           isCountrySelected = true,
           isZoomed = false;
-
-        var projection = d3.geoOrthographic()
-          .translate([width / 2, height / 2])
-          .scale(210)
-          .clipAngle(90)
-          .precision(0.1)
-          .rotate(rotate);
-
-        var path = d3.geoPath()
-          .projection(projection)
-          .pointRadius(2);
-
-        var moodScale = d3.scaleLinear()
-          .domain([moodMin, moodMid, moodMax])
-          .range(['red', 'yellow', 'green']);
 
         var drag = d3.drag()
           .on('start', function() {
@@ -55,7 +40,7 @@ angular.module('omniMood')
 
             path = d3.geoPath().projection(projection);
             d3.select('.globe').selectAll('path')
-              .attr('d', path.pointRadius(2));
+              .attr('d', path.pointRadius(pointRadiusScale(window.innerWidth)));
           });
 
         var svg = d3.select(element[0])
@@ -68,7 +53,30 @@ angular.module('omniMood')
           .append('g')
           .attr('class', 'globeGroup');
 
-        var features = svg.append('g');
+        var svgW = d3.select('.globe').attr('width'),
+            svgH = d3.select('.globe').attr('height');
+
+        var projection = d3.geoOrthographic()
+          .translate([svgW / 2, svgH / 2])
+          .scale(svgW/4)
+          .clipAngle(90)
+          .precision(0.1)
+          .rotate(rotate);
+
+        var pointRadiusScale = d3.scaleLinear()
+          .domain([320, 1600])
+          .range([0.5, 2]);
+
+        var path = d3.geoPath()
+          .projection(projection)
+          .pointRadius(pointRadiusScale(window.innerWidth));
+
+        var moodScale = d3.scaleLinear()
+          .domain([moodMin, moodMid, moodMax])
+          .range(['red', 'yellow', 'green']);
+
+        var features = svg.append('g')
+          .attr('class', 'features');
 
         features.append('path')
           .datum({
@@ -84,7 +92,7 @@ angular.module('omniMood')
           .attr('class', 'graticule')
           .attr('d', path);
 
-        var countryList = d3.select('.sideBar')
+        var countryList = d3.select('.selectCountryContainer')
           .append('select')
           .attr('class','countryList');
 
@@ -92,6 +100,8 @@ angular.module('omniMood')
           .append('div')
           .attr('class', 'countryToolTip')
           .style('position', 'absolute');
+
+        d3.select(window).on('resize', resizePage);
 
         d3.json('../json/countries.json', function(err, world) {
           countries = topojson.feature(world, world.objects.countries).features;
@@ -132,7 +142,7 @@ angular.module('omniMood')
               .style('stroke-width', 5)
               .style('stroke-opacity', 0.1)
               .style('stroke', moodScale(tweet.moodValue*10))
-              .attr('d', path.pointRadius(2));
+              .attr('d', path.pointRadius(pointRadiusScale(window.innerWidth)));
           }
         });
 
@@ -165,10 +175,10 @@ angular.module('omniMood')
               var isCountryPathSelected = d3.select(this).select('path').classed('selected');
               if(isCountrySelected && isCountryPathSelected) {
                 if(isZoomed) {
-                  rotateToFocus(d, 210);
+                  rotateToFocus(d, svgW/4);
                   isZoomed = false;
                 } else {
-                  rotateToFocus(d, 500);
+                  rotateToFocus(d, svgW/1.7);
                   isZoomed = true;
                 }
                 isCountrySelected = true;
@@ -178,7 +188,7 @@ angular.module('omniMood')
                 d3.select(this)
                   .select('path')
                   .classed('selected', true);
-                rotateToFocus(d, 210);
+                rotateToFocus(d, svgW/4);
                 countryList.property('value', this.id.slice(2));
                 isCountrySelected = false;
                 isZoomed = false;
@@ -188,12 +198,12 @@ angular.module('omniMood')
                 d3.select(this)
                   .select('path')
                   .classed('selected', true);
-                rotateToFocus(d, 210);
+                rotateToFocus(d, svgW/4);
                 countryList.property('value', this.id.slice(2));
                 isCountrySelected = false;
                 isZoomed = false;
               } else if(isCountrySelected === false && isCountryPathSelected){
-                rotateToFocus(d, 500);
+                rotateToFocus(d, svgW/1.7);
                 isCountrySelected = true;
                 isZoomed = true;
               }
@@ -217,7 +227,7 @@ angular.module('omniMood')
               d3.select(selectedNode)
                 .select('path')
                 .classed('selected', true);
-              rotateToFocus(selectedCountry, 210);
+              rotateToFocus(selectedCountry, svgW/4);
               isZoomed = false;
               isCountrySelected = false;
             });
@@ -260,6 +270,28 @@ angular.module('omniMood')
             }
             return timer_ret_val;
           });
+        }
+
+        function resizePage () {
+          var widthResized = window.innerWidth * .65,
+          heightResized = widthResized/2,
+          widthSideBar = parseInt(d3.select('.sideBar').style('width').slice(0,-2)),
+          heightLegend = widthSideBar;
+
+          var legendScale = d3.scaleLinear()
+            .domain([320, 1600])
+            .range([0.2, 1.2]);
+
+          d3.select('.globe')
+            .attr('width', widthResized)
+            .attr('height', heightResized);
+
+          projection
+            .translate([widthResized/2, heightResized/2])
+            .scale(widthResized/4);
+
+          d3.select('.globe').selectAll('path')
+            .attr('d', path.pointRadius(pointRadiusScale(window.innerWidth)));
         }
       }
     });
