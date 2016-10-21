@@ -49,8 +49,9 @@ function listenForTweets(socket) {
   socket.on('start tweets', () => {
     twitterStream.on(('data'), function (tweet) {
       var tweetObj = getVariables(tweet);
-      if(tweetObj)
+      if(tweetObj) {
         if(tweetObj.emojis) { // if there's an emoji found
+          console.log(tweetObj.emojis);
           var tweetMoodValue = calculateTweetMood(tweetObj.emojis);
           socket.emit('tweet', {
             emojis: tweetObj.emojis,
@@ -58,6 +59,7 @@ function listenForTweets(socket) {
             moodValue: tweetMoodValue
           });
         }
+      }
     });
 
     twitterStream.on('error', function (error) {
