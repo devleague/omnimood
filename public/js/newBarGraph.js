@@ -168,7 +168,7 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
       svg.selectAll(".domain")
         .style("stroke", "white");
 
-      svg.selectAll("g.tick")
+      svg.selectAll(".xAxis")
         .style("opacity", 0);
     });
 
