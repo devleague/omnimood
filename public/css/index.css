@@ -138,7 +138,10 @@ body {
   font-size: 3vw;
   position: absolute; }
   .title2 img {
-    width: 2.3vw; }
+    width: 2.3vw;
+    margin-left: -0.3vw; }
+  .title2 img:nth-child(2) {
+    margin-right: -0.4vw; }
 
 h2 {
   text-align: center;
@@ -154,6 +157,23 @@ h2 {
   width: 20%;
   height: 100vh; }
   .sideBar button {
+    margin-top: 4vw;
+    border: 0;
+    border-radius: 5px;
+    background: rgba(83, 90, 99, 0.7);
+    color: white;
+    font-size: 1.65vw;
+    font-family: 'Bungee Inline', cursive;
+    width: 100%;
+    height: 5vw; }
+
+.rightSideBar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 20%;
+  height: 100vh; }
+  .rightSideBar button {
     margin-top: 4vw;
     border: 0;
     border-radius: 5px;
@@ -187,16 +207,14 @@ h2 {
 #emojiListContainer {
   box-sizing: border-box;
   border: 2px solid white;
+  border-radius: 2.5%;
   margin-right: 15px;
   flex: 0 1 auto;
   background-color: #282d34;
   color: white;
   padding: 3px;
-  height: 100%; }
-
-#timeRange {
-  width: 100%;
-  background-color: green; }
+  height: 375px;
+  margin: 10px; }
 
 .tweet {
   color: white;
@@ -205,8 +223,18 @@ h2 {
 .emojiImage {
   position: relative;
   padding: 4px;
-  animation: grayToColor 4s;
-  animation-timing-function: ease-in; }
+  filter: grayscale(40%); }
+
+.emojiImage:hover {
+  filter: grayscale(0%);
+  cursor: pointer; }
+
+.grayscale {
+  filter: grayscale(100%); }
+
+.grayToColor {
+  animation: grayToColor 2s;
+  animation-timing-function: ease-in-out; }
 
 @keyframes grayToColor {
   from {
@@ -266,7 +294,38 @@ h2 {
   position: absolute;
   z-index: 1;
   top: -5px;
-  right: 105%; }
+  right: 105%;
+  width: 250px; }
 
 .tooltip:hover .tooltiptext {
   visibility: visible; }
+
+.tooltipTitle {
+  font-weight: bold;
+  text-transform: capitalize;
+  margin: 5px; }
+
+.tooltipCount {
+  display: inline; }
+
+.tooltipPercent {
+  display: inline; }
+
+.barGraph {
+  flex: 0 1 auto;
+  background-color: #282d34;
+  border: 2px solid white;
+  border-radius: 2%; }
+
+.axis text {
+  font: 10px sans-serif; }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges; }
+
+.bar {
+  fill: steelblue;
+  fill-opacity: .9; }
