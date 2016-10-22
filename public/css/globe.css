@@ -1,0 +1,31 @@
+globe {
+  display: block; }
+
+.globe path {
+  fill: none;
+  stroke: black; }
+
+.globe .graticule {
+  opacity: 0.1; }
+
+.globe .land {
+  fill: black;
+  stroke: white;
+  stroke-width: 1px;
+  cursor: move; }
+
+.globe .selected {
+  fill: #4DFFDB;
+  opacity: 0.2; }
+
+.globe .land:hover {
+  fill: #4DFFDB;
+  opacity: 0.2;
+  stroke-width: 1px; }
+
+.countryToolTip {
+  display: none;
+  font-size: 14px;
+  padding: 5px;
+  background: rgba(83, 90, 99, 0.7);
+  color: white; }

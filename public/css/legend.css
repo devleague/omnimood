@@ -1,0 +1,28 @@
+legend {
+  margin-top: 3vw;
+  width: 100%;
+  display: flex;
+  flex-direction: column; }
+  legend .mood {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px; }
+    legend .mood .legendText {
+      color: white;
+      font-size: 1vw;
+      margin-left: 1vw;
+      margin-right: 1vw; }
+    legend .mood img {
+      width: 2vw; }
+    legend .mood .gcircle, legend .mood .ycircle, legend .mood .rcircle {
+      display: inline-block;
+      background-color: green;
+      width: 1.5vw;
+      height: 1.5vw;
+      border-radius: 50px; }
+    legend .mood .ycircle {
+      background-color: yellow; }
+    legend .mood .rcircle {
+      background-color: red; }
