@@ -21,13 +21,11 @@ angular.module('omniMood')
       var isZoomed = false;
       var currentZoom = 1;
       var currentZoomMouseX = 0;
-      var currentZoomMouseY = 0;
-
-      d3.select("div.mapContainer").attr("height",1000);
+      var currentZoomMouseY = 0;      
 
       var mapSVG = d3.select(element[0]).append("svg")
         .attr("id", "svg_map"),
-        width = (window.innerWidth  * .85), //.85 document.body.clientWidth
+        width = (window.innerWidth  * .65), //.85 document.body.clientWidth
         height = (window.innerHeight * .85),
         outlineDefault = "#eeeeee",
         outlineHighlight = "#1221ee",
@@ -150,7 +148,7 @@ angular.module('omniMood')
       d3.json("../json/world-50m_DoNotShowAntarctica.json", function(error, world) {
         var countries = topojson.feature(world, world.objects.countries).features;
         var projection = d3.geoMercator()
-          .scale(233) //280
+          .scale(190) //280  233(20161022)
           .translate([width / 2, height / 3.6]) //width / 2.28
           .center([0, 50]); //[-106, 37.5]
 
