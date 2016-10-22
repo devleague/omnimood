@@ -82,7 +82,7 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
     // set the dimensions and margins of the graph
     var margin = {top: 40, right: 20, bottom: 50, left: 40},
         width = 350 - margin.left - margin.right,
-        height = 200 - margin.top - margin.bottom;
+        height = 250 - margin.top - margin.bottom;
 
     // set the ranges
     var x = d3.scaleBand()
@@ -118,7 +118,7 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
 
       // Scale the range of the data in the domains
       x.domain(data.map(function(d) { return d.name; }));
-      y.domain([0, d3.max(data, function(d) { return d.percentage; })]);
+      y.domain([0, d3.max(data, function(d) { return d.percentage + .03; })]);
 
       // append the rectangles for the bar chart
       svg.selectAll(".bar")
@@ -133,6 +133,7 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
       // add the x Axis
       svg.append("g")
           .attr("transform", "translate(0," + height + ")")
+          .attr("class", "xAxis")
           .call(d3.axisBottom(x));
 
       // add the y Axis
@@ -146,7 +147,7 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
           .attr("class", "emoji")
           .attr("x", function(d, index) {
             // console.log("i: " + index);
-            return x(d.name) + 10;
+            return x(d.name) + 5;
           })
           .attr("y", function(d, index) {
             return height + 20;
@@ -158,8 +159,17 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
             // console.log(d);
             return "emojis/" + d.name.toLowerCase() + ".png"
           });
-      // svg.selectAll("text")
-      //   .style("fill", "white");
+      svg.selectAll("text")
+        .style("fill", "white");
+
+      svg.selectAll("line")
+        .style("stroke", "white");
+
+      svg.selectAll(".domain")
+        .style("stroke", "white");
+
+      svg.selectAll("g.tick")
+        .style("opacity", 0);
     });
 
     svg.append("text")
@@ -169,12 +179,6 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
       .style("font-size", "16px")
       .style("text-decoration", "underline")
       .text("Emoji Distribution");
-
-    svg.selectAll("text")
-      .style("fill", "white");
-
-    svg.selectAll("tick")
-      .style("fill", "white");
 
 }, function(status) { //error detection....
   alert('Something went wrong.');
