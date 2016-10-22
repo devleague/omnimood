@@ -146,7 +146,7 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
           .attr("class", "emoji")
           .attr("x", function(d, index) {
             // console.log("i: " + index);
-            return x(d.name) + 30;
+            return x(d.name) + 10;
           })
           .attr("y", function(d, index) {
             return height + 20;
