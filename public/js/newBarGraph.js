@@ -75,15 +75,13 @@ var svg = d3.select(".barGraph").append("svg")
 
 // get the data
 d3.json(emojiArray, function(error, data) {
-  console.log("data: ");
-  console.log("data");
   for(var i = 0; i < emojiArray.length; i++) {
       data = emojiArray;
       data[i].name = emojiArray[i].name;
       data[i].percentage = emojiArray[i].percentage;
     }
 
-  if (error) throw error;
+  // if (error) throw error;
 
   // format the data
   // data.forEach(function(d) {
