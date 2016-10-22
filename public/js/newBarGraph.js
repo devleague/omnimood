@@ -52,9 +52,9 @@ function compare(a,b) {
 }
 
 // set the dimensions and margins of the graph
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+var margin = {top: 40, right: 20, bottom: 50, left: 40},
+    width = 500 - margin.left - margin.right,
+    height = 250 - margin.top - margin.bottom;
 
 // set the ranges
 var x = d3.scaleBand()
@@ -111,4 +111,25 @@ d3.json(emojiArray, function(error, data) {
   svg.append("g")
       .call(d3.axisLeft(y));
 
+  svg.selectAll("bar")
+      .data(data)
+      .enter()
+      .append("image")
+      .attr("class", "emoji")
+      .attr("x", function(d, index) {
+        // console.log("i: " + index);
+        return x(d.name) + 30;
+      })
+      .attr("y", function(d, index) {
+        return height + 20;
+      })
+      .attr("width", 20)
+      .attr("height", 20)
+      .attr("xlink:href", function(d) {
+        console.log("d: ");
+        console.log(d);
+        return "emojis/" + d.name + ".png"
+      });
+  // svg.selectAll("text")
+  //   .style("fill", "white");
 });

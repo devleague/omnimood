@@ -131,10 +131,10 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
   });
   if(Object.keys(codeTweets).length!== 0){
     for(var countTweets in codeTweets){
-      if(countEmoji[emojiValues[countTweets].code])
-        countEmoji[emojiValues[countTweets].code] += codeTweets[countTweets];
+      if(countEmoji[countTweets])
+        countEmoji[countTweets] += codeTweets[countTweets];
       else
-        countEmoji[emojiValues[countTweets].code] = 1;
+        countEmoji[countTweets] = 1;
     }
     if(tweetUpdate[tweet.place.country]){
       for(var pairs in codeTweets){
