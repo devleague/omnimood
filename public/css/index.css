@@ -1,0 +1,272 @@
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0; }
+
+.clearfix {
+  display: inline-block; }
+
+/* start commented backslash hack \*/
+* html .clearfix {
+  height: 1%; }
+
+.clearfix {
+  display: block; }
+
+/* close commented backslash hack */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+globe {
+  display: block; }
+
+.globe path {
+  fill: none;
+  stroke: black; }
+
+.globe .graticule {
+  opacity: 0.1; }
+
+.globe .land {
+  fill: black;
+  stroke: white;
+  stroke-width: 1px;
+  cursor: move; }
+
+.globe .selected {
+  fill: #4DFFDB;
+  opacity: 0.2; }
+
+.globe .land:hover {
+  fill: #4DFFDB;
+  opacity: 0.2;
+  stroke-width: 1px; }
+
+.countryToolTip {
+  display: none;
+  font-size: 14px;
+  padding: 5px;
+  background: rgba(83, 90, 99, 0.7);
+  color: white; }
+
+legend {
+  margin-top: 3vw;
+  width: 100%;
+  display: flex;
+  flex-direction: column; }
+  legend .mood {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px; }
+    legend .mood .legendText {
+      color: white;
+      font-size: 1vw;
+      margin-left: 1vw;
+      margin-right: 1vw; }
+    legend .mood img {
+      width: 2vw; }
+    legend .mood .gcircle, legend .mood .ycircle, legend .mood .rcircle {
+      display: inline-block;
+      background-color: green;
+      width: 1.5vw;
+      height: 1.5vw;
+      border-radius: 50px; }
+    legend .mood .ycircle {
+      background-color: yellow; }
+    legend .mood .rcircle {
+      background-color: red; }
+
+body {
+  background-color: #282d34;
+  font-family: 'Bungee Inline', cursive; }
+
+.title, .title2 {
+  font-size: 3.5vw;
+  width: 100%;
+  color: white; }
+
+.title2 {
+  font-size: 3vw;
+  position: absolute; }
+  .title2 img {
+    width: 2.3vw; }
+
+h2 {
+  text-align: center;
+  font-size: 2.5em; }
+
+.mainContainer {
+  display: flex; }
+
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 20%;
+  height: 100vh; }
+  .sideBar button {
+    margin-top: 4vw;
+    border: 0;
+    border-radius: 5px;
+    background: rgba(83, 90, 99, 0.7);
+    color: white;
+    font-size: 1.65vw;
+    font-family: 'Bungee Inline', cursive;
+    width: 100%;
+    height: 5vw; }
+
+.countryList {
+  border: 0;
+  margin-top: 2vw;
+  background: rgba(83, 90, 99, 0.7);
+  color: white;
+  font-size: 0.67vw;
+  width: 100%;
+  height: 5vw;
+  font-family: 'Bungee Inline', cursive; }
+
+.mapRelated {
+  display: flex;
+  justify-content: center; }
+  .mapRelated button {
+    position: absolute;
+    margin-top: 10px; }
+
+.mapContainer {
+  margin-top: 40px; }
+
+#emojiListContainer {
+  box-sizing: border-box;
+  border: 2px solid white;
+  margin-right: 15px;
+  flex: 0 1 auto;
+  background-color: #282d34;
+  color: white;
+  padding: 3px;
+  height: 100%; }
+
+#timeRange {
+  width: 100%;
+  background-color: green; }
+
+.tweet {
+  color: white;
+  text-align: center; }
+
+.emojiImage {
+  position: relative;
+  padding: 4px;
+  animation: grayToColor 4s;
+  animation-timing-function: ease-in; }
+
+@keyframes grayToColor {
+  from {
+    filter: grayscale(100%); }
+  to {
+    filter: grayscale(0%); } }
+
+@keyframes colorFade {
+  from {
+    filter: grayscale(100%); }
+  50% {
+    filter: grayscale(0%); }
+  to {
+    filter: grayscale(100%); } }
+
+@keyframes glowGold {
+  from {
+    -webkit-box-shadow: 0 0 9px #333; }
+  50% {
+    -webkit-box-shadow: 0 0 18px #F9FF33; }
+  to {
+    -webkit-box-shadow: 0 0 9px #333; } }
+
+@keyframes fadeOutUp {
+  0% {
+    top: 0px;
+    opacity: 1; }
+  45% {
+    top: 0px;
+    opacity: 1;
+    transform: scale(1); }
+  100% {
+    top: -60vh;
+    transform: scale(4);
+    opacity: 0.2; } }
+
+@keyframes fadeInSpinDown {
+  0% {
+    top: -60vh;
+    opacity: 0.2; }
+  100% {
+    top: 0px;
+    opacity: 1;
+    transform: rotate(1080deg); } }
+
+.tooltip {
+  position: relative;
+  display: inline-block; }
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  right: 105%; }
+
+.tooltip:hover .tooltiptext {
+  visibility: visible; }
