@@ -54,22 +54,30 @@
 
       </div>
       <div id="emojiListContainer">
-          <h2>Emoji List</h2>
-          <div ng-controller="tweetController">
-            <cloud tweet="tweet"></cloud>
-            <!-- <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" />
-            <span class="tooltiptext">
-              {{ emoji.emoji.name }}
-              Count:
-              {{ emoji.emojiMetrics.count }}
-              Percent:
-              {{ emoji.emojiMetrics.percentage * 100 }}%
-            </span>
-            </div> -->
-          </div>
+        <h2>Emoji List</h2>
+        <div ng-controller="tweetController">
+          <!-- <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
+            <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" id="{{emoji.emoji.code.toLowerCase()}}"/>
+          <cloud tweet="tweet"></cloud> -->
+          <!-- <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
+            <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" />
+          <span class="tooltiptext">
+            {{ emoji.emoji.name }}
+            Count:
+            {{ emoji.emojiMetrics.count }}
+            Percent:
+            {{ emoji.emojiMetrics.percentage * 100 }}%
+          </span>
+          </div> -->
+        </div>
+
+        <!-- <div ng-repeat="tweet in Tweets" class="tweet">
+          {{tweet}}
+        </div> -->
       </div>
     </div>
     <br>
+    <div class="barGraph"></div>
+    <script type="text/javascript" src="/js/newBarGraph.js"></script>
   </body>
 </html>

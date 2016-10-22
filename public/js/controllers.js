@@ -8,6 +8,7 @@ angular.module('omniMood')
       $scope.Tweets = [];
       socket.on('tweet', function (tweet) {
         $scope.tweet = tweet;
+        $scope.Tweets.push(tweet);
       });
 
       var emojiArray = [];
