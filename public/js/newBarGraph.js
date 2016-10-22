@@ -19,35 +19,7 @@ var getJSON = function(url) {
 };
 
 getJSON('http://localhost:3000/api/timeline').then(function(data) {
-    console.log('Your Json result is:  ');
-    console.log(data.totalCount); //you can comment this, i used it to debug
-
     emojis = data.totalCount;
-    // var emojis = {
-    //     "1f60a": {
-    //         percentage: 0.05,
-    //         count: 2322
-    //     },
-    //     "2764": {
-    //         percentage: 0.09,
-    //         count: 4316
-    //       },
-    //     "2665": {
-    //         percentage: 0,
-    //         count: 0
-    //     },
-    //     "1f60d": {
-    //       percentage: 0,
-    //       count: 0
-    //     },
-    //     "1f602": {
-    //       percentage: 0.14,
-    //       count: 6450
-    //     }
-    //   };
-    console.log("emojis: ");
-    console.log(emojis);
-
     var maxPercent = 0;
 
     var emojiKeys = Object.keys(emojis);
@@ -146,7 +118,6 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
           .append("image")
           .attr("class", "emoji")
           .attr("x", function(d, index) {
-            // console.log("i: " + index);
             return x(d.name) + 5;
           })
           .attr("y", function(d, index) {
@@ -155,8 +126,6 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
           .attr("width", 20)
           .attr("height", 20)
           .attr("xlink:href", function(d) {
-            // console.log("d: ");
-            // console.log(d);
             return "emojis/" + d.name.toLowerCase() + ".png"
           });
       svg.selectAll("text")
