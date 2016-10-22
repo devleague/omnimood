@@ -81,8 +81,8 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
     var topEmojis = emojiArray.slice(emojiArray.length - 10, emojiArray.length);
     // set the dimensions and margins of the graph
     var margin = {top: 40, right: 20, bottom: 50, left: 40},
-        width = 500 - margin.left - margin.right,
-        height = 250 - margin.top - margin.bottom;
+        width = 350 - margin.left - margin.right,
+        height = 200 - margin.top - margin.bottom;
 
     // set the ranges
     var x = d3.scaleBand()
@@ -161,7 +161,21 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
       // svg.selectAll("text")
       //   .style("fill", "white");
     });
-    // result.innerText = data.result; //display the result in an HTML element
+
+    svg.append("text")
+      .attr("x", (width / 2))
+      .attr("y", 0 - (margin.top / 2))
+      .attr("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("text-decoration", "underline")
+      .text("Emoji Distribution");
+
+    svg.selectAll("text")
+      .style("fill", "white");
+
+    svg.selectAll("tick")
+      .style("fill", "white");
+
 }, function(status) { //error detection....
   alert('Something went wrong.');
 });
