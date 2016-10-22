@@ -77,9 +77,6 @@ angular.module('omniMood')
               .append("g")
               .attr("id", "countryInfo");
 
-            d3.select("div#emojiListContainer")
-              .remove();
-
             d3.select("svg.legend")
               .attr("visibility", "hidden");
 
@@ -102,21 +99,7 @@ angular.module('omniMood')
               .style("stroke", "#eeeeee")
               .style("fill", "#000000");
 
-            var countryName = d3.select(this).text();
-
             var countryContainer = d3.select("g#country-container");
-
-            countryContainer
-              .append("text")
-              .text(countryName)
-              .attr("transform", "translate(800, 50)")
-              .transition()
-              .delay(75)
-              .style("font-size", "25")
-              .style("font-family", "serif")
-              .style("text-anchor", "middle")
-              .style("font-weight", "bold")
-              .style("fill", "orange");
 
             d3.json("../json/REST-countries.json", function (objects) {
 
@@ -130,48 +113,48 @@ angular.module('omniMood')
 
                   info
                     .append("text")
-                    .text("ISO ALPHA-2 Code: " + object.alpha2Code)
-                    .attr("transform", "translate(50, 250)");
-
-                  info
-                    .append("text")
-                    .text("ISO ALPHA-3 Code: " + object.alpha3Code)
-                    .attr("transform", "translate(50, 300)");
+                    .text("Country Name: " + object.name)
+                    .attr("transform", "translate(325, 70)");
 
                   info
                     .append("text")
                     .text("Capital: " + object.capital)
-                    .attr("transform", "translate(50, 350)");
+                    .attr("transform", "translate(325, 120)");
 
                   info
                     .append("text")
                     .text("Population: " + object.population)
-                    .attr("transform", "translate(50, 400)");
+                    .attr("transform", "translate(325, 170)");
+
+                  info
+                    .append("text")
+                    .text("ISO ALPHA-3 Code: " + object.alpha3Code)
+                    .attr("transform", "translate(50, 240)");
 
                   info
                     .append("text")
                     .text("Calling Code: " + object.callingCodes[0])
-                    .attr("transform", "translate(50, 450)");
+                    .attr("transform", "translate(50, 290)");
 
                   info
                     .append("text")
                     .text("Demonym: " + object.demonym)
-                    .attr("transform", "translate(50, 500)");
+                    .attr("transform", "translate(50, 340)");
 
                   info
                     .append("text")
                     .text("Region: " + object.region)
-                    .attr("transform", "translate(50, 550)");
+                    .attr("transform", "translate(50, 390)");
 
                   info
                     .append("text")
                     .text("Sub-Region: " + object.subregion)
-                    .attr("transform", "translate(50, 600)");
+                    .attr("transform", "translate(50, 440)");
 
                   info
                     .append("text")
                     .text("Currency: " + object.currencies)
-                    .attr("transform", "translate(50, 650)");
+                    .attr("transform", "translate(50, 490)");
 
                   info.selectAll("text")
                     .style("font-size", "20")
@@ -195,7 +178,7 @@ angular.module('omniMood')
               .attr("xlink:href", "http://www.localhost:3000/graphs")
               .append("rect")
               .attr("x", 730)
-              .attr("y", 725)
+              .attr("y", 25)
               .attr("height", 50)
               .attr("width", 160)
               .attr("rx", 5)
@@ -206,12 +189,14 @@ angular.module('omniMood')
               .append("text")
               .text("Show Graph")
               .attr("x", 740)
-              .attr("y", 760)
+              .attr("y", 55)
               .style("font-size", "25")
               .style("font-family", "serif")
               .style("font-weight", "bold")
               .style("pointer-events", "none")
               .style("fill", "#000000");
+
+            InitChart();
 
             countryInfo
               .on("click", backToMap);
@@ -264,8 +249,6 @@ angular.module('omniMood')
         .attr("transform", "translate(0, 0)");
 
       d3.select("g#countryInfo")
-        .transition()
-        .delay(75)
         .remove();
 
       d3.select("svg.legend")
@@ -273,6 +256,70 @@ angular.module('omniMood')
 
       d3.select("g#map-container")
         .attr("visibility", "visible");
+    }
+
+    function InitChart() {
+
+      var lineData = [{
+        'x': 1,
+      }, {
+        'x': 20,
+      }, {
+        'x': 40,
+      }, {
+        'x': 60,
+      }, {
+        'x': 80
+      }, {
+        'x': 100
+      }];
+
+      var vis = d3.select("g#countryInfo"),
+        WIDTH = 700,
+        HEIGHT = 300,
+        MARGINS = {
+          top: 20,
+          right: 20,
+          bottom: 20,
+          left: 50
+        },
+        xRange = d3.scaleLinear()
+          .range([MARGINS.left, WIDTH - MARGINS.right])
+          .domain([d3.min(lineData, function (d) {
+            return d.x;
+          }),
+          d3.max(lineData, function (d) {
+            return d.x;
+          })
+        ]),
+
+        yRange = d3.scaleLinear()
+          .range([HEIGHT - MARGINS.top, MARGINS.bottom])
+          .domain([d3.min(lineData, function (d) {
+            return d.y;
+          }),
+          d3.max(lineData, function (d) {
+            return d.y;
+          })
+        ]),
+
+        xAxis = d3.axisBottom()
+          .scale(xRange)
+          .tickSize(5),
+
+        yAxis = d3.axisLeft()
+          .scale(yRange);
+
+
+        vis.append("svg:g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + (HEIGHT + (MARGINS.top * 26)) + ")")
+          .call(xAxis);
+
+        vis.append("svg:g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(" + (MARGINS.left) + ", " + (HEIGHT + (MARGINS.top * 12)) + ")")
+          .call(yAxis);
     }
   })
   .directive('globe', function() {
