@@ -12,7 +12,8 @@
     <script type="text/javascript" src="js/omniMood.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/factories.js"></script>
-    <script type="text/javascript" src="js/directives/mapDirective.js"></script>
+    <!--<script type="text/javascript" src="js/directives/mapDirective.js"></script>-->
+    <script type="text/javascript" src="js/directives/directivesPing.js"></script>
     <script type="text/javascript" src="js/directives/globeDirective.js"></script>
     <script type="text/javascript" src="js/directives/legendDirective.js"></script>
     <script type="text/javascript" src="js/directives/timeDirective.js"></script>
@@ -39,7 +40,7 @@
       </div>
       <div class="mapContainer" ng-controller="tweetController">
         <div ng-show="show" id="flat-map">
-          <whateveryouwant></whateveryouwant>
+          <whateveryouwant  tweet="tweet"></whateveryouwant>
         </div>
 
         <div ng-show="showTwo">
