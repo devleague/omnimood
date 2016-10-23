@@ -59,7 +59,7 @@ angular.module('omniMood')
         });
       });
 
-      d3.json('http://localhost:3000/api/timeline', function(error, timeData) {
+      d3.json('/api/timeline', function(error, timeData) {
           var countries = timeData.countries;
           var timeSelect = document.getElementById("timeRange");
           var textSelect = document.getElementById("timeDisplay");
