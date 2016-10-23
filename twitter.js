@@ -123,6 +123,13 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
       else{
         negativeEmojis++;
       }
+      if(countEmoji[emojiList[surrogate].code]){
+        countEmoji[emojiList[surrogate].code] ++;
+      }
+      else{
+        countEmoji[emojiList[surrogate].code] = 1;
+      }
+
       argCount++;
     }
     var surrogatePair = surrogate.split('\\u').slice(1);
@@ -130,12 +137,6 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
     // console.log(String.fromCharCode(code+surrogatePair[0], code+surrogatePair[1]));
   });
   if(Object.keys(codeTweets).length!== 0){
-    for(var countTweets in codeTweets){
-      if(countEmoji[countTweets])
-        countEmoji[countTweets] += codeTweets[countTweets];
-      else
-        countEmoji[countTweets] = 1;
-    }
     if(tweetUpdate[tweet.place.country]){
       for(var pairs in codeTweets){
         var updateCountry = tweetUpdate[tweet.place.country];

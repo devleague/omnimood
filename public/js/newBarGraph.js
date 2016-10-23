@@ -50,7 +50,7 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
       return 0;
     }
 
-    var topEmojis = emojiArray.slice(emojiArray.length - 10, emojiArray.length);
+    var topEmojis = emojiArray.slice(emojiArray.length - 11, emojiArray.length - 1);
     // set the dimensions and margins of the graph
     var margin = {top: 40, right: 20, bottom: 50, left: 40},
         width = 350 - margin.left - margin.right,
@@ -121,13 +121,17 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
             return x(d.name) + 5;
           })
           .attr("y", function(d, index) {
-            return height + 20;
+            return height + 5;
           })
           .attr("width", 20)
           .attr("height", 20)
           .attr("xlink:href", function(d) {
             return "emojis/" + d.name.toLowerCase() + ".png"
           });
+
+      svg.selectAll(".bar")
+        .style("fill", "gold");
+
       svg.selectAll("text")
         .style("fill", "white");
 
@@ -137,7 +141,7 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
       svg.selectAll(".domain")
         .style("stroke", "white");
 
-      svg.selectAll(".xAxis")
+      svg.selectAll(".xAxis text")
         .style("opacity", 0);
     });
 
