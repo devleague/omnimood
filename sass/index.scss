@@ -148,10 +148,16 @@ h2 {
   animation: grayToColor 2s;
   animation-timing-function: ease-in-out;
 }
+
 // .animatedEmojiImage {
 //   animation: colorFade 4s infinite;
 //   animation-timing-function: ease-in;
 // }
+
+.ultimateAnimation {
+  animation: ultimate 3s;
+  animation-timing-function: ease-in-out;
+}
 
 @keyframes grayToColor {
   from {
@@ -233,17 +239,18 @@ h2 {
 }
 
 .tooltipTitle {
-  font-weight: bold;
+  display: flex;
   text-transform: capitalize;
+  text-align: center;
   margin: 5px;
 }
 
 .tooltipCount {
-  display: inline;
+  display: flex;
 }
 
 .tooltipPercent {
-  display: inline;
+  display: flex;
 }
 
 // barGraph

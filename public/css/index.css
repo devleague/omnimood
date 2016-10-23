@@ -238,6 +238,10 @@ h2 {
   animation: grayToColor 2s;
   animation-timing-function: ease-in-out; }
 
+.ultimateAnimation {
+  animation: ultimate 3s;
+  animation-timing-function: ease-in-out; }
+
 @keyframes grayToColor {
   from {
     filter: grayscale(100%); }
@@ -303,15 +307,16 @@ h2 {
   visibility: visible; }
 
 .tooltipTitle {
-  font-weight: bold;
+  display: flex;
   text-transform: capitalize;
+  text-align: center;
   margin: 5px; }
 
 .tooltipCount {
-  display: inline; }
+  display: flex; }
 
 .tooltipPercent {
-  display: inline; }
+  display: flex; }
 
 .barGraph {
   flex: 0 1 auto;
