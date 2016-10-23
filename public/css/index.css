@@ -238,9 +238,14 @@ h2 {
   animation: grayToColor 2s;
   animation-timing-function: ease-in-out; }
 
-.ultimateAnimation {
-  animation: ultimate 3s;
-  animation-timing-function: ease-in-out; }
+.animationSettings {
+  animation-duration: 3s;
+  animation-delay: 2s;
+  animation-iteration-count: 3; }
+
+.animationSettings:hover {
+  width: 45px;
+  height: 45px; }
 
 @keyframes grayToColor {
   from {
