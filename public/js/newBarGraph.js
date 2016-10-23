@@ -27,13 +27,14 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
     var emojiObject = {};
     var emojiArray = [];
     emojiKeys.forEach(function(key) {
-      emojiObject = {
-        name: key,
-        count: emojis[key].count,
-        percentage: emojis[key].percentage
-      }
-
+      if(key.name != 'total') {
+        emojiObject = {
+          name: key,
+          count: emojis[key].count,
+          percentage: emojis[key].percentage
+        }
       emojiArray.push(emojiObject);
+      }
     });
 
     emojiArray.sort(compare);
@@ -50,7 +51,7 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
       return 0;
     }
 
-    var topEmojis = emojiArray.slice(emojiArray.length - 11, emojiArray.length - 1);
+    var topEmojis = emojiArray.slice(emojiArray.length - 10, emojiArray.length);
     // set the dimensions and margins of the graph
     var margin = {top: 40, right: 20, bottom: 50, left: 40},
         width = 350 - margin.left - margin.right,
@@ -110,6 +111,7 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
 
       // add the y Axis
       svg.append("g")
+          .attr("class", "yAxis")
           .call(d3.axisLeft(y));
 
       svg.selectAll("bar")
@@ -152,6 +154,19 @@ getJSON('http://localhost:3000/api/timeline').then(function(data) {
       .style("font-size", "16px")
       .style("text-decoration", "underline")
       .text("Emoji Distribution");
+
+    svg.append("g")
+      // .attr("class", "y axis")
+      // .call(yAxis)
+    .append("text")
+      // .attr("transform", "rotate(-90)")
+      // .attr("y", 6)
+      .attr("y", -15)
+      .attr("x", 40)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .style("font-size", ".7em")
+      .text("Percentage");
 
 }, function(status) { //error detection....
   alert('Something went wrong.');

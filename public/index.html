@@ -59,10 +59,10 @@
           <h2>Emoji List</h2>
           <div ng-controller="tweetController">
             <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" id="{{emoji.emoji.code.toLowerCase()}}"/>
+              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emojiMetrics.code.toLowerCase()}}.png" id="{{emoji.emojiMetrics.code.toLowerCase()}}"/>
             <!-- <cloud tweet="tweet"></cloud> -->
             <span class="tooltiptext">
-              {{ emoji.emoji.name }}
+              {{ emoji.emoji }}
               Count:
               {{ emoji.emojiMetrics.count }}
               Percent:

@@ -17,26 +17,33 @@ angular.module('omniMood')
           emojis.data.forEach(function(code) {
             emojiArray.push(code);
           });
+          console.log(emojiArray);
           EmojiMetricsFactory.getEmojiMetrics()
           .then(function(values) {
             var emojiMetricsArray = [];
             var emojiMetrics = {
+              code: '',
               count: 0,
               percentage: 0
             };
             for(var emoji in values.data.totalCount) {
               var obj = values.data.totalCount[emoji];
+              // console.log(emoji);
               if(obj.count >= 0) {
+                emojiMetrics.code = emoji.toLowerCase();
                 emojiMetrics.count = obj.count;
                 emojiMetrics.percentage = obj.percentage;
                 emojiMetricsArray.push(emojiMetrics);
                 emojiMetrics = {};
               }
             }
-            var emojiObject = {};
+            // console.log(emojiArray);
+            // console.log(emojiMetricsArray);
             $scope.Emojis = emojiMetricsArray.map(function(value, index) {
+              // console.log("Value: ");
+              // console.log(value);
               return {
-                emoji: emojiArray[index],
+                emoji: value.code,
                 emojiMetrics: value
               };
             });
