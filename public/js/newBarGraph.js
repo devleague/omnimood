@@ -75,77 +75,56 @@ getJSON('/api/timeline').then(function(data) {
               "translate(" + margin.left + "," + margin.top + ")");
 
     // get the data
-    d3.json(topEmojis, function(error, data) {
-      for(var i = 0; i < 10; i++) {
-          data = topEmojis;
-          data[i].name = topEmojis[i].name;
-          data[i].percentage = topEmojis[i].percentage;
-        }
+    for(var i = 0; i < 10; i++) {
+        data = topEmojis;
+        data[i].name = topEmojis[i].name;
+        data[i].percentage = topEmojis[i].percentage;
+      }
 
-      // if (error) throw error;
+    // Scale the range of the data in the domains
+    x.domain(data.map(function(d) { return d.name; }));
+    y.domain([0, d3.max(data, function(d) { return d.percentage + .03; })]);
 
-      // format the data
-      // data.forEach(function(d) {
-      //   d.percentage = +d.percentage;
-      // });
+    // append the rectangles for the bar chart
+    svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.name); })
+      .attr("width", x.bandwidth())
+      .attr("y", function(d) { return y(d.percentage); })
+      .attr("height", function(d) { return height - y(d.percentage); });
 
-      // Scale the range of the data in the domains
-      x.domain(data.map(function(d) { return d.name; }));
-      y.domain([0, d3.max(data, function(d) { return d.percentage + .03; })]);
+    // add the x Axis
+    svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .attr("class", "xAxis")
+      .call(d3.axisBottom(x));
 
-      // append the rectangles for the bar chart
-      svg.selectAll(".bar")
-          .data(data)
-        .enter().append("rect")
-          .attr("class", "bar")
-          .attr("x", function(d) { return x(d.name); })
-          .attr("width", x.bandwidth())
-          .attr("y", function(d) { return y(d.percentage); })
-          .attr("height", function(d) { return height - y(d.percentage); });
+    // add the y Axis
+    svg.append("g")
+      .attr("class", "yAxis")
+      .call(d3.axisLeft(y));
 
-      // add the x Axis
-      svg.append("g")
-          .attr("transform", "translate(0," + height + ")")
-          .attr("class", "xAxis")
-          .call(d3.axisBottom(x));
+    svg.selectAll("bar")
+      .data(data)
+      .enter()
+      .append("image")
+      .attr("class", "emoji")
+      .attr("x", function(d, index) {
+        return x(d.name) + 5;
+      })
+      .attr("y", function(d, index) {
+        return height + 5;
+      })
+      .attr("width", 20)
+      .attr("height", 20)
+      .attr("xlink:href", function(d) {
+        return "emojis/" + d.name.toLowerCase() + ".png"
+      });
 
-      // add the y Axis
-      svg.append("g")
-          .attr("class", "yAxis")
-          .call(d3.axisLeft(y));
-
-      svg.selectAll("bar")
-          .data(data)
-          .enter()
-          .append("image")
-          .attr("class", "emoji")
-          .attr("x", function(d, index) {
-            return x(d.name) + 5;
-          })
-          .attr("y", function(d, index) {
-            return height + 5;
-          })
-          .attr("width", 20)
-          .attr("height", 20)
-          .attr("xlink:href", function(d) {
-            return "emojis/" + d.name.toLowerCase() + ".png"
-          });
-
-      svg.selectAll(".bar")
-        .style("fill", "gold");
-
-      svg.selectAll("text")
-        .style("fill", "white");
-
-      svg.selectAll("line")
-        .style("stroke", "white");
-
-      svg.selectAll(".domain")
-        .style("stroke", "white");
-
-      svg.selectAll(".xAxis text")
-        .style("opacity", 0);
-    });
+    svg.selectAll(".xAxis text")
+      .style("opacity", 0);
 
     svg.append("text")
       .attr("x", (width / 2))
@@ -156,11 +135,7 @@ getJSON('/api/timeline').then(function(data) {
       .text("Emoji Distribution");
 
     svg.append("g")
-      // .attr("class", "y axis")
-      // .call(yAxis)
-    .append("text")
-      // .attr("transform", "rotate(-90)")
-      // .attr("y", 6)
+      .append("text")
       .attr("y", -15)
       .attr("x", 40)
       .attr("dy", ".71em")
@@ -168,6 +143,18 @@ getJSON('/api/timeline').then(function(data) {
       .style("font-size", ".7em")
       .text("Percentage");
 
-}, function(status) { //error detection....
-  alert('Something went wrong.');
+    svg.selectAll(".bar")
+      .style("fill", "gold");
+
+    svg.selectAll("text")
+      .style("fill", "white");
+
+    svg.selectAll("line")
+      .style("stroke", "white");
+
+    svg.selectAll(".domain")
+      .style("stroke", "white");
+
+  }, function(status) { //error detection....
+    alert('Something went wrong.');
 });

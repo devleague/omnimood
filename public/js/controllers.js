@@ -17,7 +17,7 @@ angular.module('omniMood')
           emojis.data.forEach(function(code) {
             emojiArray.push(code);
           });
-          console.log(emojiArray);
+          // console.log(emojiArray);
           EmojiMetricsFactory.getEmojiMetrics()
           .then(function(values) {
             var emojiMetricsArray = [];
