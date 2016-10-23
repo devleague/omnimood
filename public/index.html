@@ -33,8 +33,8 @@
             d
           </div>
         </div>
-        <button ng-click="toggleView()">{{ toggleText }}</button>
-        <button ng-click="toggleMap()">{{ toggleTime }}</button>
+        <button class="viewButton" ng-click="toggleView()">{{ toggleText }}</button>
+        <button class="timelineButton" ng-click="toggleMap()">{{ toggleTime }}</button>
         <div class="selectCountryContainer"></div>
         <legend></legend>
       </div>
@@ -59,18 +59,15 @@
           <h2>Emoji List</h2>
           <div ng-controller="tweetController">
             <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" id="{{emoji.emoji.code.toLowerCase()}}"/>
+              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emojiMetrics.code.toLowerCase()}}.png" id="{{emoji.emojiMetrics.code.toLowerCase()}}"/>
             <!-- <cloud tweet="tweet"></cloud> -->
-            <!-- <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" />
             <span class="tooltiptext">
-              {{ emoji.emoji.name }}
+              {{ emoji.emoji }}
               Count:
               {{ emoji.emojiMetrics.count }}
               Percent:
               {{ emoji.emojiMetrics.percentage * 100 }}%
             </span>
-            </div> -->
           </div>
 
           <!-- <div ng-repeat="tweet in Tweets" class="tweet">

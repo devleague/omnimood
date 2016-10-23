@@ -27,13 +27,14 @@ getJSON('/api/timeline').then(function(data) {
     var emojiObject = {};
     var emojiArray = [];
     emojiKeys.forEach(function(key) {
-      emojiObject = {
-        name: key,
-        count: emojis[key].count,
-        percentage: emojis[key].percentage
-      }
-
+      if(key.name != 'total') {
+        emojiObject = {
+          name: key,
+          count: emojis[key].count,
+          percentage: emojis[key].percentage
+        }
       emojiArray.push(emojiObject);
+      }
     });
 
     emojiArray.sort(compare);
@@ -110,6 +111,7 @@ getJSON('/api/timeline').then(function(data) {
 
       // add the y Axis
       svg.append("g")
+          .attr("class", "yAxis")
           .call(d3.axisLeft(y));
 
       svg.selectAll("bar")
@@ -121,13 +123,17 @@ getJSON('/api/timeline').then(function(data) {
             return x(d.name) + 5;
           })
           .attr("y", function(d, index) {
-            return height + 20;
+            return height + 5;
           })
           .attr("width", 20)
           .attr("height", 20)
           .attr("xlink:href", function(d) {
             return "emojis/" + d.name.toLowerCase() + ".png"
           });
+
+      svg.selectAll(".bar")
+        .style("fill", "gold");
+
       svg.selectAll("text")
         .style("fill", "white");
 
@@ -137,7 +143,7 @@ getJSON('/api/timeline').then(function(data) {
       svg.selectAll(".domain")
         .style("stroke", "white");
 
-      svg.selectAll(".xAxis")
+      svg.selectAll(".xAxis text")
         .style("opacity", 0);
     });
 
@@ -148,6 +154,19 @@ getJSON('/api/timeline').then(function(data) {
       .style("font-size", "16px")
       .style("text-decoration", "underline")
       .text("Emoji Distribution");
+
+    svg.append("g")
+      // .attr("class", "y axis")
+      // .call(yAxis)
+    .append("text")
+      // .attr("transform", "rotate(-90)")
+      // .attr("y", 6)
+      .attr("y", -15)
+      .attr("x", 40)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .style("font-size", ".7em")
+      .text("Percentage");
 
 }, function(status) { //error detection....
   alert('Something went wrong.');
