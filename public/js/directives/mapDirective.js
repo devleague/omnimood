@@ -115,7 +115,7 @@ angular.module('omniMood')
       });
 
       setInterval(function() {
-        d3.json('http://localhost:3000/api/countries', function(error, moodData) {
+        d3.json('/api/countries', function(error, moodData) {
 
           countryArrayIndex = (countryArrayIndex >= moodData.length) ? 0 : countryArrayIndex;
           if (moodData[countryArrayIndex].countryId == '10') {

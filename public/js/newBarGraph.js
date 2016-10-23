@@ -18,7 +18,7 @@ var getJSON = function(url) {
   });
 };
 
-getJSON('http://localhost:3000/api/timeline').then(function(data) {
+getJSON('/api/timeline').then(function(data) {
     emojis = data.totalCount;
     var maxPercent = 0;
 

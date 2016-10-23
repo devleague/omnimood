@@ -129,7 +129,6 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
       else{
         countEmoji[emojiList[surrogate].code] = 1;
       }
-
       argCount++;
     }
     var surrogatePair = surrogate.split('\\u').slice(1);
