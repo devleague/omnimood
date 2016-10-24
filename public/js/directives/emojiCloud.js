@@ -57,7 +57,7 @@ angular.module('omniMood')
               }
             });
             highest = emojiList[0].counter;
-            console.log(highest);
+
             if(highest > 50) {
               emojiSize = d3.scaleLinear()
               .domain([1, highest])
