@@ -8,34 +8,49 @@ angular.module('omniMood')
       $scope.Tweets = [];
       socket.on('tweet', function (tweet) {
         $scope.tweet = tweet;
+        $scope.Tweets.push(tweet);
       });
 
       var emojiArray = [];
       EmojiFactory.getEmojis()
         .then(function(emojis) {
-          emojis.data.forEach(function(code) {
-            emojiArray.push(code);
+          // console.log(emojis);
+          emojis.data.forEach(function(obj) {
+            emojiArray.push(obj);
           });
+          // console.log(emojiArray);
           EmojiMetricsFactory.getEmojiMetrics()
           .then(function(values) {
             var emojiMetricsArray = [];
             var emojiMetrics = {
+              name: '',
+              code: '',
               count: 0,
               percentage: 0
             };
             for(var emoji in values.data.totalCount) {
               var obj = values.data.totalCount[emoji];
-              if(obj.count) {
+              // console.log(emoji);
+              var match = emojiArray.filter(function(obj) {
+                return obj.code === emoji;
+              });
+              if(obj.count >= 0) {
+                if(match) {
+                  emojiMetrics.name = match[0].name;
+                }
+                emojiMetrics.code = emoji.toLowerCase();
                 emojiMetrics.count = obj.count;
                 emojiMetrics.percentage = obj.percentage;
                 emojiMetricsArray.push(emojiMetrics);
                 emojiMetrics = {};
               }
             }
-            var emojiObject = {};
+            // console.log(emojiArray);
+            console.log(emojiMetricsArray);
             $scope.Emojis = emojiMetricsArray.map(function(value, index) {
+              // console.log("Value: ");
+              // console.log(value);
               return {
-                emoji: emojiArray[index],
                 emojiMetrics: value
               };
             });
