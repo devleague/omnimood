@@ -27,7 +27,7 @@ getJSON('/api/timeline').then(function(data) {
     var emojiObject = {};
     var emojiArray = [];
     emojiKeys.forEach(function(key) {
-      if(key.name != 'total') {
+      if(key != 'total') {
         emojiObject = {
           name: key,
           count: emojis[key].count,
@@ -80,7 +80,7 @@ getJSON('/api/timeline').then(function(data) {
         data[i].name = topEmojis[i].name;
         data[i].percentage = topEmojis[i].percentage;
       }
-
+      // console.log(data);
     // Scale the range of the data in the domains
     x.domain(data.map(function(d) { return d.name; }));
     y.domain([0, d3.max(data, function(d) { return d.percentage + .03; })]);
