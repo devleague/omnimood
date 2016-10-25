@@ -54,8 +54,8 @@ getJSON('/api/timeline').then(function(data) {
     var topEmojis = emojiArray.slice(emojiArray.length - 10, emojiArray.length);
     // set the dimensions and margins of the graph
     var margin = {top: 40, right: 20, bottom: 50, left: 40},
-        width = 350 - margin.left - margin.right,
-        height = 250 - margin.top - margin.bottom;
+        width = parseInt(d3.select('.barGraph').style('width')) - margin.left - margin.right,
+        height = parseInt(d3.select('.barGraph').style('height')) - margin.top - margin.bottom;
 
     // set the ranges
     var x = d3.scaleBand()
