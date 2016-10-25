@@ -51,7 +51,7 @@ getJSON('/api/timeline').then(function(data) {
       return 0;
     }
 
-    var topEmojis = emojiArray.slice(emojiArray.length - 10, emojiArray.length);
+    var topEmojis = emojiArray.slice(emojiArray.length - 8, emojiArray.length);
     // set the dimensions and margins of the graph
     var margin = {top: 40, right: 20, bottom: 50, left: 40},
         width = 350 - margin.left - margin.right,
