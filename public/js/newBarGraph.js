@@ -112,10 +112,10 @@ getJSON('/api/timeline').then(function(data) {
       .append("image")
       .attr("class", "emoji")
       .attr("x", function(d, index) {
-        return x(d.name) + 5;
+        return x(d.name) + 7;
       })
       .attr("y", function(d, index) {
-        return height + 5;
+        return height + 7;
       })
       .attr("width", 20)
       .attr("height", 20)
