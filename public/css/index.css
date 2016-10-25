@@ -223,6 +223,10 @@ h2 {
   overflow-y: auto;
   text-align: center; }
 
+#timeRange{
+  width: 100%;
+}
+
 .tweet {
   color: white;
   text-align: center; }
