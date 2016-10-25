@@ -73,10 +73,11 @@
               </span>
               <span class="tooltipPercent">
               Percent:
-              {{ emoji.emojiMetrics.percentage * 100 }}%
+              {{ emoji.emojiMetrics.percentage * 100 | number:0 }}%
               </span>
             </span>
           </div>
+          <p class="emojiCountPercent"> Count: 0 Percent: 0</p>
 
           <!-- <div ng-repeat="tweet in Tweets" class="tweet">
             {{tweet}}
