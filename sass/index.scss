@@ -243,10 +243,16 @@ h2 {
 
 #emojiCount {
   margin-right: 5px;
+  color: gold;
 }
 
 #emojiName {
   margin-bottom: 3px;
+  color: gold;
+}
+
+#emojiPercent {
+  color: gold;
 }
 
 // barGraph
@@ -258,6 +264,7 @@ h2 {
   width: 350px;
   height: 250px;
   margin-left: 10px;
+  margin-top: 15px
 }
 
 .axis text {

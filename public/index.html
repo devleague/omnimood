@@ -22,6 +22,7 @@
 
   <body ng-app="omniMood">
     <div class="mainContainer" ng-controller="toggleViewController">
+
       <div class="sideBar">
         <div>
           <div class='title'>
@@ -39,6 +40,7 @@
         <div class="selectCountryContainer"></div>
         <legend></legend>
       </div>
+
       <div class="mapContainer" ng-controller="tweetController">
         <div ng-show="show" id="flat-map">
           <whateveryouwant  tweet="tweet"></whateveryouwant>
@@ -53,8 +55,8 @@
           <div id='timeDisplay'></div>
           <input type="range" id ='timeRange' min ='0' max ='9'><input>
         </div>
-
       </div>
+
       <div class="rightSideBar">
         <div id="emojiListContainer">
           <h2>Emoji List</h2>
@@ -63,12 +65,12 @@
               <img class="emojiImage" ng-src="emojis/{{emoji.emojiMetrics.code.toLowerCase()}}.png" id="{{emoji.emojiMetrics.code.toLowerCase()}}" ng-click="showStats($event)" />
             <!-- <cloud tweet="tweet"></cloud> -->
           </div>
-
           <!-- <div ng-repeat="tweet in Tweets" class="tweet">
             {{tweet}}
           </div> -->
         </div>
       </div>
+
       <div class="emojiStats">
             <div id="emojiName">
               Click an emoji to see stats!
@@ -85,7 +87,7 @@
             </span>
             )%
           </div>
-      <br>
+
       <div class="barGraph"></div>
       </div>
       </div>
