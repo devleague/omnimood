@@ -224,6 +224,10 @@ h2 {
   overflow: auto;
 }
 
+/*.emojiImagesContainer {
+  padding-top: 50px;
+}*/
+
 .tweet {
   color: white;
   text-align: center; }
@@ -331,16 +335,29 @@ h2 {
   display: flex; }
 
 .emojiCountPercent {
-  margin-top: 10px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 350px;
+  text-align: center;
+  border: 2px solid white;
+  color: white;
+  border-radius: 2.5%;
+  padding: 10px;
 }
 
 #emojiCount {
   margin-right: 5px;
-}
+/*  font-color: white;
+*/}
 
 #emojiName {
   margin-bottom: 3px;
-}
+/*  font-color: white;
+*/}
+
+#emojiPercent {
+/*  font-color: white;
+*/}
 
 /*bar graph*/
 .barGraph {

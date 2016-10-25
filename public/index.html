@@ -59,7 +59,7 @@
       <div class="rightSideBar">
         <div id="emojiListContainer">
           <h2>Emoji List</h2>
-          <div ng-controller="tweetController">
+          <div class="emojiImagesContainer" ng-controller="tweetController">
             <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
               <img class="emojiImage tooltip hoverBig" ng-src="emojis/{{emoji.emojiMetrics.code.toLowerCase()}}.png" id="{{emoji.emojiMetrics.code.toLowerCase()}}" ng-click="showCountPercent($event)" onload="addAnimation(this.className)" />
             <!-- <cloud tweet="tweet"></cloud> -->
@@ -77,7 +77,13 @@
               </span>
             </span> -->
           </div>
-          <div class="emojiCountPercent">
+
+          <!-- <div ng-repeat="tweet in Tweets" class="tweet">
+            {{tweet}}
+          </div> -->
+        </div>
+      </div>
+      <div class="emojiCountPercent">
             <div id="emojiName">
               Click an emoji to see stats!
             </div>
@@ -93,12 +99,6 @@
             </span>
             )%
           </div>
-
-          <!-- <div ng-repeat="tweet in Tweets" class="tweet">
-            {{tweet}}
-          </div> -->
-        </div>
-      </div>
       <br>
       <div class="barGraph"></div>
       </div>
