@@ -9,8 +9,8 @@ angular.module('omniMood')
       };
 
       function link (scope, element, attr) {
-        var width = 450;
-        var height = 450;
+        var width = parseInt(d3.select('.sideBar').style('width'));
+        var height = parseInt(d3.select('.sideBar').style('height'))/4;
         var emojiList = [],
             emojiCodeList,
             highestCount = 0;
@@ -84,9 +84,6 @@ angular.module('omniMood')
                 .style('fill', function (d) {
                   return 'url('+ '#' + d.code.toUpperCase() + ')';
                 })
-                // .attr('xlink:href', function (d, i) {
-                //   return '../../emojis/' + d.code.toLowerCase() + '.png';
-                // })
                 .merge(node)
                 .attr('cx', function (d) {
                   return d.x;
@@ -95,7 +92,6 @@ angular.module('omniMood')
                   return d.y;
                 })
                 .attr('r', function (d) { return emojiSize(d.counter); })
-                // .attr('height', function (d) { return d.counter; })
                 .attr('id', function (d, i) {
                   return d.code;
                 });
