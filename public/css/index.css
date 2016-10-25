@@ -219,14 +219,8 @@ h2 {
   margin: 10px;
   margin-top: 20px;
   width: 350px;
-  height: 540px;
-  text-align: center;
-  overflow: auto;
-}
-
-/*.emojiImagesContainer {
-  padding-top: 50px;
-}*/
+  height: 500px;
+  overflow-y: auto; }
 
 .tweet {
   color: white;
@@ -235,8 +229,7 @@ h2 {
 .emojiImage {
   position: relative;
   padding: 4px;
-  filter: grayscale(40%);
- }
+  filter: grayscale(40%); }
 
 .emojiImage:hover {
   filter: grayscale(0%);
@@ -244,8 +237,8 @@ h2 {
 
 .emojiImage:active {
   position: relative;
-  top: 1px;
-}
+  top: 1px; }
+
 .grayscale {
   filter: grayscale(100%); }
 
@@ -257,6 +250,10 @@ h2 {
   animation-duration: 3s;
   animation-delay: 2s;
   animation-iteration-count: 3; }
+
+.animationSettings:hover {
+  width: 45px;
+  height: 45px; }
 
 @keyframes grayToColor {
   from {
@@ -321,7 +318,7 @@ h2 {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-}
+  z-index: 501; }
 
 .tooltipTitle {
   display: flex;
@@ -344,20 +341,15 @@ h2 {
   border: 2px solid white;
   color: white;
   border-radius: 2.5%;
-  padding: 10px;
-}
+  padding: 10px; }
 
 #emojiCount {
-  margin-right: 5px;
-}
+  margin-right: 5px; }
 
 #emojiName {
-  margin-bottom: 3px;
-}
+  margin-bottom: 3px; }
 
-/*bar graph*/
 .barGraph {
-  box-sizing: border-box;
   flex: 0 1 auto;
   background-color: #282d34;
   border: 2px solid white;

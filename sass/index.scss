@@ -41,6 +41,7 @@ h2 {
 }
 
 .sideBar {
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -142,6 +143,11 @@ h2 {
 .emojiImage:hover{
   filter: grayscale(0%);
   cursor: pointer;
+}
+
+.emojiImage:active {
+  position: relative;
+  top: 1px;
 }
 
 .grayscale {
@@ -262,6 +268,26 @@ h2 {
 
 .tooltipPercent {
   display: flex;
+}
+
+/* Emoji Stats */
+.emojiStats {
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 350px;
+  text-align: center;
+  border: 2px solid white;
+  color: white;
+  border-radius: 2.5%;
+  padding: 10px;
+}
+
+#emojiCount {
+  margin-right: 5px;
+}
+
+#emojiName {
+  margin-bottom: 3px;
 }
 
 // barGraph

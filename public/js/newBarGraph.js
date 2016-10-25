@@ -75,7 +75,7 @@ getJSON('/api/timeline').then(function(data) {
               "translate(" + margin.left + "," + margin.top + ")");
 
     // get the data
-    for(var i = 0; i < 10; i++) {
+    for(var i = 0; i < 8; i++) {
         data = topEmojis;
         data[i].name = topEmojis[i].name;
         data[i].percentage = topEmojis[i].percentage;
