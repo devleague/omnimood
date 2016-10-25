@@ -8,7 +8,7 @@ angular.module('omniMood')
       $scope.Tweets = [];
       socket.on('tweet', function (tweet) {
         $scope.tweet = tweet;
-        $scope.Tweets.push(tweet);
+        $scope.Tweets.push(tweet.emojis);
       });
 
       var emojiArray = [];
@@ -30,7 +30,6 @@ angular.module('omniMood')
             };
             for(var emoji in values.data.totalCount) {
               var obj = values.data.totalCount[emoji];
-              // console.log(emoji);
               var match = emojiArray.filter(function(obj) {
                 return obj.code === emoji;
               });
@@ -54,6 +53,24 @@ angular.module('omniMood')
                 emojiMetrics: value
               };
             });
+
+            $scope.showCountPercent = function (event) {
+              var id = event.target.id;
+              var emojiName = document.getElementById("emojiName");
+              var count = document.getElementById("emojiCount");
+              var percent = document.getElementById("emojiPercent");
+              console.log(emojiArray);
+              var name = emojiArray.filter(function(obj) {
+                // console.log("comparing " + obj.code + " to " + id);
+                return obj.code === id.toUpperCase();
+              })
+
+              console.log(name);
+
+              emojiName.innerHTML = name[0].name;
+              count.innerHTML = values.data.totalCount[id.toUpperCase()].count;
+              percent.innerHTML = values.data.totalCount[id.toUpperCase()].percentage * 100;
+            }
           });
         });
     }

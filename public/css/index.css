@@ -219,7 +219,7 @@ h2 {
   margin: 10px;
   margin-top: 20px;
   width: 350px;
-  height: 500px;
+  height: 540px;
   text-align: center;
 }
 
@@ -248,7 +248,7 @@ h2 {
   animation-delay: 2s;
   animation-iteration-count: 3; }
 
-.animationSettings:hover {
+.hoverBig:hover {
   width: 45px;
   height: 45px; }
 
@@ -329,6 +329,19 @@ h2 {
 .tooltipPercent {
   display: flex; }
 
+.emojiCountPercent {
+  margin-top: 10px;
+}
+
+#emojiCount {
+  margin-right: 5px;
+}
+
+#emojiName {
+  margin-bottom: 3px;
+}
+
+/*bar graph*/
 .barGraph {
   box-sizing: border-box;
   flex: 0 1 auto;
