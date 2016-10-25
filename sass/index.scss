@@ -41,6 +41,7 @@ h2 {
 }
 
 .sideBar {
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -131,15 +132,14 @@ h2 {
   box-sizing: border-box;
   border: 2px solid white;
   border-radius: 2.5%;
-  // flex: 0 1 auto;
   background-color: #282d34;
   color: white;
   padding: 3px;
-  // height: 375px;
   margin-top: 20px;
   width: 15vw;
-  height: 55vh;
+  height: 20vw;
   overflow-y: auto;
+  text-align: center;
 }
 
 .tweet {
@@ -147,10 +147,14 @@ h2 {
   text-align: center;
 }
 
+.emojiContainer {
+  display: inline-block;
+}
 .emojiImage {
   position: relative;
   padding: 4px;
   filter: grayscale(40%);
+  display: inline-block;
   // animation: grayToColor 4s;
   // animation-timing-function: ease-in;
 }
@@ -158,6 +162,11 @@ h2 {
 .emojiImage:hover{
   filter: grayscale(0%);
   cursor: pointer;
+}
+
+.emojiImage:active {
+  position: relative;
+  top: 1px;
 }
 
 .grayscale {
@@ -168,11 +177,6 @@ h2 {
   animation: grayToColor 2s;
   animation-timing-function: ease-in-out;
 }
-
-// .animatedEmojiImage {
-//   animation: colorFade 4s infinite;
-//   animation-timing-function: ease-in;
-// }
 
 .animationSettings {
   animation-duration: 3s;
@@ -241,43 +245,30 @@ h2 {
   }
 }
 
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  background-color: black;
+/* Emoji Stats */
+.emojiStats {
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 15vw;
+  text-align: center;
+  border: 2px solid white;
   color: white;
-  text-align: center;
-  border-radius: 6px;
+  border-radius: 2.5%;
   padding: 10px;
-  position: absolute;
-  z-index:500;
-  top: -5px;
-  right: 105%;
-  width: 250px;
 }
 
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  z-index: 501;
+#emojiCount {
+  margin-right: 5px;
+  color: gold;
 }
 
-.tooltipTitle {
-  display: flex;
-  text-transform: capitalize;
-  text-align: center;
-  margin: 5px;
+#emojiName {
+  margin-bottom: 3px;
+  color: gold;
 }
 
-.tooltipCount {
-  display: flex;
-}
-
-.tooltipPercent {
-  display: flex;
+#emojiPercent {
+  color: gold;
 }
 
 // barGraph
@@ -286,8 +277,9 @@ h2 {
   background-color: #282d34;
   border: 2px solid white;
   border-radius: 2%;
-  width: 15vw;
-  height: 30vh;
+  width: 14.7vw;
+  height: 15vw;
+  margin-top: 10px;
 }
 
 .axis text {
