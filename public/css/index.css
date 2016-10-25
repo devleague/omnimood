@@ -221,6 +221,7 @@ h2 {
   width: 350px;
   height: 540px;
   text-align: center;
+  overflow: auto;
 }
 
 .tweet {

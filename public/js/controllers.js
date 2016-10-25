@@ -59,13 +59,13 @@ angular.module('omniMood')
               var emojiName = document.getElementById("emojiName");
               var count = document.getElementById("emojiCount");
               var percent = document.getElementById("emojiPercent");
-              console.log(emojiArray);
+              // console.log(emojiArray);
               var name = emojiArray.filter(function(obj) {
                 // console.log("comparing " + obj.code + " to " + id);
                 return obj.code === id.toUpperCase();
               })
 
-              console.log(name);
+              // console.log(name);
 
               emojiName.innerHTML = name[0].name;
               count.innerHTML = values.data.totalCount[id.toUpperCase()].count;
