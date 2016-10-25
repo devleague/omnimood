@@ -120,6 +120,9 @@ h2 {
   padding: 3px;
   // height: 375px;
   margin: 10px;
+  width: 350px;
+  height: 400px;
+  overflow: auto;
 }
 
 .tweet {
@@ -265,8 +268,9 @@ h2 {
   background-color: #282d34;
   border: 2px solid white;
   border-radius: 2%;
-  // width: 400px;
-  // height: 300px;
+  width: 350px;
+  height: 250px;
+  margin-left: 10px;
 }
 
 .axis text {
