@@ -54,7 +54,7 @@ angular.module('omniMood')
               };
             });
 
-            $scope.showCountPercent = function (event) {
+            $scope.showStats = function (event) {
               var id = event.target.id;
               var emojiName = document.getElementById("emojiName");
               var count = document.getElementById("emojiCount");

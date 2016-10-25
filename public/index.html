@@ -19,7 +19,6 @@
     <script type="text/javascript" src="js/directives/timeDirective.js"></script>
     <script type="text/javascript" src="js/directives/emojiCloud.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
   <body ng-app="omniMood">
     <div class="mainContainer" ng-controller="toggleViewController">
@@ -61,21 +60,8 @@
           <h2>Emoji List</h2>
           <div class="emojiImagesContainer" ng-controller="tweetController">
             <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-              <img class="emojiImage tooltip hoverBig" ng-src="emojis/{{emoji.emojiMetrics.code.toLowerCase()}}.png" id="{{emoji.emojiMetrics.code.toLowerCase()}}" ng-click="showCountPercent($event)" onload="addAnimation(this.className)" />
+              <img class="emojiImage tooltip" ng-src="emojis/{{emoji.emojiMetrics.code.toLowerCase()}}.png" id="{{emoji.emojiMetrics.code.toLowerCase()}}" ng-click="showStats($event)" />
             <!-- <cloud tweet="tweet"></cloud> -->
-            <!-- <span class="tooltiptext">
-              <span class="tooltipTitle">
-                {{ emoji.emojiMetrics.name }}
-              </span>
-              <span class="tooltipCount">
-                Count:
-                {{ emoji.emojiMetrics.count }}
-              </span>
-              <span class="tooltipPercent">
-              Percent:
-              {{ emoji.emojiMetrics.percentage * 100 | number:0 }}%
-              </span>
-            </span> -->
           </div>
 
           <!-- <div ng-repeat="tweet in Tweets" class="tweet">
@@ -83,7 +69,7 @@
           </div> -->
         </div>
       </div>
-      <div class="emojiCountPercent">
+      <div class="emojiStats">
             <div id="emojiName">
               Click an emoji to see stats!
             </div>
@@ -104,22 +90,5 @@
       </div>
       </div>
     <script type="text/javascript" src="/js/newBarGraph.js"></script>
-    <script type="text/javascript">
-      function addAnimation(className) {
-        var animations = ["bounce", "flash", "pulse", "rubberBand", "shake", "headShake", "swing", "tada", "wobble", "jello"];
-
-        var emojiImages = document.getElementsByClassName(className);
-
-        var index = Math.floor(Math.random() * 10);
-
-        for(var i = 0; i < emojiImages.length; i++) {
-          emojiImages[i].classList.add("animated", animations[index], "animationSettings");
-        }
-      }
-    </script>
-
-    <script type="text/javascript">
-
-    </script>
   </body>
 </html>

@@ -235,12 +235,17 @@ h2 {
 .emojiImage {
   position: relative;
   padding: 4px;
-  filter: grayscale(40%); }
+  filter: grayscale(40%);
+ }
 
 .emojiImage:hover {
   filter: grayscale(0%);
   cursor: pointer; }
 
+.emojiImage:active {
+  position: relative;
+  top: 1px;
+}
 .grayscale {
   filter: grayscale(100%); }
 
@@ -252,10 +257,6 @@ h2 {
   animation-duration: 3s;
   animation-delay: 2s;
   animation-iteration-count: 3; }
-
-.hoverBig:hover {
-  width: 45px;
-  height: 45px; }
 
 @keyframes grayToColor {
   from {
@@ -334,7 +335,8 @@ h2 {
 .tooltipPercent {
   display: flex; }
 
-.emojiCountPercent {
+/* Emoji Stats */
+.emojiStats {
   box-sizing: border-box;
   margin: 0 auto;
   width: 350px;
@@ -347,17 +349,11 @@ h2 {
 
 #emojiCount {
   margin-right: 5px;
-/*  font-color: white;
-*/}
+}
 
 #emojiName {
   margin-bottom: 3px;
-/*  font-color: white;
-*/}
-
-#emojiPercent {
-/*  font-color: white;
-*/}
+}
 
 /*bar graph*/
 .barGraph {
