@@ -274,9 +274,7 @@ angular.module('omniMood')
 
         function resizePage () {
           var widthResized = window.innerWidth * .65,
-          heightResized = widthResized/2,
-          widthSideBar = parseInt(d3.select('.sideBar').style('width').slice(0,-2)),
-          heightLegend = widthSideBar;
+          heightResized = widthResized/2;
 
           var legendScale = d3.scaleLinear()
             .domain([320, 1600])
