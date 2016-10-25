@@ -51,7 +51,7 @@ getJSON('/api/timeline').then(function(data) {
       return 0;
     }
 
-    var topEmojis = emojiArray.slice(emojiArray.length - 10, emojiArray.length);
+    var topEmojis = emojiArray.slice(emojiArray.length - 8, emojiArray.length);
     // set the dimensions and margins of the graph
     var margin = {top: 40, right: 20, bottom: 50, left: 40},
         width = 350 - margin.left - margin.right,
@@ -75,12 +75,12 @@ getJSON('/api/timeline').then(function(data) {
               "translate(" + margin.left + "," + margin.top + ")");
 
     // get the data
-    for(var i = 0; i < 10; i++) {
+    for(var i = 0; i < 8; i++) {
         data = topEmojis;
         data[i].name = topEmojis[i].name;
         data[i].percentage = topEmojis[i].percentage;
       }
-      // console.log(data);
+
     // Scale the range of the data in the domains
     x.domain(data.map(function(d) { return d.name; }));
     y.domain([0, d3.max(data, function(d) { return d.percentage + .03; })]);
@@ -112,10 +112,10 @@ getJSON('/api/timeline').then(function(data) {
       .append("image")
       .attr("class", "emoji")
       .attr("x", function(d, index) {
-        return x(d.name) + 5;
+        return x(d.name) + 7;
       })
       .attr("y", function(d, index) {
-        return height + 5;
+        return height + 7;
       })
       .attr("width", 20)
       .attr("height", 20)

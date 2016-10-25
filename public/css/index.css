@@ -219,23 +219,30 @@ h2 {
   margin: 10px;
   margin-top: 20px;
   width: 350px;
-  height: 540px;
-  text-align: center;
-  overflow: auto;
-}
+  height: 475px;
+  overflow-y: auto;
+  text-align: center; }
 
 .tweet {
   color: white;
   text-align: center; }
 
+.emojiContainer {
+  display: inline-block; }
+
 .emojiImage {
   position: relative;
   padding: 4px;
-  filter: grayscale(40%); }
+  filter: grayscale(40%);
+  display: inline-block; }
 
 .emojiImage:hover {
   filter: grayscale(0%);
   cursor: pointer; }
+
+.emojiImage:active {
+  position: relative;
+  top: 1px; }
 
 .grayscale {
   filter: grayscale(100%); }
@@ -249,7 +256,7 @@ h2 {
   animation-delay: 2s;
   animation-iteration-count: 3; }
 
-.hoverBig:hover {
+.animationSettings:hover {
   width: 45px;
   height: 45px; }
 
@@ -297,61 +304,37 @@ h2 {
     opacity: 1;
     transform: rotate(1080deg); } }
 
-.tooltip {
-  position: relative;
-  display: inline-block; }
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  background-color: black;
+/* Emoji Stats */
+.emojiStats {
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 350px;
+  text-align: center;
+  border: 2px solid white;
   color: white;
-  text-align: center;
-  border-radius: 6px;
-  padding: 10px;
-  position: absolute;
-  z-index: 500;
-  top: -5px;
-  right: 105%;
-  width: 250px; }
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-
-.tooltipTitle {
-  display: flex;
-  text-transform: capitalize;
-  text-align: center;
-  margin: 5px; }
-
-.tooltipCount {
-  display: flex; }
-
-.tooltipPercent {
-  display: flex; }
-
-.emojiCountPercent {
-  margin-top: 10px;
-}
+  border-radius: 2.5%;
+  padding: 10px; }
 
 #emojiCount {
   margin-right: 5px;
-}
+  color: gold; }
 
 #emojiName {
   margin-bottom: 3px;
-}
+  color: gold; }
 
-/*bar graph*/
+#emojiPercent {
+  color: gold; }
+
 .barGraph {
-  box-sizing: border-box;
   flex: 0 1 auto;
   background-color: #282d34;
   border: 2px solid white;
   border-radius: 2%;
   width: 350px;
   height: 250px;
-  margin-left: 10px; }
+  margin-left: 10px;
+  margin-top: 15px; }
 
 .axis text {
   font: 10px sans-serif; }
