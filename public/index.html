@@ -61,9 +61,9 @@
           <h2>Emoji List</h2>
           <div ng-controller="tweetController">
             <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-              <img class="emojiImage tooltip" ng-src="emojis/{{emoji.emojiMetrics.code.toLowerCase()}}.png" id="{{emoji.emojiMetrics.code.toLowerCase()}}" onload="addAnimation(this.className)" />
+              <img class="emojiImage tooltip hoverBig" ng-src="emojis/{{emoji.emojiMetrics.code.toLowerCase()}}.png" id="{{emoji.emojiMetrics.code.toLowerCase()}}" ng-click="showCountPercent($event)" onload="addAnimation(this.className)" />
             <!-- <cloud tweet="tweet"></cloud> -->
-            <span class="tooltiptext">
+            <!-- <span class="tooltiptext">
               <span class="tooltipTitle">
                 {{ emoji.emojiMetrics.name }}
               </span>
@@ -73,9 +73,25 @@
               </span>
               <span class="tooltipPercent">
               Percent:
-              {{ emoji.emojiMetrics.percentage * 100 }}%
+              {{ emoji.emojiMetrics.percentage * 100 | number:0 }}%
               </span>
+            </span> -->
+          </div>
+          <div class="emojiCountPercent">
+            <div id="emojiName">
+              Click an emoji to see stats!
+            </div>
+            Count:
+            <span id="emojiCount">
+              0
             </span>
+            <span>
+              (
+            </span>
+            <span id="emojiPercent">
+              0
+            </span>
+            )%
           </div>
 
           <!-- <div ng-repeat="tweet in Tweets" class="tweet">
@@ -90,11 +106,7 @@
     <script type="text/javascript" src="/js/newBarGraph.js"></script>
     <script type="text/javascript">
       function addAnimation(className) {
-        console.log("Adding animations!");
-
-        // var animations = ["animatedEmojiImage"];
         var animations = ["bounce", "flash", "pulse", "rubberBand", "shake", "headShake", "swing", "tada", "wobble", "jello"];
-        // var animations = ["bounce", "flash", "pulse", "rubberBand", "shake", "headShake", "swing", "tada", "wobble", "jello", "bounceIn", "bounceInDown", "bounceInLeft", "bounceInRight", "bounceInUp", "bounceOut", "bounceOutDown", "bounceOutLeft", "bounceOutRight", "bounceOutUp", "fadeIn", "fadeInDown", "fadeInDownBig", "fadeInLeft", "fadeInLeftBig", "fadeInRight", "fadeInRightBig", "fadeInUp", "fadeInUpBig", "fadeOut", "fadeOutDown", "fadeOutDownBig", "fadeOutLeft", "fadeOutLeftBig", "fadeOutRight", "fadeOutRightBig", "fadeOutUp", "fadeOutUpBig", "flipInX", "flipInY", "flipOutX", "flipOutY", "lightSpeedIn", "lightSpeedOut", "rotateIn", "rotateInDownLeft", "rotateInDownRight", "rotateInUpLeft", "rotateInUpRight", "rotateOut", "rotateOutDownLeft", "rotateOutDownRight", "rotateOutUpLeft", "rotateOutUpRight", "hinge", "rollIn", "rollOut", "zoomIn", "zoomInDown", "zoomInLeft", "zoomInRight", "zoomInUp", "zoomOut", "zoomOutDown", "zoomOutLeft", "zoomOutRight", "zoomOutUp", "slideInDown", "slideInLeft", "slideInRight", "slideInUp", "slideOutDown", "slideOutLeft", "slideOutRight", "slideOutUp"];
 
         var emojiImages = document.getElementsByClassName(className);
 
@@ -103,9 +115,11 @@
         for(var i = 0; i < emojiImages.length; i++) {
           emojiImages[i].classList.add("animated", animations[index], "animationSettings");
         }
-        // emojiImage.classList.add("animated", animations[index]);
-        // emojiImage.classList.add(animations[0]);
       }
+    </script>
+
+    <script type="text/javascript">
+
     </script>
   </body>
 </html>
