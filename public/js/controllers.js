@@ -46,7 +46,7 @@ angular.module('omniMood')
               }
             }
             // console.log(emojiArray);
-            console.log(emojiMetricsArray);
+            // console.log(emojiMetricsArray);
             $scope.Emojis = emojiMetricsArray.map(function(value, index) {
               // console.log("Value: ");
               // console.log(value);
