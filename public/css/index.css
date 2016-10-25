@@ -151,6 +151,7 @@ h2 {
   display: flex; }
 
 .sideBar {
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -212,14 +213,16 @@ h2 {
   border: 2px solid white;
   border-radius: 2.5%;
   margin-right: 15px;
-  flex: 0 1 auto;
   background-color: #282d34;
   color: white;
   padding: 3px;
   margin: 10px;
+  margin-top: 20px;
   width: 350px;
-  height: 400px;
-  overflow: auto; }
+  height: 540px;
+  text-align: center;
+  overflow: auto;
+}
 
 .tweet {
   color: white;
@@ -246,7 +249,7 @@ h2 {
   animation-delay: 2s;
   animation-iteration-count: 3; }
 
-.animationSettings:hover {
+.hoverBig:hover {
   width: 45px;
   height: 45px; }
 
@@ -306,13 +309,14 @@ h2 {
   border-radius: 6px;
   padding: 10px;
   position: absolute;
-  z-index: 1;
+  z-index: 500;
   top: -5px;
   right: 105%;
   width: 250px; }
 
 .tooltip:hover .tooltiptext {
-  visibility: visible; }
+  visibility: visible;
+}
 
 .tooltipTitle {
   display: flex;
@@ -326,7 +330,21 @@ h2 {
 .tooltipPercent {
   display: flex; }
 
+.emojiCountPercent {
+  margin-top: 10px;
+}
+
+#emojiCount {
+  margin-right: 5px;
+}
+
+#emojiName {
+  margin-bottom: 3px;
+}
+
+/*bar graph*/
 .barGraph {
+  box-sizing: border-box;
   flex: 0 1 auto;
   background-color: #282d34;
   border: 2px solid white;
