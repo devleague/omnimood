@@ -23,7 +23,7 @@
 
   <body ng-app="omniMood">
     <div class="mainContainer" ng-controller="toggleViewController">
-      <div class="sideBar">
+      <div class="sideBar" ng-controller="tweetController">
         <div>
           <div class='title'>
             Omni
@@ -38,23 +38,26 @@
         <button class="viewButton" ng-click="toggleView()">{{ toggleText }}</button>
         <button class="timelineButton" ng-click="toggleMap()">{{ toggleTime }}</button>
         <div class="selectCountryContainer"></div>
-        <legend></legend>
+        <div class="cloudContainer">
+          <div class="cloudTitle">
+            Emoji ☁️
+          </div>
+          <cloud tweet="tweet"></cloud>
+        </div>
       </div>
       <div class="mapContainer" ng-controller="tweetController">
         <div ng-show="show" id="flat-map">
           <whateveryouwant  tweet="tweet"></whateveryouwant>
         </div>
-
         <div ng-show="showTwo">
           <globe tweet="tweet"></globe>
         </div>
-
         <div ng-show="time">
           <killerqueen></killerqueen>
           <div id='timeDisplay'></div>
           <input type="range" id ='timeRange' min ='0' max ='9'><input>
         </div>
-
+        <legend></legend>
       </div>
       <div class="rightSideBar">
         <div id="emojiListContainer">
@@ -62,7 +65,6 @@
           <div ng-controller="tweetController">
             <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
               <img class="emojiImage tooltip hoverBig" ng-src="emojis/{{emoji.emojiMetrics.code.toLowerCase()}}.png" id="{{emoji.emojiMetrics.code.toLowerCase()}}" ng-click="showCountPercent($event)" onload="addAnimation(this.className)" />
-            <!-- <cloud tweet="tweet"></cloud> -->
             <!-- <span class="tooltiptext">
               <span class="tooltipTitle">
                 {{ emoji.emojiMetrics.name }}
