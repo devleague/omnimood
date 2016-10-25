@@ -248,7 +248,7 @@ h2 {
 /* Emoji Stats */
 .emojiStats {
   box-sizing: border-box;
-  margin: 0 auto;
+  margin: 5px auto;
   width: 15vw;
   text-align: center;
   border: 2px solid white;
@@ -271,7 +271,6 @@ h2 {
   color: gold;
 }
 
-// barGraph
 .barGraph {
   flex: 0 1 auto;
   background-color: #282d34;

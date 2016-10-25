@@ -65,9 +65,6 @@
             <div ng-repeat="emoji in Emojis" class="emojiContainer">
               <img class="emojiImage" ng-src="emojis/{{emoji.emojiMetrics.code.toLowerCase()}}.png" id="{{emoji.emojiMetrics.code.toLowerCase()}}" ng-click="showStats($event)" />
             </div>
-          <!-- <div ng-repeat="tweet in Tweets" class="tweet">
-            {{tweet}}
-          </div> -->
           </div>
         </div>
         <div class="emojiStats">
