@@ -54,8 +54,8 @@ getJSON('/api/timeline').then(function(data) {
     var topEmojis = emojiArray.slice(emojiArray.length - 8, emojiArray.length);
     // set the dimensions and margins of the graph
     var margin = {top: 40, right: 20, bottom: 50, left: 40},
-        width = 350 - margin.left - margin.right,
-        height = 250 - margin.top - margin.bottom;
+        width = parseInt(d3.select('.barGraph').style('width')) - margin.left - margin.right,
+        height = parseInt(d3.select('.barGraph').style('height')) - margin.top - margin.bottom;
 
     // set the ranges
     var x = d3.scaleBand()
@@ -112,13 +112,13 @@ getJSON('/api/timeline').then(function(data) {
       .append("image")
       .attr("class", "emoji")
       .attr("x", function(d, index) {
-        return x(d.name) + 7;
+        return x(d.name) + 2;
       })
       .attr("y", function(d, index) {
-        return height + 7;
+        return height + 8;
       })
-      .attr("width", 20)
-      .attr("height", 20)
+      .style("width", '1vw')
+      .style("height", '1vw')
       .attr("xlink:href", function(d) {
         return "emojis/" + d.name.toLowerCase() + ".png"
       });

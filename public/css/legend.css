@@ -1,8 +1,7 @@
 legend {
-  margin-top: 3vw;
   width: 100%;
   display: flex;
-  flex-direction: column; }
+  flex-direction: row; }
   legend .mood {
     display: flex;
     flex-direction: row;
