@@ -64,7 +64,11 @@ angular.module('omniMood')
           var timeSelect = document.getElementById("timeRange");
           var textSelect = document.getElementById("timeDisplay");
           d3.select(timeSelect).
-            on('change', function(stuff){
+            on('mousemove', function(){
+              var timePlace = document.getElementById("timeRange").value;
+              textSelect.innerHTML = timeData.times[timePlace];
+            })
+            .on('change', function(stuff){
               var timePlace = document.getElementById("timeRange").value;
               textSelect.innerHTML = timeData.times[timePlace];
               for(var country in countries){
