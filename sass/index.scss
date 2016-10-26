@@ -297,3 +297,30 @@ h2 {
   fill: steelblue;
   fill-opacity: .9;
 }
+
+/* Footer */
+.footer {
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  color: white;
+}
+
+.footer a:link {
+  color: aqua;
+}
+
+.footer a:visited {
+  color: dodgerblue;
+}
+
+.githubLogoInverted {
+  margin-left: 20px;
+  width: 25px;
+  height: 25px;
+}
