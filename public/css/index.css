@@ -321,9 +321,11 @@ input[type=range]:focus::-ms-fill-upper {
   .sideBar .cloudTitle {
     color: white;
     font-size: 1.65vw;
-    padding: 5px;
-    text-align: center;
-    margin-top: 1vw; }
+    text-align: center; }
+    .sideBar .cloudTitle .cloudDiv {
+      display: inline-block;
+      font-size: 4vw;
+      vertical-align: middle; }
   .sideBar cloud {
     display: block; }
 
@@ -339,7 +341,7 @@ input[type=range]:focus::-ms-fill-upper {
   display: flex;
   -webkit-flex-direction: column;
   flex-direction: column;
-  padding: 20px 0px 0px 20px;
+  padding: 1.6vw 0px 0px 1.5vw;
   width: 15%;
   height: 100vh; }
 
@@ -387,6 +389,9 @@ input[type=range]:focus::-ms-fill-upper {
 .tweet {
   color: white;
   text-align: center; }
+
+.flatSelected {
+  fill: green; }
 
 .emojiContainer {
   display: inline-block; }

@@ -47,6 +47,10 @@ angular.module('omniMood')
         [107.75749781, -6.9674592]
       ];
 
+      var flatMapScale = d3.scaleLinear()
+        .domain([320, 1600])
+        .range([50, 150]);
+
       var mapRect = mapSVG
         .attr("width", width)
         .attr("height", height)
@@ -64,11 +68,21 @@ angular.module('omniMood')
         .on('dblclick', zoomOut)
         .on('wheel', zoomIn);
 
+      var projection = d3.geoMercator()
+        .scale(flatMapScale(window.innerWidth)) //280  233(20161022)
+        .translate([width / 2, height / 2.3]) //width / 2.28
+        .center([0, 50]); //[-106, 37.5]
+
+      var path = d3.geoPath()
+        .projection(projection);
+
       var codeToCountry;
       d3.json("./json/codeToCountry.json", function(error,thisCodeToCountry){
         codeToCountry=thisCodeToCountry;
-      })
+      });
       //  var codeToCountry; // You are on your own!  10/15/16
+
+      d3.select(window).on('resize.flatMap', resizeFlatMap);
 
       var emojiList;
       d3.json("./json/codeEmoji.json", function(error, thisEmojiList) {
@@ -88,7 +102,7 @@ angular.module('omniMood')
           .duration(2000)
           .attr("transform", "translate(" + getCenter(width / 2, mouse[0], scaleZoomTo) + "," + getCenter(height / 2, mouse[1], scaleZoomTo) + ") scale (" + (isZoomed ? 1 : scaleZoomTo) + ")") //scaleZoomTo
 
-        d3.selectAll("path")
+        d3.select('#svg_map').selectAll("path")
           .attr("stroke-width", function() {
             return 0.1;
           });
@@ -103,7 +117,7 @@ angular.module('omniMood')
           .duration(2000)
           .attr("transform", "translate(" + 0 + "," + 0 + ") scale (" + 1 + ")")
 
-        d3.selectAll("path")
+        d3.select('#svg_map').selectAll("path")
           .attr("stroke-width", function() {
             return 0.1;
           });
@@ -129,14 +143,14 @@ angular.module('omniMood')
               .duration(1000)
               .attr("transform", "translate(" + getCenter(width / 2, currentZoomMouseX, currentZoom) + "," + getCenter(height / 2, currentZoomMouseY, currentZoom) + ") scale (" + currentZoom + ")")
 
-            d3.selectAll("path")
+            d3.select('#svg_map').selectAll("path")
               .attr("stroke-width", function() {
                 return 0.1;
               });
           }
         }
 
-        d3.selectAll("path")
+        d3.select('#svg_map').selectAll("path")
           .attr("stroke-width", function() {
             return 0.1;
           });
@@ -144,23 +158,32 @@ angular.module('omniMood')
         isZoomed = false;
       }
 
+      function resizeFlatMap() {
+        var widthResized = window.innerWidth  * .65;
+        var heightResized = window.innerHeight * .85;
+
+        mapSVG
+          .attr("width", widthResized)
+          .attr("height", heightResized);
+
+        projection
+          .translate([widthResized/2, heightResized/2.3])
+          .scale(flatMapScale(window.innerWidth));
+
+        d3.select('#svg_map').selectAll('path')
+          .attr('d', path);
+      }
+
       //countries_no_show_antarctica.json world-50m_DoNotShowAntarctica.json
 
-      d3.json("../json/world-50m_DoNotShowAntarctica.json", function(error, world) {
+      d3.json("../json/countries.json", function(error, world) {
         var countries = topojson.feature(world, world.objects.countries).features;
-        var projection = d3.geoMercator()
-          .scale(190) //280  233(20161022)
-          .translate([width / 2, height / 3.6]) //width / 2.28
-          .center([0, 50]); //[-106, 37.5]
-
-        var path = d3.geoPath()
-          .projection(projection);
 
         mapGroup.selectAll(".country")
           .data(countries)
           .enter().insert("path", ".graticule")
           .attr("id", function(d) {
-            return "cc" + (d.id / 1);
+            return "cc" + (d.properties.iso_n3/1);
           })
           .attr("d", path)
           .attr("stroke", outlineDefault)
@@ -177,9 +200,9 @@ angular.module('omniMood')
           })
           .append("svg:title")
           .text(function(d) {
-            if(codeToCountry[d.id])
+            if(codeToCountry[(d.properties.iso_n3/1)])
             {
-              return (codeToCountry[d.id]);
+              return (codeToCountry[(d.properties.iso_n3/1)]);
             }
 
             return "???";

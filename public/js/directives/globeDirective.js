@@ -235,11 +235,8 @@ angular.module('omniMood')
                 var flatMap = d3.select('#svg_map');
 
                 flatMap.selectAll('.flatSelected')
-                  .attr('fill', '#000000')
                   .classed('flatSelected', false);
-
-                d3.select(flatMap.select('#cc' + selectedCountryId).node())
-                  .attr('fill', 'green')
+                d3.select(flatMap.select('#cc' + (selectedCountryId/1)).node())
                   .classed('flatSelected', true);
               }
             });

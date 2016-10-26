@@ -11,7 +11,7 @@ angular.module("omniMood")
     function timeelse(scope, element, attr) {
       var timeSVG = d3.select(element[0]).append("svg")
         .attr("id", "svg_map"),
-        width = window.innerWidth * .70,
+        width = window.innerWidth * .65,
         height = window.innerHeight * .70,
         outlineDefault = "#eeeeee",
         outlineHighlight = "#1221ee",
