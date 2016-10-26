@@ -47,6 +47,10 @@ angular.module('omniMood')
         [107.75749781, -6.9674592]
       ];
 
+      var flatMapScale = d3.scaleLinear()
+        .domain([320, 1600])
+        .range([50, 150]);
+
       var mapRect = mapSVG
         .attr("width", width)
         .attr("height", height)
@@ -64,7 +68,17 @@ angular.module('omniMood')
         .on('dblclick', zoomOut)
         .on('wheel', zoomIn);
 
+      var projection = d3.geoMercator()
+        .scale(flatMapScale(window.innerWidth)) //280  233(20161022)
+        .translate([width / 2, height / 2.3]) //width / 2.28
+        .center([0, 50]); //[-106, 37.5]
+
+      var path = d3.geoPath()
+        .projection(projection);
+
       //  var codeToCountry; // You are on your own!  10/15/16
+
+      d3.select(window).on('resize.flatMap', resizeFlatMap);
 
       var emojiList;
       d3.json("./json/codeEmoji.json", function(error, thisEmojiList) {
@@ -144,17 +158,26 @@ angular.module('omniMood')
         isZoomed = false;
       }
 
+      function resizeFlatMap() {
+        var widthResized = window.innerWidth  * .65;
+        var heightResized = window.innerHeight * .85;
+
+        mapSVG
+          .attr("width", widthResized)
+          .attr("height", heightResized);
+
+        projection
+          .translate([widthResized/2, heightResized/2.3])
+          .scale(flatMapScale(window.innerWidth));
+
+        d3.select('#svg_map').selectAll('path')
+          .attr('d', path);
+      }
+
       //countries_no_show_antarctica.json world-50m_DoNotShowAntarctica.json
 
       d3.json("../json/world-50m_DoNotShowAntarctica.json", function(error, world) {
         var countries = topojson.feature(world, world.objects.countries).features;
-        var projection = d3.geoMercator()
-          .scale(190) //280  233(20161022)
-          .translate([width / 2, height / 3.6]) //width / 2.28
-          .center([0, 50]); //[-106, 37.5]
-
-        var path = d3.geoPath()
-          .projection(projection);
 
         mapGroup.selectAll(".country")
           .data(countries)
