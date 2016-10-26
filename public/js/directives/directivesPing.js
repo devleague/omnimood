@@ -160,7 +160,7 @@ angular.module('omniMood')
           .data(countries)
           .enter().insert("path", ".graticule")
           .attr("id", function(d) {
-            return "cc" + (d.properties.iso_n3 / 1);
+            return "cc" + (d.id / 1);
           })
           .attr("d", path)
           .attr("stroke", outlineDefault)

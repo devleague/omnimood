@@ -34,7 +34,8 @@ angular.module('omniMood')
         .append("rect")
         .attr("width", width)
         .attr("height", height)
-        .style("fill", "steelblue");
+        .style("fill", "steelblue")
+        .attr("rx",10);
 
       d3.json("../json/countries_no_show_antarctica.json", function(error, world) {
         var countries = topojson.feature(world, world.objects.countries).features;
