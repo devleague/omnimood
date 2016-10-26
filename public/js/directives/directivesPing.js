@@ -64,6 +64,10 @@ angular.module('omniMood')
         .on('dblclick', zoomOut)
         .on('wheel', zoomIn);
 
+      var codeToCountry;
+      d3.json("./json/codeToCountry.json", function(error,thisCodeToCountry){
+        codeToCountry=thisCodeToCountry;
+      })
       //  var codeToCountry; // You are on your own!  10/15/16
 
       var emojiList;
@@ -72,13 +76,10 @@ angular.module('omniMood')
       });
 
       function getCenter(newPosition, objectCenter, toScale) {
-        console.log(newPosition, objectCenter, toScale);
         return (isZoomed ? 0 : (newPosition - (objectCenter * toScale)));
       }
 
       function zoomTo(scaleTo) {
-        console.log("test");
-        // coordinates = d3.mouse(mapGroup);
         let mouse = d3.mouse(d3.event.currentTarget);
         currentZoomMouseX = mouse[0];
         currentZoomMouseY = mouse[1];
@@ -124,7 +125,6 @@ angular.module('omniMood')
 
 
           if (toZoomIn) {
-            console.log("translate(" + currentZoomMouseX + "," + currentZoomMouseY + ")");
             mapGroup.transition()
               .duration(1000)
               .attr("transform", "translate(" + getCenter(width / 2, currentZoomMouseX, currentZoom) + "," + getCenter(height / 2, currentZoomMouseY, currentZoom) + ") scale (" + currentZoom + ")")
@@ -177,7 +177,12 @@ angular.module('omniMood')
           })
           .append("svg:title")
           .text(function(d) {
-            return d.properties.name;
+            if(codeToCountry[d.id])
+            {
+              return (codeToCountry[d.id]);
+            }
+
+            return "???";
           });
 
 
