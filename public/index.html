@@ -22,8 +22,7 @@
 
   <body ng-app="omniMood">
     <div class="mainContainer" ng-controller="toggleViewController">
-
-      <div class="sideBar">
+      <div class="sideBar" ng-controller="tweetController">
         <div>
           <div class='title'>
             Omni
@@ -38,59 +37,55 @@
         <button class="viewButton" ng-click="toggleView()">{{ toggleText }}</button>
         <button class="timelineButton" ng-click="toggleMap()">{{ toggleTime }}</button>
         <div class="selectCountryContainer"></div>
-        <legend></legend>
+        <div class="cloudContainer">
+          <div class="cloudTitle">
+            Emoji ☁️
+          </div>
+          <cloud tweet="tweet"></cloud>
+        </div>
       </div>
-
       <div class="mapContainer" ng-controller="tweetController">
         <div ng-show="show" id="flat-map">
           <whateveryouwant  tweet="tweet"></whateveryouwant>
         </div>
-
         <div ng-show="showTwo">
           <globe tweet="tweet"></globe>
         </div>
-
         <div ng-show="time">
           <killerqueen></killerqueen>
           <div id='timeDisplay'></div>
           <input type="range" id ='timeRange' min ='0' max ='9'></input>
         </div>
+        <legend></legend>
       </div>
-
       <div class="rightSideBar">
         <div id="emojiListContainer">
           <h2>Emoji List</h2>
           <div class="emojiImagesContainer" ng-controller="tweetController">
             <div ng-repeat="emoji in Emojis" class="emojiContainer">
               <img class="emojiImage" ng-src="emojis/{{emoji.emojiMetrics.code.toLowerCase()}}.png" id="{{emoji.emojiMetrics.code.toLowerCase()}}" ng-click="showStats($event)" />
-            <!-- <cloud tweet="tweet"></cloud> -->
-          </div>
-          <!-- <div ng-repeat="tweet in Tweets" class="tweet">
-            {{tweet}}
-          </div> -->
-        </div>
-      </div>
-
-      <div class="emojiStats">
-            <div id="emojiName">
-              Click an emoji to see stats!
             </div>
-            Count:
-            <span id="emojiCount">
-              0
-            </span>
-            <span>
-              (
-            </span>
-            <span id="emojiPercent">
-              0
-            </span>
-            )%
           </div>
-
-      <div class="barGraph"></div>
+        </div>
+        <div class="emojiStats">
+          <div id="emojiName">
+            Click an emoji to see stats!
+          </div>
+          Count:
+          <span id="emojiCount">
+            0
+          </span>
+          <span>
+            (
+          </span>
+          <span id="emojiPercent">
+            0
+          </span>
+          )%
+        </div>
+        <div class="barGraph"></div>
       </div>
-      </div>
+    </div>
     <script type="text/javascript" src="/js/newBarGraph.js"></script>
   </body>
 </html>
