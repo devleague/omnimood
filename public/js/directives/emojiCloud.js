@@ -87,6 +87,9 @@ angular.module('omniMood')
                 .append('g')
                 .append('circle')
                 .attr('class', 'emojis')
+                .attr('id', function (d, i) {
+                  return d.code;
+                })
                 .style('fill', function (d) {
                   return 'url('+ '#' + d.code.toUpperCase() + ')';
                 })
@@ -97,10 +100,7 @@ angular.module('omniMood')
                 .attr('cy', function (d) {
                   return d.y;
                 })
-                .attr('r', function (d) { return emojiSize(d.counter); })
-                .attr('id', function (d, i) {
-                  return d.code;
-                });
+                .attr('r', function (d) { return emojiSize(d.counter); });
 
             var defsPattern = defs.selectAll('.imgPattern')
               .data(emojiList);
