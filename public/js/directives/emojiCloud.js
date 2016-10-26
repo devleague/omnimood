@@ -15,6 +15,10 @@ angular.module('omniMood')
             emojiCodeList,
             highestCount = 0;
 
+        var cloudScale = d3.scaleLinear()
+            .domain([52, 250])
+            .range([0.2, 0.9]);
+
         var svg = d3.select(element[0])
           .append('svg')
           .attr('class', 'emojiCloud')
@@ -22,13 +26,15 @@ angular.module('omniMood')
           .attr('height', height)
           .append('g')
           .attr('class', 'node')
-          .attr('transform', "translate(" + width/2 + "," + height/2 + ")");
+          .attr('transform', "translate(" + width/2 + "," + height/2 + ")scale(" + cloudScale(width) + ")");
 
         var defs = d3.select('.emojiCloud').append('svg:defs');
 
         d3.json('/json/codeEmoji.json', function (emojiObject) {
           emojiCodeList = emojiObject;
         });
+
+        d3.select(window).on('resize.cloud', resizeCloud);
 
         scope.$watch('tweet', function (tweet) {
           if(tweet) {
@@ -38,7 +44,7 @@ angular.module('omniMood')
 
             var emojiSize = d3.scaleLinear()
               .domain([1, 50])
-              .range([7, 50]);
+              .range([7, 45]);
 
             var simulation = d3.forceSimulation()
               .force('center', d3.forceCenter())
@@ -64,7 +70,7 @@ angular.module('omniMood')
             if(highest > 50) {
               emojiSize = d3.scaleLinear()
               .domain([1, highest])
-              .range([7, 50]);
+              .range([7, 45]);
             }
 
             simulation
@@ -156,6 +162,18 @@ angular.module('omniMood')
             var indexOfFoundEmoji = emojiList.indexOf(isEmojiFound[0]);
             emojiList[indexOfFoundEmoji].counter++;
           }
+        }
+
+        function resizeCloud () {
+          var widthCloud = parseInt(d3.select('.cloudContainer').style('width'));
+          var heightCloud = parseInt(d3.select('.cloudContainer').style('height')) * .8;
+
+          d3.select('.emojiCloud')
+            .attr('width', widthCloud)
+            .attr('height', heightCloud);
+
+          d3.select('.node')
+            .attr('transform', "translate(" + widthCloud/2 + "," + heightCloud/2 + ")scale(" + cloudScale(widthCloud) + ")");
         }
       }
     });
