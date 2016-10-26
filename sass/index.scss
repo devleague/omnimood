@@ -264,6 +264,10 @@ input[type=range]:focus::-ms-fill-upper {
   text-align: center;
 }
 
+.flatSelected {
+  fill: green;
+}
+
 .emojiContainer {
   display: inline-block;
 }

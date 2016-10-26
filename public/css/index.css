@@ -364,6 +364,9 @@ input[type=range]:focus::-ms-fill-upper {
   color: white;
   text-align: center; }
 
+.flatSelected {
+  fill: green; }
+
 .emojiContainer {
   display: inline-block; }
 
