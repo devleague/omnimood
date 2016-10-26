@@ -55,7 +55,8 @@ angular.module('omniMood')
       .append("rect")
         .attr("width", width)
         .attr("height", height)
-        .style("fill", "steelblue");
+        .attr("rx",10)
+        .style("fill", "steelblue"); //#282d34  steelblue
 
       var mapGroup = mapSVG.append("g").on('click', function() {
           zoomTo(this)
