@@ -80,7 +80,8 @@ h2 {
   .cloudContainer {
     border: 2px solid white;
     border-radius: 2.5%;
-    margin-top: 20px;
+    margin-top: 2vw;
+    height: 18vw;
   }
 
   .cloudTitle {
@@ -88,11 +89,11 @@ h2 {
     font-size: 1.65vw;
     padding: 5px;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 1vw;
   }
 
   cloud {
-    margin-top: 40px;
+    display: block;
   }
 }
 
