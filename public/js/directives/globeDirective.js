@@ -94,7 +94,7 @@ angular.module('omniMood')
 
         var countryList = d3.select('.selectCountryContainer')
           .append('select')
-          .attr('class','countryList');
+          .attr('class','countryList viewButton');
 
         var countryToolTip = d3.select(element[0])
           .append('div')
