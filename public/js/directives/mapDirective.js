@@ -63,51 +63,6 @@ angular.module('omniMood')
             d3.select(this)
               .attr("stroke", outlineDefault);
           })
-          .on("click", function (d) {
-            var w = width;
-            var h = height;
-            var centroid = path.centroid(d);
-            var x = w / 2 - centroid[0];
-            var y = h / 2 - centroid[1];
-
-            countryId = "path#cc" + d.properties.iso_n3;
-
-            mapSVG
-              .append("g")
-              .attr("id", "countryInfo-wrapper");
-
-            d3.select("g#map-container")
-              .transition()
-              .delay(250)
-              .attr("visibility", "hidden");
-
-            var g = d3.select("g#countryInfo-wrapper")
-              .append("g")
-              .attr("id", "country-wrapper")
-              .insert("path", countryId)
-              .attr("d", this.attributes.d.value)
-              .attr("stroke", "red")
-              .transition()
-              .delay(250)
-              .attr("transform", "translate(" + x + "," + y + ")")
-              .style("stroke", "#eeeeee")
-              .style("fill", "#000000");
-
-            d3.select("g#country-wrapper")
-              .append("text")
-              .text(d3.select(this).text())
-              .attr("transform", "translate(800, 50)")
-              .transition()
-              .delay(250)
-              .style("font-size", "25")
-              .style("font-family", "serif")
-              .style("text-anchor", "middle")
-              .style("font-weight", "bold")
-              .style("fill", "orange");
-
-            d3.select("g#countryInfo-wrapper")
-              .on("click", backToMap);
-        })
         .append("svg:title")
         .text(function(d) {
           return d.properties.name;
@@ -147,12 +102,5 @@ angular.module('omniMood')
           countryArrayIndex++;
         });
       }, 200);
-    }
-
-    function backToMap () {
-      d3.select("g#countryInfo-wrapper")
-        .remove();
-      d3.select("g#map-container")
-        .attr("visibility", "visible");
     }
   });

@@ -21,7 +21,7 @@ angular.module('omniMood')
       var isZoomed = false;
       var currentZoom = 1;
       var currentZoomMouseX = 0;
-      var currentZoomMouseY = 0;      
+      var currentZoomMouseY = 0;
 
       var mapSVG = d3.select(element[0]).append("svg")
         .attr("id", "svg_map"),
@@ -89,7 +89,7 @@ angular.module('omniMood')
 
         d3.selectAll("path")
           .attr("stroke-width", function() {
-            return isZoomed ? 1 : 0.1
+            return 0.1;
           });
 
 
@@ -104,7 +104,7 @@ angular.module('omniMood')
 
         d3.selectAll("path")
           .attr("stroke-width", function() {
-            return 1;
+            return 0.1;
           });
 
         isZoomed = false;
@@ -131,7 +131,7 @@ angular.module('omniMood')
 
             d3.selectAll("path")
               .attr("stroke-width", function() {
-                return 1;
+                return 0.1;
               });
           }
         }
@@ -164,6 +164,7 @@ angular.module('omniMood')
           })
           .attr("d", path)
           .attr("stroke", outlineDefault)
+          .attr("stroke-width", 0.1)
           .on("mouseover", function(d) {
             d3.select(this)
               .attr("stroke", outlineHighlight)
