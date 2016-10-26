@@ -147,6 +147,14 @@ h2 {
   font-size: 2vw; }
 
 .mainContainer {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
   display: flex; }
 
 #timeRange {
@@ -242,7 +250,16 @@ input[type=range]:focus::-ms-fill-upper {
 
 .sideBar {
   margin-top: 15px;
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
   display: flex;
+  -webkit-flex-direction: column;
   flex-direction: column;
   padding: 20px;
   width: 14%;
@@ -285,7 +302,16 @@ input[type=range]:focus::-ms-fill-upper {
     display: block; }
 
 .rightSideBar {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
   display: flex;
+  -webkit-flex-direction: column;
   flex-direction: column;
   padding: 20px 0px 0px 20px;
   width: 15%;
@@ -302,6 +328,14 @@ input[type=range]:focus::-ms-fill-upper {
   font-family: 'Bungee Inline', cursive; }
 
 .mapRelated {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
   display: flex;
   justify-content: center; }
   .mapRelated button {
@@ -369,6 +403,14 @@ input[type=range]:focus::-ms-fill-upper {
 
 /* Bar Graph */
 .barGraph {
+  -webkit-box-flex: 0 1 auto;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: 0 1 auto;
+  /* OLD - Firefox 19- */
+  -webkit-flex: 0 1 auto;
+  /* Chrome */
+  -ms-flex: 0 1 auto;
+  /* IE 10 */
   flex: 0 1 auto;
   background-color: #282d34;
   border: 2px solid white;
@@ -378,14 +420,12 @@ input[type=range]:focus::-ms-fill-upper {
   margin-top: 10px; }
 
 .axis text {
-  font: 10px sans-serif;
-  fill: white;
-  font-weight: bold; }
+  font: 10px sans-serif; }
 
 .axis path,
 .axis line {
   fill: none;
-  stroke: white;
+  stroke: #000;
   shape-rendering: crispEdges; }
 
 .bar {
