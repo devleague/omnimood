@@ -156,8 +156,6 @@ h2 {
   padding: 4px;
   filter: grayscale(40%);
   display: inline-block;
-  // animation: grayToColor 4s;
-  // animation-timing-function: ease-in;
 }
 
 .emojiImage:hover{
@@ -168,82 +166,6 @@ h2 {
 .emojiImage:active {
   position: relative;
   top: 1px;
-}
-
-.grayscale {
-  filter: grayscale(100%);
-}
-
-.grayToColor {
-  animation: grayToColor 2s;
-  animation-timing-function: ease-in-out;
-}
-
-.animationSettings {
-  animation-duration: 3s;
-  animation-delay: 2s;
-  animation-iteration-count: 3;
-}
-
-.animationSettings:hover {
-  width: 45px;
-  height: 45px;
-}
-
-@keyframes grayToColor {
-  from {
-    filter: grayscale(100%);
-  }
-  to {
-    filter: grayscale(0%);
-  }
-}
-
-@keyframes colorFade {
-  from {
-    filter: grayscale(100%);
-  }
-  50% {
-    filter: grayscale(0%);
-  }
-  to {
-    filter: grayscale(100%);
-  }
-}
-
-@keyframes glowGold {
-  from {  -webkit-box-shadow: 0 0 9px #333; }
-  50% {  -webkit-box-shadow: 0 0 18px #F9FF33; }
-  to {  -webkit-box-shadow: 0 0 9px #333; }
-}
-
-@keyframes fadeOutUp {
-  0% {
-    top: 0px;
-    opacity: 1;
-  }
-  45% {
-    top: 0px;
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    top: -60vh;
-    transform: scale(4);
-    opacity: 0.2;
-  }
-}
-
-@keyframes fadeInSpinDown {
-  0% {
-    top: -60vh;
-    opacity: 0.2;
-  }
-  100% {
-    top: 0px;
-    opacity: 1;
-    transform: rotate(1080deg);
-  }
 }
 
 /* Emoji Stats */
@@ -272,6 +194,7 @@ h2 {
   color: gold;
 }
 
+/* Bar Graph */
 .barGraph {
   flex: 0 1 auto;
   background-color: #282d34;
@@ -296,4 +219,36 @@ h2 {
 .bar {
   fill: steelblue;
   fill-opacity: .9;
+}
+
+/* Footer */
+.footer {
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  color: white;
+}
+
+.footer a:link {
+  color: aqua;
+}
+
+.footer a:visited {
+  color: dodgerblue;
+}
+
+.githubLogoInverted {
+  margin-left: 20px;
+  width: 25px;
+  height: 25px;
+}
+
+/* Time Map */
+#timeDisplay {
+  color: white;
 }

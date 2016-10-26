@@ -119,7 +119,7 @@ angular.module('omniMood')
                 .append('image')
                 .attr('class', 'pic')
                 .attr('xlink:href', function (d, i) {
-                  return '../../emojis/' + d.code + '.png';
+                  return '../../emojis/' + d.code.toLowerCase() + '.png';
                 })
                 .merge(defsPattern)
                 .select('.pic')
