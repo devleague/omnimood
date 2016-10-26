@@ -190,9 +190,13 @@ input[type=range]:focus::-ms-fill-upper {
   .cloudTitle {
     color: white;
     font-size: 1.65vw;
-    padding: 5px;
     text-align: center;
-    margin-top: 1vw;
+
+    .cloudDiv {
+      display: inline-block;
+      font-size: 4vw;
+      vertical-align: middle;
+    }
   }
 
   cloud {
