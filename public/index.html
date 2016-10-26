@@ -18,10 +18,11 @@
     <script type="text/javascript" src="js/directives/legendDirective.js"></script>
     <script type="text/javascript" src="js/directives/timeDirective.js"></script>
     <script type="text/javascript" src="js/directives/emojiCloud.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Montserrat" rel="stylesheet">
+
   <body ng-app="omniMood">
     <div class="mainContainer" ng-controller="toggleViewController">
-      <div class="sideBar">
+      <div class="sideBar" ng-controller="tweetController">
         <div>
           <div class='title'>
             Omni
@@ -33,55 +34,64 @@
             d
           </div>
         </div>
-        <button ng-click="toggleView()">{{ toggleText }}</button>
-        <button ng-click="toggleMap()">{{ toggleTime }}</button>
+        <button class="viewButton" ng-click="toggleView()">{{ toggleText }}</button>
+        <button class="timelineButton" ng-click="toggleMap()">{{ toggleTime }}</button>
         <div class="selectCountryContainer"></div>
-        <legend></legend>
+        <div class="cloudContainer">
+          <div class="cloudTitle">
+            Emoji ☁️
+          </div>
+          <cloud tweet="tweet"></cloud>
+        </div>
       </div>
       <div class="mapContainer" ng-controller="tweetController">
         <div ng-show="show" id="flat-map">
           <whateveryouwant  tweet="tweet"></whateveryouwant>
         </div>
-
         <div ng-show="showTwo">
           <globe tweet="tweet"></globe>
         </div>
-
         <div ng-show="time">
           <killerqueen></killerqueen>
           <div id='timeDisplay'></div>
-          <input type="range" id ='timeRange' min ='0' max ='9'><input>
+          <input type="range" id ='timeRange' min ='0' max ='9'></input>
         </div>
-
+        <legend></legend>
       </div>
       <div class="rightSideBar">
         <div id="emojiListContainer">
           <h2>Emoji List</h2>
-          <div ng-controller="tweetController">
-            <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" id="{{emoji.emoji.code.toLowerCase()}}"/>
-            <!-- <cloud tweet="tweet"></cloud> -->
-            <!-- <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" />
-            <span class="tooltiptext">
-              {{ emoji.emoji.name }}
-              Count:
-              {{ emoji.emojiMetrics.count }}
-              Percent:
-              {{ emoji.emojiMetrics.percentage * 100 }}%
-            </span>
-            </div> -->
+          <div class="emojiImagesContainer" ng-controller="tweetController">
+            <div ng-repeat="emoji in Emojis" class="emojiContainer">
+              <img class="emojiImage" ng-src="emojis/{{emoji.emojiMetrics.code.toLowerCase()}}.png" id="{{emoji.emojiMetrics.code.toLowerCase()}}" ng-click="showStats($event)" />
+            </div>
           </div>
-
-          <!-- <div ng-repeat="tweet in Tweets" class="tweet">
-            {{tweet}}
-          </div> -->
         </div>
+        <div class="emojiStats">
+          <div id="emojiName">
+            Click an emoji to see stats!
+          </div>
+          Count:
+          <span id="emojiCount">
+            0
+          </span>
+          <span>
+            (
+          </span>
+          <span id="emojiPercent">
+            0
+          </span>
+          )%
+        </div>
+        <div class="barGraph"></div>
       </div>
-      <br>
-      <div class="barGraph"></div>
-      </div>
-      </div>
+    </div>
+    <div class="footer">
+        A <a href="http://www.devleague.com/">DevLeague</a> Final Project by Tunui Tinorua, Tyler Aratani, Javen Nakamoto, Steven Yamashiro, &amp; Adam Akamine
+        <a href="https://github.com/devleague/omnimood">
+          <img class="githubLogoInverted" src="/images/github-inverted.png" />
+        </a>
+    </div>
     <script type="text/javascript" src="/js/newBarGraph.js"></script>
   </body>
 </html>
