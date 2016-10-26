@@ -55,7 +55,8 @@ angular.module('omniMood')
       .append("rect")
         .attr("width", width)
         .attr("height", height)
-        .style("fill", "steelblue");
+        .attr("rx",10)
+        .style("fill", "steelblue"); //#282d34  steelblue
 
       var mapGroup = mapSVG.append("g").on('click', function() {
           zoomTo(this)
@@ -159,7 +160,7 @@ angular.module('omniMood')
           .data(countries)
           .enter().insert("path", ".graticule")
           .attr("id", function(d) {
-            return "cc" + (d.properties.iso_n3 / 1);
+            return "cc" + (d.id / 1);
           })
           .attr("d", path)
           .attr("stroke", outlineDefault)
