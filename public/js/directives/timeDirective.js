@@ -34,7 +34,8 @@ angular.module('omniMood')
         .append("rect")
         .attr("width", width)
         .attr("height", height)
-        .style("fill", "steelblue");
+        .style("fill", "steelblue")
+        .attr("rx",10);
 
       d3.json("../json/countries_no_show_antarctica.json", function(error, world) {
         var countries = topojson.feature(world, world.objects.countries).features;
@@ -63,6 +64,13 @@ angular.module('omniMood')
           var countries = timeData.countries;
           var timeSelect = document.getElementById("timeRange");
           var textSelect = document.getElementById("timeDisplay");
+          textSelect.innerHTML = timeData.times[9];
+          for(var country in countries){
+            d3.select("path#dd" + country)
+                .attr("stroke","#eeeeee")
+                .attr("stroke-width", 1)
+                .style("fill", timeScale(countries[country][9] * 10));
+          }
           d3.select(timeSelect).
             on('mousemove', function(){
               var timePlace = document.getElementById("timeRange").value;
@@ -73,15 +81,10 @@ angular.module('omniMood')
               textSelect.innerHTML = timeData.times[timePlace];
               for(var country in countries){
                 d3.select("path#dd" + country)
-                    .style("fill", "white")
-                    .attr("stroke", "black")
-                    .attr("stroke-width", 1)
-                    .transition()
-                    .duration(2000)
                     .attr("stroke","#eeeeee")
                     .attr("stroke-width", 1)
                     .style("fill", timeScale(countries[country][timePlace] * 10));
-            }
+              }
           });
       });
     }
