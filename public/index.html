@@ -12,46 +12,76 @@
     <script type="text/javascript" src="js/omniMood.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/factories.js"></script>
-    <script type="text/javascript" src="js/directives.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
+    <!--<script type="text/javascript" src="js/directives/mapDirective.js"></script>-->
+    <script type="text/javascript" src="js/directives/directivesPing.js"></script>
+    <script type="text/javascript" src="js/directives/globeDirective.js"></script>
+    <script type="text/javascript" src="js/directives/legendDirective.js"></script>
+    <script type="text/javascript" src="js/directives/timeDirective.js"></script>
+    <script type="text/javascript" src="js/directives/emojiCloud.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
   <body ng-app="omniMood">
-    <h1 id='title'>
-      <img src="emojis/1f602.png">
-      Omni Mood
-      <img src="emojis/1f620.png">
-    </h1>
-    <div class="mainContainer">
-      <div class="mapRelated" ng-controller="toggleViewController">
-        <button ng-click="show = !show">{{ toggleText }}</button>
-        <div class="mapContainer" ng-controller="tweetController">
-          <div ng-show="show" id="flat-map">
-            <whateveryouwant></whateveryouwant>
+    <div class="mainContainer" ng-controller="toggleViewController">
+      <div class="sideBar">
+        <div>
+          <div class='title'>
+            Omni
           </div>
-          <div ng-show="!show">
-            <globe coordinates="coordinates"></globe>
+          <div class='title2'>
+            M
+            <img src="emojis/1f602.png">
+            <img src="emojis/1f620.png">
+            d
           </div>
-        <legend></legend>
         </div>
-        <svg id="svg_onClick" width="2000" height="2000" style="width: 85vw; height: 100vh;">
-        </svg>
+        <button ng-click="toggleView()">{{ toggleText }}</button>
+        <button ng-click="toggleMap()">{{ toggleTime }}</button>
+        <div class="selectCountryContainer"></div>
+        <legend></legend>
       </div>
-      <div id="emojiListContainer">
+      <div class="mapContainer" ng-controller="tweetController">
+        <div ng-show="show" id="flat-map">
+          <whateveryouwant  tweet="tweet"></whateveryouwant>
+        </div>
+
+        <div ng-show="showTwo">
+          <globe tweet="tweet"></globe>
+        </div>
+
+        <div ng-show="time">
+          <killerqueen></killerqueen>
+          <div id='timeDisplay'></div>
+          <input type="range" id ='timeRange' min ='0' max ='9'><input>
+        </div>
+
+      </div>
+      <div class="rightSideBar">
+        <div id="emojiListContainer">
           <h2>Emoji List</h2>
-          <div ng-controller="emojiController">
+          <div ng-controller="tweetController">
             <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
-              <img class="emojiImage tooltip animatedEmojiImage" ng-src="emojis/{{emoji.code.toLowerCase()}}.png" />
-              <p class="tooltiptext">
-                {{ emoji.name }}
-              </p>
-            </div>
+              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" id="{{emoji.emoji.code.toLowerCase()}}"/>
+            <!-- <cloud tweet="tweet"></cloud> -->
+            <!-- <div ng-repeat="emoji in Emojis" class="emojiContainer tooltip">
+              <img class="animatedEmojiImage emojiImage tooltip" ng-src="emojis/{{emoji.emoji.code.toLowerCase()}}.png" />
+            <span class="tooltiptext">
+              {{ emoji.emoji.name }}
+              Count:
+              {{ emoji.emojiMetrics.count }}
+              Percent:
+              {{ emoji.emojiMetrics.percentage * 100 }}%
+            </span>
+            </div> -->
           </div>
+
+          <!-- <div ng-repeat="tweet in Tweets" class="tweet">
+            {{tweet}}
+          </div> -->
+        </div>
       </div>
-    </div>
-    <br>
-    <!-- <div ng-controller="tweetController">
-      <div ng-repeat="tweet in Tweets" class="tweet">
-        {{ tweet }}
+      <br>
+      <div class="barGraph"></div>
       </div>
-    </div> -->
+      </div>
+    <script type="text/javascript" src="/js/newBarGraph.js"></script>
   </body>
 </html>

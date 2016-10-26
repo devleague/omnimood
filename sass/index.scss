@@ -7,17 +7,28 @@
 
 body {
   background-color: #282d34;
-  font-family: 'Jura', sans-serif;
+  font-family: 'Bungee Inline', cursive;
 }
 
-h1 {
-  font-size: 3.5em;
-}
-
-#title {
+.title {
+  font-size: 3.5vw;
+  width: 100%;
   color: white;
-  text-align: center;
-  // border-bottom: 2px solid white;
+}
+
+.title2 {
+  @extend .title;
+  font-size: 3vw;
+  position: absolute;
+
+  img {
+    width: 2.3vw;
+    margin-left: -0.3vw;
+  }
+
+  img:nth-child(2) {
+    margin-right: -0.4vw;
+  }
 }
 
 h2 {
@@ -29,6 +40,57 @@ h2 {
   display: flex;
 }
 
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 20%;
+  height: 100vh;
+
+  button {
+    margin-top: 4vw;
+    border: 0;
+    border-radius: 5px;
+    background: rgba(83, 90, 99, 0.7);
+    color: white;
+    font-size: 1.65vw;
+    font-family: 'Bungee Inline', cursive;
+    width: 100%;
+    height: 5vw;
+  }
+}
+
+.rightSideBar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 20%;
+  height: 100vh;
+
+  button {
+    margin-top: 4vw;
+    border: 0;
+    border-radius: 5px;
+    background: rgba(83, 90, 99, 0.7);
+    color: white;
+    font-size: 1.65vw;
+    font-family: 'Bungee Inline', cursive;
+    width: 100%;
+    height: 5vw;
+  }
+}
+
+.countryList {
+  border: 0;
+  margin-top: 2vw;
+  background: rgba(83, 90, 99, 0.7);
+  color: white;
+  font-size: 0.67vw;
+  width: 100%;
+  height: 5vw;
+  font-family: 'Bungee Inline', cursive;
+}
+
 .mapRelated {
   display: flex;
   justify-content: center;
@@ -38,23 +100,21 @@ h2 {
     margin-top: 10px;
   }
 }
-
 .mapContainer {
-  display: flex;
-  justify-content: center;
-  position: absolute;
   margin-top: 40px;
 }
 
 #emojiListContainer {
   box-sizing: border-box;
   border: 2px solid white;
+  border-radius: 2.5%;
   margin-right: 15px;
   flex: 0 1 auto;
   background-color: #282d34;
   color: white;
   padding: 3px;
-  height: 100%;
+  // height: 375px;
+  margin: 10px;
 }
 
 .tweet {
@@ -62,15 +122,66 @@ h2 {
   text-align: center;
 }
 
+// .tweet:last-child {
+//   display: none;
+// }
+
+// .emojiContainer:nth-child(odd) {
+//   animation-timing-function: ease-in;
+//   animation: colorFade 4s infinite;
+// }
+
 .emojiImage {
   position: relative;
-  padding: 5px;
+  padding: 4px;
+  filter: grayscale(40%);
+  // animation: grayToColor 4s;
+  // animation-timing-function: ease-in;
 }
 
-.animatedEmojiImage {
-  animation-duration: 3s;
-  animation-timing-function: ease-in;
-  animation-name: fadeOutUp;
+.emojiImage:hover{
+  filter: grayscale(0%);
+  cursor: pointer;
+}
+
+.grayscale {
+  filter: grayscale(100%);
+}
+
+.grayToColor {
+  animation: grayToColor 2s;
+  animation-timing-function: ease-in-out;
+}
+// .animatedEmojiImage {
+//   animation: colorFade 4s infinite;
+//   animation-timing-function: ease-in;
+// }
+
+@keyframes grayToColor {
+  from {
+    filter: grayscale(100%);
+  }
+  to {
+    filter: grayscale(0%);
+  }
+}
+
+@keyframes colorFade {
+  from {
+    filter: grayscale(100%);
+  }
+  50% {
+    filter: grayscale(0%);
+  }
+  to {
+    filter: grayscale(100%);
+  }
+}
+
+@keyframes glowGold {
+  from {  -webkit-box-shadow: 0 0 9px #333; }
+  50% {  -webkit-box-shadow: 0 0 18px #F9FF33; }
+  to {  -webkit-box-shadow: 0 0 9px #333; }
 }
 
 @keyframes fadeOutUp {
@@ -102,12 +213,6 @@ h2 {
   }
 }
 
-
-.emojiImage:hover {
-  width: 70px;
-  height: 74px;
-}
-
 .tooltip {
   position: relative;
   display: inline-block;
@@ -124,12 +229,49 @@ h2 {
   z-index:1;
   top: -5px;
   right: 105%;
+  width: 250px;
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
 
-.ping {
-  color: green;
+.tooltipTitle {
+  font-weight: bold;
+  text-transform: capitalize;
+  margin: 5px;
+}
+
+.tooltipCount {
+  display: inline;
+}
+
+.tooltipPercent {
+  display: inline;
+}
+
+// barGraph
+.barGraph {
+  flex: 0 1 auto;
+  background-color: #282d34;
+  border: 2px solid white;
+  border-radius: 2%;
+  // width: 400px;
+  // height: 300px;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+  fill-opacity: .9;
 }

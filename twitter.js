@@ -49,13 +49,16 @@ function listenForTweets(socket) {
   socket.on('start tweets', () => {
     twitterStream.on(('data'), function (tweet) {
       var tweetObj = getVariables(tweet);
-      if(tweetObj)
+      if(tweetObj) {
         if(tweetObj.emojis) { // if there's an emoji found
+          var tweetMoodValue = calculateTweetMood(tweetObj.emojis);
           socket.emit('tweet', {
             emojis: tweetObj.emojis,
-            coordinates: tweetObj.coordinates
+            coordinates: tweetObj.coordinates,
+            moodValue: tweetMoodValue
           });
         }
+      }
     });
 
     twitterStream.on('error', function (error) {
@@ -163,6 +166,20 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
       tweetUpdate = {};
     }
   }
+}
+
+function calculateTweetMood (emojis) {
+  var total = 0;
+  var surrogate = emojis.map((emoji) => {
+    return '\\u' + emoji.charCodeAt(0).toString(16).toUpperCase() + '\\u' + emoji.charCodeAt(1).toString(16).toUpperCase();
+  });
+  surrogate.forEach(function (surrogate) {
+    if(emojiList[surrogate]){
+      total += emojiList[surrogate].value;
+    }
+  });
+  var moodValue = total/emojis.length;
+  return moodValue;
 }
 
 function calculateMood (countryEmojis) {

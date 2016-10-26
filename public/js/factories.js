@@ -1,25 +1,34 @@
 angular.module('omniMood')
-  .factory('TweetFactory', [
-  '$http', function ($http) {
-    var endpoint = '/api/tweets';
-    return {
-      getTweets: function () {
-        return $http.get(endpoint);
-      }
-    };
-  }
-  ])
+  // .factory('TweetFactory', [
+  // '$http', function ($http) {
+  //   var endpoint = '/api/tweets';
+  //   return {
+  //     getTweets: function () {
+  //       return $http.get(endpoint);
+  //     }
+  //   };
+  // }
+  // ])
   .factory('EmojiFactory', [
   '$http', function($http) {
     return {
       getEmojis: function () {
-        return $http.get('../json/emojisSpecialOrder.json');
+        return $http.get('../json/orderedEmojis.json');
       }
     }
   }])
+  .factory('EmojiMetricsFactory', [
+    '$http', function($http) {
+      var endpoint = '/api/timeline';
+      return {
+        getEmojiMetrics: function () {
+          return $http.get(endpoint);
+        }
+      }
+    }])
   .factory('socket', function ($rootScope) {
     var socket = io.connect('http://localhost:3000');
-    return {
+    var socketFunctions = {
       on: function (eventName, callback) {
         socket.on(eventName, function () {
           var args = arguments;
@@ -39,4 +48,6 @@ angular.module('omniMood')
         });
       }
     };
+    socketFunctions.emit('start tweets', true);
+    return socketFunctions;
   });

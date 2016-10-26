@@ -6,7 +6,7 @@ var         outlineDefault = "#eeeeee",
 
  function setCountryMood() {
 
-    d3.json('http://localhost:3000/api/countries', function(error, moodData) {
+    d3.json('http://localhost:3000/countries/api', function(error, moodData) {
 
        countryArrayIndex = (countryArrayIndex >= moodData.length) ? 0 : countryArrayIndex;
 
@@ -14,9 +14,7 @@ var         outlineDefault = "#eeeeee",
           countryArrayIndex++;
        }
 
-
        var thisMoodValue = moodData[countryArrayIndex];
-    //  console.log("countryArrayIndex=" + countryArrayIndex + "," + "path#cc" + thisMoodValue.countryId);
        moodChanged = true;
 
        if (countries[thisMoodValue.countryId]) {
