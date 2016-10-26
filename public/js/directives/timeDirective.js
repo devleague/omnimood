@@ -172,6 +172,14 @@ angular.module("omniMood")
                     .delay(75)
                     .attr("transform", "translate(975, 130)");
 
+                  info
+                    .append("text")
+                   .text("(" + d3.timeFormat("%d-%b-%y" + ")")(new Date()))
+                   .transition()
+                   .delay(75)
+                   .attr("transform", "translate(1065, 150)")
+                   .style("font-size", "16");
+
                   info.selectAll("text")
                     .style("font-size", "20")
                     .style("font-family", "serif")
@@ -232,12 +240,16 @@ angular.module("omniMood")
 
               xAxis = d3.axisBottom()
                 .scale(xRange)
-                .ticks(3)
-                .tickSize(5)
+                .ticks(10)
+                .tickSize(1)
                 .tickFormat(function (date) {
-                  var format = d3.timeFormat(date);
-                  return format;
+                 var format = d3.timeFormat("%H:%M")(new Date());
+                 return format;
                 }),
+                // .tickFormat(function (date) {
+                //   var format = d3.timeFormat(date);
+                //   return format;
+                // }),
 
               yAxis = d3.axisLeft()
                 .scale(yRange)
@@ -260,7 +272,8 @@ angular.module("omniMood")
 
             vis.append("svg:path")
               .attr("d", line(getCountries))
-              .style("fill", "steelblue")
+              .attr("stroke", "steelblue")
+              .attr("transform", "translate(850, 145)")
               .attr("stroke-width", 1);
             });
 
