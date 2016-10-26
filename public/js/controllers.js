@@ -8,38 +8,59 @@ angular.module('omniMood')
       $scope.Tweets = [];
       socket.on('tweet', function (tweet) {
         $scope.tweet = tweet;
-        $scope.Tweets.push(tweet);
+        $scope.Tweets.push(tweet.emojis);
       });
 
       var emojiArray = [];
       EmojiFactory.getEmojis()
         .then(function(emojis) {
-          emojis.data.forEach(function(code) {
-            emojiArray.push(code);
+          emojis.data.forEach(function(obj) {
+            emojiArray.push(obj);
           });
           EmojiMetricsFactory.getEmojiMetrics()
           .then(function(values) {
             var emojiMetricsArray = [];
             var emojiMetrics = {
+              name: '',
+              code: '',
               count: 0,
               percentage: 0
             };
             for(var emoji in values.data.totalCount) {
               var obj = values.data.totalCount[emoji];
-              if(obj.count) {
+              var match = emojiArray.filter(function(obj) {
+                return obj.code === emoji;
+              });
+              if(obj.count >= 0) {
+                if(match) {
+                  emojiMetrics.name = match[0].name;
+                }
+                emojiMetrics.code = emoji.toLowerCase();
                 emojiMetrics.count = obj.count;
                 emojiMetrics.percentage = obj.percentage;
                 emojiMetricsArray.push(emojiMetrics);
                 emojiMetrics = {};
               }
             }
-            var emojiObject = {};
             $scope.Emojis = emojiMetricsArray.map(function(value, index) {
               return {
-                emoji: emojiArray[index],
                 emojiMetrics: value
               };
             });
+
+            $scope.showStats = function (event) {
+              var id = event.target.id;
+              var emojiName = document.getElementById("emojiName");
+              var count = document.getElementById("emojiCount");
+              var percent = document.getElementById("emojiPercent");
+              var name = emojiArray.filter(function(obj) {
+                return obj.code === id.toUpperCase();
+              })
+
+              emojiName.innerHTML = name[0].name;
+              count.innerHTML = values.data.totalCount[id.toUpperCase()].count;
+              percent.innerHTML = values.data.totalCount[id.toUpperCase()].percentage * 100;
+            }
           });
         });
     }

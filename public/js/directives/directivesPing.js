@@ -21,7 +21,7 @@ angular.module('omniMood')
       var isZoomed = false;
       var currentZoom = 1;
       var currentZoomMouseX = 0;
-      var currentZoomMouseY = 0;      
+      var currentZoomMouseY = 0;
 
       var mapSVG = d3.select(element[0]).append("svg")
         .attr("id", "svg_map"),
@@ -55,7 +55,8 @@ angular.module('omniMood')
       .append("rect")
         .attr("width", width)
         .attr("height", height)
-        .style("fill", "steelblue");
+        .attr("rx",10)
+        .style("fill", "steelblue"); //#282d34  steelblue
 
       var mapGroup = mapSVG.append("g").on('click', function() {
           zoomTo(this)
@@ -88,7 +89,7 @@ angular.module('omniMood')
 
         d3.selectAll("path")
           .attr("stroke-width", function() {
-            return isZoomed ? 1 : 0.1
+            return 0.1;
           });
 
 
@@ -103,7 +104,7 @@ angular.module('omniMood')
 
         d3.selectAll("path")
           .attr("stroke-width", function() {
-            return 1;
+            return 0.1;
           });
 
         isZoomed = false;
@@ -130,7 +131,7 @@ angular.module('omniMood')
 
             d3.selectAll("path")
               .attr("stroke-width", function() {
-                return 1;
+                return 0.1;
               });
           }
         }
@@ -159,10 +160,11 @@ angular.module('omniMood')
           .data(countries)
           .enter().insert("path", ".graticule")
           .attr("id", function(d) {
-            return "cc" + (d.properties.iso_n3 / 1);
+            return "cc" + (d.id / 1);
           })
           .attr("d", path)
           .attr("stroke", outlineDefault)
+          .attr("stroke-width", 0.1)
           .on("mouseover", function(d) {
             d3.select(this)
               .attr("stroke", outlineHighlight)
