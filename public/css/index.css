@@ -378,12 +378,14 @@ input[type=range]:focus::-ms-fill-upper {
   margin-top: 10px; }
 
 .axis text {
-  font: 10px sans-serif; }
+  font: 10px sans-serif;
+  fill: white;
+  font-weight: bold; }
 
 .axis path,
 .axis line {
   fill: none;
-  stroke: #000;
+  stroke: white;
   shape-rendering: crispEdges; }
 
 .bar {
