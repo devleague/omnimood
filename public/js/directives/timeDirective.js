@@ -70,7 +70,7 @@ angular.module("omniMood")
             var x = w / 2 - centroid[0];
             var y = h / 2 - centroid[1];
 
-            countryId = "path#cc" + d.properties.iso_n3;
+            countryId = "path#dd" + d.properties.iso_n3;
 
             timeSVG
               .append("g")
@@ -298,8 +298,8 @@ angular.module("omniMood")
                 .attr("stroke-width", 1)
                 .style("fill", timeScale(countries[country][9] * 10));
           }
-          d3.select(timeSelect);
-            on('mousemove', function(){
+          d3.select(timeSelect)
+            .on('mousemove', function(){
               var timePlace = document.getElementById("timeRange").value;
               textSelect.innerHTML = timeData.times[timePlace];
             })
