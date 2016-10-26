@@ -124,10 +124,10 @@ angular.module('omniMood')
                 .merge(defsPattern)
                 .select('.pic')
                 .attr('height', function (d) {
-                  return emojiSize(d.counter);
+                  return emojiSize(d.counter) * 1.707;
                 })
                 .attr('width', function (d) {
-                  return emojiSize(d.counter);
+                  return emojiSize(d.counter) * 1.707;
                 })
                 .attr('x', function (d) {
                   return ((Math.sqrt(2*(emojiSize(d.counter) * emojiSize(d.counter))))-emojiSize(d.counter))/2;
