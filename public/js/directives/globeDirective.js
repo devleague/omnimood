@@ -219,17 +219,19 @@ angular.module('omniMood')
 
           countryList
             .on('change', function () {
-              var selectedCountryId = countryList.node().value;
-              var selectedCountry = getSelectedCountry(countries, selectedCountryId);
-              d3.selectAll('.selected')
-                .classed('selected', false);
-              var selectedNode = d3.select('g#cc' + selectedCountryId).node();
-              d3.select(selectedNode)
-                .select('path')
-                .classed('selected', true);
-              rotateToFocus(selectedCountry, svgW/4);
-              isZoomed = false;
-              isCountrySelected = false;
+              if(d3.select('#flat-map').classed('ng-hide')) {
+                var selectedCountryId = countryList.node().value;
+                var selectedCountry = getSelectedCountry(countries, selectedCountryId);
+                d3.selectAll('.selected')
+                  .classed('selected', false);
+                var selectedNode = d3.select('g#cc' + selectedCountryId).node();
+                d3.select(selectedNode)
+                  .select('path')
+                  .classed('selected', true);
+                rotateToFocus(selectedCountry, svgW/4);
+                isZoomed = false;
+                isCountrySelected = false;
+              }
             });
 
           return set;
