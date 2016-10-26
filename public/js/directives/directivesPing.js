@@ -101,7 +101,7 @@ angular.module('omniMood')
           .duration(2000)
           .attr("transform", "translate(" + getCenter(width / 2, mouse[0], scaleZoomTo) + "," + getCenter(height / 2, mouse[1], scaleZoomTo) + ") scale (" + (isZoomed ? 1 : scaleZoomTo) + ")") //scaleZoomTo
 
-        d3.selectAll("path")
+        d3.select('#svg_map').selectAll("path")
           .attr("stroke-width", function() {
             return 0.1;
           });
@@ -116,7 +116,7 @@ angular.module('omniMood')
           .duration(2000)
           .attr("transform", "translate(" + 0 + "," + 0 + ") scale (" + 1 + ")")
 
-        d3.selectAll("path")
+        d3.select('#svg_map').selectAll("path")
           .attr("stroke-width", function() {
             return 0.1;
           });
@@ -143,14 +143,14 @@ angular.module('omniMood')
               .duration(1000)
               .attr("transform", "translate(" + getCenter(width / 2, currentZoomMouseX, currentZoom) + "," + getCenter(height / 2, currentZoomMouseY, currentZoom) + ") scale (" + currentZoom + ")")
 
-            d3.selectAll("path")
+            d3.select('#svg_map').selectAll("path")
               .attr("stroke-width", function() {
                 return 0.1;
               });
           }
         }
 
-        d3.selectAll("path")
+        d3.select('#svg_map').selectAll("path")
           .attr("stroke-width", function() {
             return 0.1;
           });
@@ -176,14 +176,14 @@ angular.module('omniMood')
 
       //countries_no_show_antarctica.json world-50m_DoNotShowAntarctica.json
 
-      d3.json("../json/world-50m_DoNotShowAntarctica.json", function(error, world) {
+      d3.json("../json/countries.json", function(error, world) {
         var countries = topojson.feature(world, world.objects.countries).features;
 
         mapGroup.selectAll(".country")
           .data(countries)
           .enter().insert("path", ".graticule")
           .attr("id", function(d) {
-            return "cc" + (d.id / 1);
+            return "cc" + (d.properties.iso_n3/1);
           })
           .attr("d", path)
           .attr("stroke", outlineDefault)
