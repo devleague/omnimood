@@ -165,20 +165,20 @@ angular.module("omniMood")
                     .delay(75)
                     .attr("transform", "translate(50, 440)");
 
-                  info
-                    .append("text")
-                    .text("Country Mood (Y) over time (X)")
-                    .transition()
-                    .delay(75)
-                    .attr("transform", "translate(975, 130)");
+                  // info
+                  //   .append("text")
+                  //   .text("Country Mood (Y) over time (X)")
+                  //   .transition()
+                  //   .delay(75)
+                  //   .attr("transform", "translate(975, 130)");
 
-                  info
-                    .append("text")
-                   .text("(" + d3.timeFormat("%d-%b-%y" + ")")(new Date()))
-                   .transition()
-                   .delay(75)
-                   .attr("transform", "translate(1065, 150)")
-                   .style("font-size", "16");
+                  // info
+                  //   .append("text")
+                  //  .text("(" + d3.timeFormat("%d-%b-%y" + ")")(new Date()))
+                  //  .transition()
+                  //  .delay(75)
+                  //  .attr("transform", "translate(1065, 150)")
+                  //  .style("font-size", "16");
 
                   info.selectAll("text")
                     .style("font-size", "20")
@@ -197,85 +197,85 @@ angular.module("omniMood")
               .attr("height", "225")
               .attr("transform", "translate(50, 0)");
 
-            d3.json("http://localhost:3000/api/timeline", function(error, data) {
+            // d3.json("http://localhost:3000/api/timeline", function(error, data) {
 
-              var isoN3 = parseInt(d.properties.iso_n3, 10);
-              var getCountries = data.countries[isoN3];
-              var xDataGet = data.times;
+            //   var isoN3 = parseInt(d.properties.iso_n3, 10);
+            //   var getCountries = data.countries[isoN3];
+            //   var xDataGet = data.times;
 
-              var line = d3.line()
-                .x(function(d, i) {
-                  return xRange(i);
-                })
-                .y(function (d) {
-                  return yRange(d);
-                });
+            //   var line = d3.line()
+            //     .x(function(d, i) {
+            //       return xRange(i);
+            //     })
+            //     .y(function (d) {
+            //       return yRange(d);
+            //     });
 
-              console.log(getCountries);
-              console.log(xDataGet);
-              var lineData = [{"y": -1}, {"y":0}, {"y":1}];
+            //   console.log(getCountries);
+            //   console.log(xDataGet);
+            //   var lineData = [{"y": -1}, {"y":0}, {"y":1}];
 
-              var vis = d3.select("g#countryInfo"),
-                WIDTH = 450,
-                HEIGHT = 300,
-                MARGINS = {
-                  top: 20,
-                  right: 20,
-                  bottom: 20,
-                  left: 50
-                },
-                xRange = d3.scaleOrdinal()
-                  .range([MARGINS.left, WIDTH - MARGINS.right])
-                  .domain(xDataGet),
+            //   var vis = d3.select("g#countryInfo"),
+            //     WIDTH = 450,
+            //     HEIGHT = 300,
+            //     MARGINS = {
+            //       top: 20,
+            //       right: 20,
+            //       bottom: 20,
+            //       left: 50
+            //     },
+            //     xRange = d3.scaleOrdinal()
+            //       .range([MARGINS.left, WIDTH - MARGINS.right])
+            //       .domain(xDataGet),
 
-                yRange = d3.scaleLinear()
-                  .range([HEIGHT - MARGINS.top, MARGINS.bottom])
-                  .domain([d3.min(lineData, function(d) {
-                    return d.y;
-                  }),
-                d3.max(lineData, function(d) {
-                  return d.y;
-                })
-              ]),
+            //     yRange = d3.scaleLinear()
+            //       .range([HEIGHT - MARGINS.top, MARGINS.bottom])
+            //       .domain([d3.min(lineData, function(d) {
+            //         return d.y;
+            //       }),
+            //     d3.max(lineData, function(d) {
+            //       return d.y;
+            //     })
+            //   ]),
 
-              xAxis = d3.axisBottom()
-                .scale(xRange)
-                .ticks(10)
-                .tickSize(1)
-                .tickFormat(function (date) {
-                 var format = d3.timeFormat("%H:%M")(new Date());
-                 return format;
-                }),
-                // .tickFormat(function (date) {
-                //   var format = d3.timeFormat(date);
-                //   return format;
-                // }),
+            //   xAxis = d3.axisBottom()
+            //     .scale(xRange)
+            //     .ticks(10)
+            //     .tickSize(1)
+            //     .tickFormat(function (date) {
+            //      var format = d3.timeFormat("%H:%M")(new Date());
+            //      return format;
+            //     }),
+            //     // .tickFormat(function (date) {
+            //     //   var format = d3.timeFormat(date);
+            //     //   return format;
+            //     // }),
 
-              yAxis = d3.axisLeft()
-                .scale(yRange)
-                .ticks(3)
-                .tickSize(5);
+            //   yAxis = d3.axisLeft()
+            //     .scale(yRange)
+            //     .ticks(3)
+            //     .tickSize(5);
 
-            vis.append("svg:g")
-              .attr("class", "x axis")
-              .transition()
-              .delay(75)
-              .attr("transform", "translate(" + (MARGINS.left * 17) + "," + (MARGINS.left * 8.5) + ")")
-              .call(xAxis);
+            // vis.append("svg:g")
+            //   .attr("class", "x axis")
+            //   .transition()
+            //   .delay(75)
+            //   .attr("transform", "translate(" + (MARGINS.left * 17) + "," + (MARGINS.left * 8.5) + ")")
+            //   .call(xAxis);
 
-            vis.append("svg:g")
-              .attr("class", "y axis")
-              .transition()
-              .delay(75)
-              .attr("transform", "translate(" + (MARGINS.left * 18) + ", " + (MARGINS.left * 2.90) + ")")
-              .call(yAxis);
+            // vis.append("svg:g")
+            //   .attr("class", "y axis")
+            //   .transition()
+            //   .delay(75)
+            //   .attr("transform", "translate(" + (MARGINS.left * 18) + ", " + (MARGINS.left * 2.90) + ")")
+            //   .call(yAxis);
 
-            vis.append("svg:path")
-              .attr("d", line(getCountries))
-              .attr("stroke", "steelblue")
-              .attr("transform", "translate(850, 145)")
-              .attr("stroke-width", 1);
-            });
+            // vis.append("svg:path")
+            //   .attr("d", line(getCountries))
+            //   .attr("stroke", "steelblue")
+            //   .attr("transform", "translate(850, 145)")
+            //   .attr("stroke-width", 1);
+            // });
 
             countryInfo
               .on("click", backToMap);
