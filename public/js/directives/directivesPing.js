@@ -23,6 +23,7 @@ angular.module('omniMood')
       var currentZoomMouseX = 0;
       var currentZoomMouseY = 0;
       var defaultMapBorder = 0.1;
+      var highlightDuration=1000;
 
       var mapSVG = d3.select(element[0]).append("svg")
         .attr("id", "svg_map"),
@@ -215,7 +216,7 @@ angular.module('omniMood')
               .attr("fill", moodScale(tweet.moodValue * 10))
               .style("fill-opacity", 0.5)
               .transition()
-              .duration(2000)
+              .duration(highlightDuration)
               .attr("r", "3px")
               .attr("fill", moodScale(tweet.moodValue * 10))
               .style("fill-opacity", 0.3);
@@ -244,7 +245,7 @@ angular.module('omniMood')
                   .attr('width', 200)
                   .style('fill-opacity', 0.5)
                   .transition()
-                  .duration(1000)
+                  .duration(highlightDuration)
                   .attr('height', 3)
                   .attr('width', 2);
               }
