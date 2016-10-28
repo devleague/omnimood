@@ -123,11 +123,6 @@ piedata.forEach(function (d) {
     d.y1 = y0 + d.value;
     y0 = y0+d.value;
 });
-    console.log(piedata)
-
-
-
-// data.sort(function(a, b) { return b.total - a.total; });
 
 x.domain("0.00");
 y.domain([0, y0]);

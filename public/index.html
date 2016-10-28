@@ -12,14 +12,12 @@
     <script type="text/javascript" src="js/omniMood.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/factories.js"></script>
-    <!--<script type="text/javascript" src="js/directives/mapDirective.js"></script>-->
     <script type="text/javascript" src="js/directives/directivesPing.js"></script>
     <script type="text/javascript" src="js/directives/globeDirective.js"></script>
     <script type="text/javascript" src="js/directives/legendDirective.js"></script>
     <script type="text/javascript" src="js/directives/timeDirective.js"></script>
     <script type="text/javascript" src="js/directives/emojiCloud.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Montserrat" rel="stylesheet">
-
   <body ng-app="omniMood">
     <div class="mainContainer" ng-controller="toggleViewController">
       <div class="sideBar" ng-controller="tweetController">
@@ -53,7 +51,7 @@
           <globe tweet="tweet"></globe>
         </div>
         <div ng-show="time">
-          <killerqueen></killerqueen>
+          <timemap></timemap>
           <div id='timeDisplay'></div>
           <input type="range" id ='timeRange' value='9' min ='0' max ='9'></input>
         </div>
