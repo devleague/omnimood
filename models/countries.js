@@ -22,12 +22,6 @@ const country = mongoose.model(
     emoji: {
       type: Object
     },
-    // emojiList: {
-    //   [
-    //     type: String,
-    //     type: String
-    //   ]
-    // }
   }
 );
 

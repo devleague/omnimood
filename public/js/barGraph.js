@@ -37,7 +37,6 @@ emojiKeys.forEach(function(key) {
   emojiArray.push(emojiObject);
 });
 
-// console.log(emojiArray);
 
 emojiArray.sort(compare);
 
@@ -139,7 +138,6 @@ svg.selectAll("bar")
     .append("image")
     .attr("class", "emoji")
     .attr("x", function(d, index) {
-      // console.log("i: " + index);
       return x(d.name) + 40;
     })
     .attr("y", function(d, index) {
