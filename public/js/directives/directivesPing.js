@@ -1,18 +1,18 @@
 angular.module('omniMood')
-  .directive('whateveryouwant', function() {
+  .directive('flatmappings', function() {
     return {
       restrict: 'E',
       scope: {
         "tweet": '='
       },
-      link: somethingelse
+      link: pingOnFlatMap
     };
 
     var zoom = d3.behavior.zoom()
       .scaleExtent([1, 10])
       .on("zoom", zoomed);
 
-    function somethingelse(scope, element, attr) {
+    function pingOnFlatMap(scope, element, attr) {
 
       var scaleWheelMin = 5;
       var scaleWheelMax = 20;
