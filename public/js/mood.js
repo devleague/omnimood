@@ -7,7 +7,6 @@ function calculateMood (countryEmojis) {
   var total = 0;
   var sum = 0;
   for (var emoji in countryEmojis) {
-    // do not include prototype props
     if(!countryEmojis.hasOwnProperty(emoji)) continue;
 
     sum += emoji[value] * emoji[amount];

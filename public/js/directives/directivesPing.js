@@ -25,7 +25,7 @@ angular.module('omniMood')
 
       var mapSVG = d3.select(element[0]).append("svg")
         .attr("id", "svg_map"),
-        width = (window.innerWidth  * .65), //.85 document.body.clientWidth
+        width = (window.innerWidth  * .65),
         height = (window.innerHeight * .85),
         outlineDefault = "#eeeeee",
         outlineHighlight = "#1221ee",
@@ -54,13 +54,12 @@ angular.module('omniMood')
       var mapRect = mapSVG
         .attr("width", width)
         .attr("height", height)
-        //.call("zoom",zoomTo)
 
       .append("rect")
         .attr("width", width)
         .attr("height", height)
         .attr("rx",10)
-        .style("fill", "steelblue"); //#282d34  steelblue
+        .style("fill", "steelblue");
 
       var mapGroup = mapSVG.append("g").on('click', function() {
           zoomTo(this)
@@ -69,9 +68,9 @@ angular.module('omniMood')
         .on('wheel', zoomIn);
 
       var projection = d3.geoMercator()
-        .scale(flatMapScale(window.innerWidth)) //280  233(20161022)
-        .translate([width / 2, height / 2.3]) //width / 2.28
-        .center([0, 50]); //[-106, 37.5]
+        .scale(flatMapScale(window.innerWidth))
+        .translate([width / 2, height / 2.3])
+        .center([0, 50]);
 
       var path = d3.geoPath()
         .projection(projection);
@@ -80,7 +79,6 @@ angular.module('omniMood')
       d3.json("./json/codeToCountry.json", function(error,thisCodeToCountry){
         codeToCountry=thisCodeToCountry;
       });
-      //  var codeToCountry; // You are on your own!  10/15/16
 
       d3.select(window).on('resize.flatMap', resizeFlatMap);
 
@@ -174,8 +172,6 @@ angular.module('omniMood')
           .attr('d', path);
       }
 
-      //countries_no_show_antarctica.json world-50m_DoNotShowAntarctica.json
-
       d3.json("../json/countries.json", function(error, world) {
         var countries = topojson.feature(world, world.objects.countries).features;
 
@@ -213,7 +209,6 @@ angular.module('omniMood')
           if (tweet) {
             var latLngData = [
               [tweet.coordinates.long, tweet.coordinates.lat]
-              //  [coordinates.lat, coordinates.long]
             ];
 
             mapGroup.append('circle')
@@ -225,7 +220,7 @@ angular.module('omniMood')
                 return projection(d)[1];
               })
               .attr("r", "300px")
-              .attr("fill", moodScale(tweet.moodValue * 10)) //"white")
+              .attr("fill", moodScale(tweet.moodValue * 10))
               .style("fill-opacity", 0.5)
               .transition()
               .duration(2000)
@@ -233,8 +228,8 @@ angular.module('omniMood')
               .attr("fill", moodScale(tweet.moodValue * 10))
               .style("fill-opacity", 0.3);
 
-            var emojiX = projection(latLngData[0])[0]; //-120;
-            var emojiY = projection(latLngData[0])[1]; //-140;
+            var emojiX = projection(latLngData[0])[0];
+            var emojiY = projection(latLngData[0])[1];
 
 
             var surrogate = tweet.emojis.map((emoji) => {
@@ -260,8 +255,6 @@ angular.module('omniMood')
                   .duration(1000)
                   .attr('height', 3)
                   .attr('width', 2);
-              } else {
-                //  console.log(surrogate);
               }
             });
           }

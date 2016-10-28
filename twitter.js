@@ -27,8 +27,8 @@ twitter.stream('statuses/filter', {'locations':'-180,-90,180,90'}, function (str
 });
 
 function getVariables(tweet) {
-  if(tweet.coordinates) { // if the tweet has coordinates
-    if(tweet.coordinates !== null) { // if the coordinates are not null
+  if(tweet.coordinates) {
+    if(tweet.coordinates !== null) {
       var coordinates = {lat: tweet.coordinates.coordinates[1], long: tweet.coordinates.coordinates[0]};
       var date = new Date(parseInt(tweet.timestamp_ms)).toLocaleString();
       var codeTweets = {};
@@ -50,7 +50,7 @@ function listenForTweets(socket) {
     twitterStream.on(('data'), function (tweet) {
       var tweetObj = getVariables(tweet);
       if(tweetObj) {
-        if(tweetObj.emojis) { // if there's an emoji found
+        if(tweetObj.emojis) {
           var tweetMoodValue = calculateTweetMood(tweetObj.emojis);
           socket.emit('tweet', {
             emojis: tweetObj.emojis,
@@ -70,10 +70,10 @@ function listenForTweets(socket) {
 
 function getEmoji(tweet) {
   var ranges = [
-    '\ud83c[\udf00-\udfff]', // U+1F300 to U+1F3FF
-    '\ud83d[\udc00-\ude4f]', // U+1F400 to U+1F64F
-    '\ud83d[\ude80-\udeff]'  // U+1F680 to U+1F6FF
-  ]; // emoji ranges
+    '\ud83c[\udf00-\udfff]',
+    '\ud83d[\udc00-\ude4f]',
+    '\ud83d[\ude80-\udeff]'
+  ];
   var text = tweet.text;
   var emojis = text.match(new RegExp(ranges.join('|'), 'g'));
   return emojis;
@@ -95,15 +95,9 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
   var negativeEmojis = 0;
   var neutralEmojis = 0;
   var positiveEmojis = 0;
-  // surrogate pairs: (output like this)
-  // multiple emojis: [ '\\uD83D\\uDE04', '\\uD83D\\uDC96', '\\uD83D\\uDE3B' ]
-  // only one emoji: [ '\\uD83D\\uDE02' ]
-  // these surrogate pairs should match the surrogate pairs in the emoji.json
-  // (if the specific emoji is there)
   var surrogate = emojis.map((emoji) => {
     return '\\u' + emoji.charCodeAt(0).toString(16).toUpperCase() + '\\u' + emoji.charCodeAt(1).toString(16).toUpperCase();
   });
-  // printing surrogate pairs
   surrogate.forEach((surrogate) => {
     if(emojiList[surrogate]){
       var emojiName = codeTweets[emojiList[surrogate].name]
@@ -133,7 +127,6 @@ function parseTweet(tweetArr, emojis, coordinates, date, tweet, codeTweets, emoj
     }
     var surrogatePair = surrogate.split('\\u').slice(1);
     var code = '0x';
-    // console.log(String.fromCharCode(code+surrogatePair[0], code+surrogatePair[1]));
   });
   if(Object.keys(codeTweets).length!== 0){
     if(tweetUpdate[tweet.place.country]){

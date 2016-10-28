@@ -10,7 +10,6 @@ const mood = require('./public/js/mood.js');
 const path = require('path');
 var tweets = require('./twitter.js');
 
-// Setup web server and socket
 const http = require('http');
 
 app.use(express.static(__dirname + '/public'));

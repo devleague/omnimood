@@ -16,7 +16,6 @@ var         outlineDefault = "#eeeeee",
 
 
        var thisMoodValue = moodData[countryArrayIndex];
-    //  console.log("countryArrayIndex=" + countryArrayIndex + "," + "path#cc" + thisMoodValue.countryId);
        moodChanged = true;
 
        if (countries[thisMoodValue.countryId]) {
