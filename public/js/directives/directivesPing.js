@@ -38,15 +38,7 @@ angular.module('omniMood')
       var moodScale = d3.scaleLinear()
         .domain([moodMin, moodMid, moodMax])
         .range(["red", "yellow", "green"]);
-
-      var latLng = [
-        [-57.50617017, -25.24155981]
-      ];
-
-      latLng = [
-        [107.75749781, -6.9674592]
-      ];
-
+        
       var flatMapScale = d3.scaleLinear()
         .domain([320, 1600])
         .range([50, 150]);
