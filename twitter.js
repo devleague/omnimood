@@ -212,7 +212,6 @@ function livingDatabase(tweetUpdate, countEmoji, argCount){
       }
     });
   });
-  console.log("DataBase updated");
 }
 
 module.exports.listenForTweets = listenForTweets;

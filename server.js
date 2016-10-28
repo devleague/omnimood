@@ -50,11 +50,6 @@ mongoose.connection.once('open', () => {
   const io = require('socket.io').listen(server);
 
   io.on('connection', (socket) => {
-    console.log('Client connected!');
     tweets.listenForTweets(socket);
-
-    socket.on('disconnect', function () {
-      console.log('Client disconnected.');
-    });
   });
 });

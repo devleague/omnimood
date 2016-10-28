@@ -1,5 +1,5 @@
 angular.module("omniMood")
-  .directive("killerqueen", function() {
+  .directive("timemap", function() {
     return {
       restrict: "E",
       scope: {
